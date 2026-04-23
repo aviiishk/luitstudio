@@ -2,19 +2,22 @@
 
 import Image from "next/image";
 import { RoughNotation } from "react-rough-notation";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
-/* 🔥 animations */
-const fadeUp = {
+/* 🔥 animations (FIXED TYPES) */
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 50 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: "easeOut" },
+    transition: {
+      duration: 0.7,
+      ease: [0.25, 0.1, 0.25, 1], // ✅ FIXED (instead of "easeOut")
+    },
   },
 };
 
-const stagger = {
+const stagger: Variants = {
   hidden: {},
   show: {
     transition: { staggerChildren: 0.15 },
@@ -26,17 +29,18 @@ export default function ExpertiseEditorial() {
     <motion.section
       initial={{ opacity: 0, y: 80, scale: 0.98 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ duration: 0.9, ease: "easeOut" }}
+      transition={{
+        duration: 0.9,
+        ease: [0.25, 0.1, 0.25, 1], // ✅ FIXED
+      }}
       viewport={{ once: true, margin: "-100px" }}
       className="relative bg-[#f5f5f4] text-black py-16 overflow-hidden"
     >
-
-      {/* 🌈 BACKGROUND GLOW */}
+      {/* 🌈 BACKGROUND */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-blue-400/20 blur-[120px] rounded-full" />
         <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-purple-400/20 blur-[120px] rounded-full" />
 
-        {/* subtle grid */}
         <div
           className="absolute inset-0 opacity-[0.05]"
           style={{
@@ -49,14 +53,13 @@ export default function ExpertiseEditorial() {
         />
       </div>
 
-      {/* 🔝 CONTENT WRAPPER */}
       <div className="relative z-10">
-
-        {/* 🔝 TOP META */}
+        {/* 🔝 META */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
+          viewport={{ once: true }}
           className="max-w-7xl mx-auto px-6 text-[10px] flex justify-between text-black/60 mb-3 tracking-wide"
         >
           <span>394.41 – 394.41 +</span>
@@ -71,6 +74,7 @@ export default function ExpertiseEditorial() {
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
+          viewport={{ once: true }}
           className="max-w-7xl mx-auto px-6"
         >
           <h1 className="text-[48px] md:text-[96px] font-black leading-[0.9] tracking-tight">
@@ -88,11 +92,14 @@ export default function ExpertiseEditorial() {
           variants={stagger}
           initial="hidden"
           whileInView="show"
+          viewport={{ once: true }}
           className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-8 items-start"
         >
-
-          {/* LEFT IMAGE (FIXED) */}
-          <motion.div variants={fadeUp} className="relative w-full h-[260px] md:h-[320px] overflow-hidden group rounded-xl">
+          {/* LEFT IMAGE */}
+          <motion.div
+            variants={fadeUp}
+            className="relative w-full h-[260px] md:h-[320px] overflow-hidden group rounded-xl"
+          >
             <Image
               src="/projects/app.png"
               alt="web development"
@@ -102,9 +109,8 @@ export default function ExpertiseEditorial() {
             />
           </motion.div>
 
-          {/* CENTER TEXT */}
+          {/* CENTER */}
           <motion.div variants={fadeUp} className="space-y-4 text-sm leading-relaxed">
-
             <div className="flex flex-wrap gap-2 text-[11px]">
               {["APP DEVELOPMENT", "UI/UX", "WEB DEVELOPMENT"].map((tag, i) => (
                 <RoughNotation key={i} type="box" show={true}>
@@ -124,12 +130,10 @@ export default function ExpertiseEditorial() {
                 speed, performance, and seamless user experience
               </RoughNotation>.
             </p>
-
           </motion.div>
 
-          {/* RIGHT IMAGE */}
+          {/* RIGHT */}
           <motion.div variants={fadeUp} className="space-y-4">
-
             <div className="relative w-full h-[260px] md:h-[320px] overflow-hidden group rounded-xl">
               <Image
                 src="https://images.unsplash.com/photo-1555066931-4365d14bab8c"
@@ -154,16 +158,15 @@ export default function ExpertiseEditorial() {
                 </RoughNotation>.
               </p>
             </div>
-
+          </motion.div>
         </motion.div>
-        </motion.div>
 
-        {/* 🔥 STRIP */}
         {/* 🔥 SERVICES */}
         <motion.div
           variants={stagger}
           initial="hidden"
           whileInView="show"
+          viewport={{ once: true }}
           className="max-w-7xl mx-auto px-6 mt-16 grid md:grid-cols-3 gap-10"
         >
           {[
@@ -181,7 +184,6 @@ export default function ExpertiseEditorial() {
             },
           ].map((item, i) => (
             <motion.div key={i} variants={fadeUp} className="space-y-3 group">
-
               <h4 className="text-sm font-bold uppercase border-b border-black pb-1">
                 {item.title}
               </h4>
@@ -199,11 +201,9 @@ export default function ExpertiseEditorial() {
                   className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition duration-700"
                 />
               </div>
-
             </motion.div>
           ))}
         </motion.div>
-
       </div>
     </motion.section>
   );

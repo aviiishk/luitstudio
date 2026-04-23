@@ -1,8 +1,17 @@
 import type { NextConfig } from "next";
 
-const nextConfig = {
+const nextConfig: NextConfig = {
   images: {
-    domains: ["images.unsplash.com", "www.firstinternet.co.uk"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "www.firstinternet.co.uk",
+      },
+    ],
   },
 };
 
