@@ -1,26 +1,53 @@
 @import "tailwindcss";
 
+
+.font-display {
+  font-family: 'UnifrakturCook', cursive;
+}
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'UnifrakturCook', cursive;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+body {
+  font-family: 'Inter', sans-serif;
+}
+/* Base */
+html,
+body {
+  background: #000;
+  color: white;
+  overflow-x: hidden;
+}
+
+/* Gradient Text */
+.text-gradient {
+  background: linear-gradient(90deg, #3B82F6, #EC4899);
+
+  -webkit-text-fill-color: transparent;
+}
+
+html,
+body {
+  height: auto;
+}
+
+html {
+  scroll-behavior: auto;
+}
+@keyframes floaty {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
+}
+
+.float {
+  animation: floaty 3s ease-in-out infinite;
 }
