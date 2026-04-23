@@ -11,7 +11,7 @@ const fadeUp = {
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.8, ease: "easeOut" },
+    transition: { duration: 0.8, ease: "easeOut" as const }, // ✅ FIX
   },
 };
 
@@ -30,14 +30,11 @@ export default function AboutPage() {
 
   return (
     <main className="bg-[#f5f5f5] text-black min-h-screen">
-
       <Navbar />
 
       {/* ================= HERO ================= */}
       <section className="text-center pt-32 md:pt-36 pb-20 md:pb-28 px-6 max-w-5xl mx-auto">
-
         <motion.div variants={stagger} initial="hidden" animate="show">
-
           <motion.p variants={fadeUp} className="text-sm text-gray-500 mb-4">
             About
           </motion.p>
@@ -70,9 +67,7 @@ export default function AboutPage() {
               className="w-full max-w-5xl object-contain"
             />
           </motion.div>
-
         </motion.div>
-
       </section>
 
       {/* ================= STORY ================= */}
@@ -83,7 +78,6 @@ export default function AboutPage() {
         viewport={{ once: true }}
         className="px-6 py-20 md:py-32 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 md:gap-20 items-start"
       >
-
         <motion.div variants={fadeUp}>
           <h2 className="text-3xl md:text-5xl font-semibold leading-tight">
             Built for real-world impact.
@@ -128,7 +122,6 @@ export default function AboutPage() {
 
           <p>The best is yet to come.</p>
         </motion.div>
-
       </motion.section>
 
       {/* ================= PHILOSOPHY ================= */}
@@ -139,7 +132,6 @@ export default function AboutPage() {
         viewport={{ once: true }}
         className="px-6 py-20 md:py-32 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 md:gap-20 items-start"
       >
-
         <motion.div variants={fadeUp}>
           <h2 className="text-3xl md:text-5xl font-semibold mb-6">
             Our Philosophy
@@ -150,7 +142,6 @@ export default function AboutPage() {
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10">
-
             {[
               {
                 title: "Efficiency",
@@ -186,7 +177,6 @@ export default function AboutPage() {
                 <div className="h-[2px] w-0 bg-black mt-2 group-hover:w-12 transition-all duration-300" />
               </motion.div>
             ))}
-
           </div>
         </motion.div>
 
@@ -205,7 +195,6 @@ export default function AboutPage() {
             className="w-[260px] sm:w-[320px] md:w-[420px] object-contain drop-shadow-[0_30px_80px_rgba(0,0,0,0.15)]"
           />
         </motion.div>
-
       </motion.section>
 
       {/* ================= QUOTE ================= */}
@@ -226,9 +215,7 @@ export default function AboutPage() {
 
       {/* ================= CTA ================= */}
       <section className="px-6 pb-20 md:pb-32 max-w-5xl mx-auto text-center">
-
         <div className="bg-white rounded-2xl p-8 md:p-14 shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
-
           <h2 className="text-2xl md:text-4xl font-semibold mb-4">
             Let’s build something that stands out
           </h2>
@@ -244,13 +231,10 @@ export default function AboutPage() {
           >
             Start a Project
           </motion.button>
-
         </div>
-
       </section>
 
       <Footer />
-
     </main>
   );
 }
