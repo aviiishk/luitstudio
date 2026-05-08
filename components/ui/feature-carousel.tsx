@@ -1,222 +1,180 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect, useCallback, useRef } from "react";
+import Image from "next/image";
+import { motion, useInView } from "framer-motion";
 import {
-  GlobalSearchIcon,
-  AiCloudIcon,
-  SmartPhone01Icon,
-  DashboardSquare01Icon,
-  MagicWandIcon,
-  CheckmarkCircle01Icon,
-} from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
+  Globe, Cloud, Smartphone, LayoutDashboard, Wand2, ShieldCheck,
+  type LucideIcon,
+} from "lucide-react";
 
-/* 🔥 DATA */
-const FEATURES = [
-  {
-    id: "web",
-    label: "Web Development",
-    icon: GlobalSearchIcon,
-    image:
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
-    description: "High-performance websites built for scale and speed.",
-  },
-  {
-    id: "cloud",
-    label: "Cloud Systems",
-    icon: AiCloudIcon,
-    image:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa",
-    description: "Deploy and scale infrastructure seamlessly.",
-  },
-  {
-    id: "mobile",
-    label: "Mobile First",
-    icon: SmartPhone01Icon,
-    image:
-      "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c",
-    description: "Optimized experiences across all devices.",
-  },
-  {
-    id: "analytics",
-    label: "Analytics",
-    icon: DashboardSquare01Icon,
-    image:
-      "https://images.unsplash.com/photo-1551288049-bbda38a10ad5",
-    description: "Real-time insights that drive decisions.",
-  },
-  {
-    id: "automation",
-    label: "Automation",
-    icon: MagicWandIcon,
-    image:
-      "https://images.unsplash.com/photo-1485827404703-89b55fcc595e",
-    description: "Automate workflows using AI-driven systems.",
-  },
-  {
-    id: "security",
-    label: "Security",
-    icon: CheckmarkCircle01Icon,
-    image:
-      "https://images.unsplash.com/photo-1550751827-4bd374c3f58b",
-    description: "Enterprise-grade security for your systems.",
-  },
+const FEATURES: { id: string; label: string; icon: LucideIcon; image: string; description: string }[] = [
+  { id: "web",        label: "Web Development",    icon: Globe,          image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085", description: "High-performance websites built for scale and speed."     },
+  { id: "cloud",      label: "Cloud Systems",       icon: Cloud,          image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa", description: "Deploy and scale infrastructure seamlessly."              },
+  { id: "mobile",     label: "Mobile First",        icon: Smartphone,     image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c", description: "Optimized experiences across all devices."                },
+  { id: "analytics",  label: "Analytics",           icon: LayoutDashboard,image: "https://images.unsplash.com/photo-1551288049-bbda38a10ad5", description: "Real-time insights that drive smarter decisions."         },
+  { id: "automation", label: "Automation",          icon: Wand2,          image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e", description: "Automate workflows using AI-driven systems."              },
+  { id: "security",   label: "Security",            icon: ShieldCheck,    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b", description: "Enterprise-grade security for your systems."             },
 ];
 
-const AUTO_PLAY_INTERVAL = 3000;
-const ITEM_HEIGHT = 60;
+const ITEM_H = 56;
+const AUTO_INTERVAL = 3500;
 
 export default function FeatureCarousel() {
-  const [step, setStep] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView   = useInView(sectionRef, { amount: 0.2 });
+
+  const [step,     setStep]     = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
-  const currentIndex =
-    ((step % FEATURES.length) + FEATURES.length) % FEATURES.length;
-
-  const nextStep = useCallback(() => {
-    setStep((prev) => prev + 1);
-  }, []);
+  const currentIndex = step % FEATURES.length;
+  const next = useCallback(() => setStep((p) => p + 1), []);
 
   useEffect(() => {
-    if (isPaused) return;
-    const interval = setInterval(nextStep, AUTO_PLAY_INTERVAL);
-    return () => clearInterval(interval);
-  }, [nextStep, isPaused]);
+    if (isPaused || !isInView) return;
+    const id = setInterval(next, AUTO_INTERVAL);
+    return () => clearInterval(id);
+  }, [next, isPaused, isInView]);
 
   return (
-    <section className="relative text-white py-32 overflow-hidden bg-[#062f26]">
+    <section
+      ref={sectionRef}
+      className="relative text-gray-900 dark:text-white py-20 sm:py-28 overflow-hidden bg-[#fafafa] dark:bg-[#08080f] border-t border-gray-100 dark:border-white/[0.06] transition-colors duration-300"
+    >
+      {/* Subtle glows */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <div className="absolute top-0 left-0 w-[500px] h-[400px] bg-[#EC4899]/5 blur-[120px] rounded-full -translate-x-1/4 -translate-y-1/4" />
+        <div className="absolute bottom-0 right-0 w-[500px] h-[400px] bg-[#06B6D4]/5 blur-[120px] rounded-full translate-x-1/4 translate-y-1/4" />
+        {/* Scrolling dot grid */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: "radial-gradient(circle, #ffffff 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
+            animation: "gridScroll 10s linear infinite",
+          }}
+        />
+      </div>
 
-      {/* 🔥 BACKGROUND FIXED */}
-   <div className="absolute inset-0 z-0 pointer-events-none">
-
-  {/* BASE GRADIENT */}
- <div className="absolute inset-0 bg-gradient-to-t from-[#062f26]/90 via-[#062f26]/40 to-transparent" />
-
-  {/* GRID */}
-  <motion.div
-    className="absolute inset-0 opacity-30"
-    style={{
-      backgroundImage: `
-        linear-gradient(to right, rgba(255,255,255,0.15) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,0.15) 1px, transparent 1px)
-      `,
-      backgroundSize: "60px 60px",
-    }}
-    animate={{ y: [0, 60] }}
-    transition={{ repeat: Infinity, duration: 6, ease: "linear" }}
-  />
-
-  {/* GLOW */}
-  <motion.div
-    className="absolute inset-0"
-    animate={{ x: ["-100%", "100%"] }}
-    transition={{ repeat: Infinity, duration: 5, ease: "linear" }}
-    style={{
-      background:
-        "linear-gradient(90deg, transparent, rgba(0,255,180,0.35), transparent)",
-      filter: "blur(60px)",
-    }}
-  />
-</div>
-
-      {/* 🔥 CONTENT */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6">
-
-        {/* HEADER */}
-        <div className="mb-20">
-          <p className="text-white/40 text-xs tracking-[0.3em] uppercase mb-4">
-            Capabilities
-          </p>
-
-          <h2 className="text-4xl md:text-6xl tracking-tight leading-[1.1]">
-            What we build and
-            <br />
-            how we <span className="italic">scale it.</span>
+      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6">
+        {/* Header */}
+        <div className="mb-12 sm:mb-16">
+          <div className="flex items-center gap-3 mb-5">
+            <div className="h-px w-8 bg-gradient-to-r from-[#EC4899] to-transparent" />
+            <p className="font-body text-xs tracking-[0.28em] uppercase text-gray-400 dark:text-white/35">Capabilities</p>
+          </div>
+          <h2 className="font-heading text-[30px] sm:text-[44px] md:text-[58px] font-black leading-[0.9] tracking-tight text-gray-900 dark:text-white">
+            What we build and how we{" "}
+            <span className="italic bg-gradient-to-r from-[#EC4899] to-[#06B6D4] bg-clip-text text-transparent">
+              scale it.
+            </span>
           </h2>
         </div>
 
-        {/* GLASS CARD */}
-        <div className="relative flex flex-col lg:flex-row rounded-[2rem] overflow-hidden bg-white/[0.02] backdrop-blur-md border border-white/10">
+        {/* Glass card */}
+        <div className="relative flex flex-col lg:flex-row rounded-2xl overflow-hidden border border-gray-200 dark:border-white/[0.08] bg-white shadow-sm dark:bg-white/[0.025] dark:shadow-none backdrop-blur-sm">
 
-          {/* LEFT */}
-          <div className="w-full lg:w-[40%] px-6 py-16 relative overflow-hidden">
+          {/* Left — tab list: on mobile show horizontal scroll, on lg show vertical scroll */}
+          <div className="w-full lg:w-[38%] border-b border-gray-100 dark:border-white/[0.06] lg:border-b-0 lg:border-r lg:border-r-gray-100 dark:lg:border-r-white/[0.06]">
 
-            {FEATURES.map((feature, index) => {
-              const isActive = index === currentIndex;
-
-              return (
-                <motion.div
-                  key={feature.id}
-                  animate={{
-                    y: (index - currentIndex) * ITEM_HEIGHT,
-                    opacity: isActive ? 1 : 0.4,
-                  }}
-                  transition={{ type: "spring", stiffness: 90 }}
-                  className="absolute left-6 flex items-center gap-4"
-                >
+            {/* Mobile: horizontal scrollable tabs */}
+            <div className="lg:hidden flex gap-2 overflow-x-auto no-scrollbar px-4 py-4">
+              {FEATURES.map((f, idx) => {
+                const isActive = idx === currentIndex;
+                const Icon = f.icon;
+                return (
                   <button
-                    onMouseEnter={() => setIsPaused(true)}
-                    onMouseLeave={() => setIsPaused(false)}
-                    className={`flex items-center gap-3 px-5 py-3 rounded-full border transition ${
+                    key={f.id}
+                    onClick={() => { setStep(idx); setIsPaused(true); }}
+                    className={`shrink-0 flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-body transition-all duration-200 cursor-pointer ${
                       isActive
-                        ? "bg-white text-black border-white"
-                        : "text-white/50 border-white/20 hover:border-white/40"
+                        ? "bg-[#06B6D4] border-[#06B6D4] text-white"
+                        : "border-gray-200 dark:border-white/12 text-gray-500 dark:text-white/40 hover:border-gray-300 dark:hover:border-white/25 hover:text-gray-700 dark:hover:text-white/70"
                     }`}
                   >
-                    <HugeiconsIcon icon={feature.icon} size={18} />
-                    <span className="text-sm uppercase tracking-wide">
-                      {feature.label}
-                    </span>
+                    <Icon size={13} />
+                    <span className="whitespace-nowrap">{f.label}</span>
                   </button>
-                </motion.div>
-              );
-            })}
+                );
+              })}
+            </div>
+
+            {/* Desktop: vertical scrolling list */}
+            <div
+              className="hidden lg:block relative overflow-hidden px-6 py-12"
+              style={{ minHeight: ITEM_H * FEATURES.length + 96 }}
+            >
+              {FEATURES.map((f, idx) => {
+                const isActive = idx === currentIndex;
+                const Icon = f.icon;
+                return (
+                  <motion.div
+                    key={f.id}
+                    animate={{ y: (idx - currentIndex) * ITEM_H, opacity: isActive ? 1 : 0.28 }}
+                    transition={{ type: "spring", stiffness: 100, damping: 22 }}
+                    className="absolute left-6 will-change-transform"
+                  >
+                    <button
+                      onMouseEnter={() => setIsPaused(true)}
+                      onMouseLeave={() => setIsPaused(false)}
+                      onClick={() => setStep(idx)}
+                      className={`flex items-center gap-3 px-5 py-3 rounded-full border transition-all duration-200 font-body cursor-pointer ${
+                        isActive
+                          ? "bg-[#06B6D4] border-[#06B6D4] text-white"
+                          : "border-gray-200 dark:border-white/10 text-gray-500 dark:text-white/40 hover:border-gray-300 dark:hover:border-white/22 hover:text-gray-700 dark:hover:text-white/70"
+                      }`}
+                    >
+                      <Icon size={15} />
+                      <span className="text-sm uppercase tracking-wider">{f.label}</span>
+                    </button>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
 
-          {/* RIGHT */}
-          <div className="flex-1 relative min-h-[400px]">
-
-            {FEATURES.map((feature, index) => {
-              const isActive = index === currentIndex;
-
+          {/* Right — image panel */}
+          <div className="flex-1 relative min-h-[260px] sm:min-h-[380px]">
+            {FEATURES.map((f, idx) => {
+              const isActive = idx === currentIndex;
               return (
                 <motion.div
-                  key={feature.id}
-                  animate={{
-                    opacity: isActive ? 1 : 0,
-                    scale: isActive ? 1 : 0.96,
-                  }}
-                  transition={{ duration: 0.5 }}
-                  className="absolute inset-0"
+                  key={f.id}
+                  animate={{ opacity: isActive ? 1 : 0, scale: isActive ? 1 : 0.97 }}
+                  transition={{ duration: 0.4 }}
+                  className="absolute inset-0 will-change-transform"
+                  aria-hidden={!isActive}
                 >
-                  <img
-                    src={feature.image}
-                    alt={feature.label}
-                    className="w-full h-full object-cover"
+                  <Image
+                    src={f.image} alt={f.label}
+                    fill
+                    sizes="(max-width:1024px) 100vw, 62vw"
+                    className="object-cover opacity-60"
                   />
-
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
                   {isActive && (
-                    <div className="absolute bottom-0 p-10">
-                      <p className="text-white/50 text-xs uppercase mb-2 tracking-widest">
-                        {feature.label}
-                      </p>
-
-                      <h3 className="text-2xl md:text-3xl max-w-md">
-                        {feature.description}
-                      </h3>
-                    </div>
+                    <motion.div
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.35 }}
+                      className="absolute bottom-0 p-5 sm:p-8"
+                    >
+                      <p className="text-white/35 text-[10px] uppercase mb-2 tracking-widest font-body">{f.label}</p>
+                      <h3 className="font-heading text-lg sm:text-2xl md:text-3xl max-w-md text-white">{f.description}</h3>
+                    </motion.div>
                   )}
                 </motion.div>
               );
             })}
-
           </div>
-
         </div>
       </div>
+
+      <style>{`
+        @keyframes gridScroll { 0%{background-position:0 0} 100%{background-position:0 40px} }
+        .no-scrollbar::-webkit-scrollbar { display:none }
+        .no-scrollbar { -ms-overflow-style:none; scrollbar-width:none }
+      `}</style>
     </section>
   );
 }

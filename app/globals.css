@@ -1,53 +1,91 @@
 @import "tailwindcss";
 
+/* Tailwind v4 — explicit class-based dark mode variant.
+   Applies dark: utilities when <html> (or any ancestor) has class="dark" */
+@custom-variant dark (&:where(.dark, .dark *));
 
-.font-display {
-  font-family: 'UnifrakturCook', cursive;
-}
+/* ─── Design System Tokens ─────────────────────────────── */
 :root {
-  --font-sans: 'Inter', sans-serif;
-  --font-display: 'UnifrakturCook', cursive;
+  --color-primary:    #EC4899;
+  --color-secondary:  #F472B6;
+  --color-cta:        #06B6D4;
+  --color-bg:         #08080f;
+  --color-text:       #ffffff;
+  --color-muted:      #be185d;
+
+  --shadow-sm:  0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md:  0 4px 6px rgba(0,0,0,0.1);
+  --shadow-lg:  0 10px 15px rgba(0,0,0,0.1);
+  --shadow-xl:  0 20px 25px rgba(0,0,0,0.15);
 }
 
-body {
-  font-family: var(--font-sans);
+/* ─── Font families ─────────────────────────────────────── */
+/* Loaded via <link> in layout.tsx — no build-time network fetch */
+:root {
+  --font-body:    "Space Grotesk", system-ui, sans-serif;
+  --font-heading: "Archivo",       system-ui, sans-serif;
 }
 
-.font-display {
-  font-family: var(--font-display);
+@theme {
+  --font-body:    "Space Grotesk", system-ui, sans-serif;
+  --font-heading: "Archivo",       system-ui, sans-serif;
+  --font-display: "UnifrakturCook", cursive;
 }
-body {
-  font-family: 'Inter', sans-serif;
-}
-/* Base */
+
+/* ─── Base ──────────────────────────────────────────────── */
 html,
 body {
-  background: #000;
-  color: white;
   overflow-x: hidden;
-}
-
-/* Gradient Text */
-.text-gradient {
-  background: linear-gradient(90deg, #3B82F6, #EC4899);
-
-  -webkit-text-fill-color: transparent;
-}
-
-html,
-body {
   height: auto;
 }
 
 html {
   scroll-behavior: auto;
 }
-@keyframes floaty {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-6px); }
-  100% { transform: translateY(0px); }
+
+body {
+  font-family: var(--font-body, "Space Grotesk", sans-serif);
 }
 
-.float {
-  animation: floaty 3s ease-in-out infinite;
+/* ─── Typography helpers ────────────────────────────────── */
+.font-heading {
+  font-family: var(--font-heading, "Archivo", sans-serif);
+}
+
+.font-display {
+  font-family: var(--font-display, "UnifrakturCook", cursive);
+}
+
+/* ─── Gradient text ─────────────────────────────────────── */
+.text-gradient {
+  background: linear-gradient(90deg, #EC4899, #06B6D4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ─── Liquid glass (Hero email / buttons) ───────────────── */
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* ─── Animations ─────────────────────────────────────────── */
+@keyframes floaty {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-6px); }
+}
+.float { animation: floaty 3s ease-in-out infinite; }
+
+@keyframes borderMove {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes gridScroll {
+  0%   { background-position: 0 0; }
+  100% { background-position: 0 60px; }
 }

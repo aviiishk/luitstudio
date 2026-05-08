@@ -1,48 +1,30 @@
 "use client";
 
 import React, { useLayoutEffect, useRef } from "react";
-import Lenis from "lenis";
 
-export const ScrollStackItem = ({ children }: any) => (
+export const ScrollStackItem = ({ children }: { children: React.ReactNode }) => (
   <div className="scroll-stack-card relative w-full h-[420px] my-10 p-8 rounded-[30px] bg-[#111] border border-white/10">
     {children}
   </div>
 );
 
-const ScrollStack = ({ children }: any) => {
+const ScrollStack = ({ children }: { children: React.ReactNode }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLElement[]>([]);
 
   useLayoutEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
     const cards = Array.from(
-      container.querySelectorAll(".scroll-stack-card")
-    ) as HTMLElement[];
-
-    cardsRef.current = cards;
-
-    const lenis = new Lenis({
-      duration: 1.2,
-      smoothWheel: true,
-    });
-
-    const raf = (time: number) => {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    };
-    requestAnimationFrame(raf);
+      container.querySelectorAll<HTMLElement>(".scroll-stack-card")
+    );
 
     const update = () => {
-      const scrollY = window.scrollY;
       const viewportHeight = window.innerHeight;
 
       cards.forEach((card, i) => {
         const rect = card.getBoundingClientRect();
-        const offset = rect.top;
-
-        const progress = 1 - Math.min(Math.max(offset / viewportHeight, 0), 1);
+        const progress = 1 - Math.min(Math.max(rect.top / viewportHeight, 0), 1);
 
         const scale = 1 - progress * 0.1 * i;
         const translateY = progress * 60 * i;
@@ -52,13 +34,10 @@ const ScrollStack = ({ children }: any) => {
       });
     };
 
-    window.addEventListener("scroll", update);
+    window.addEventListener("scroll", update, { passive: true });
     update();
 
-    return () => {
-      window.removeEventListener("scroll", update);
-      lenis.destroy();
-    };
+    return () => window.removeEventListener("scroll", update);
   }, []);
 
   return (

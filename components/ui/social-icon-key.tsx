@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -11,21 +12,20 @@ interface Props {
 }
 
 export default function SocialIconKey({ href, icon, title }: Props) {
-  // random slight rotation (once)
-  const randomRotate = Math.floor(Math.random() * 10 - 5); // -5 to +5
+  const [rotate, setRotate] = useState(0);
+
+  useEffect(() => {
+    setRotate(Math.floor(Math.random() * 10 - 5));
+  }, []);
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      whileHover={{
-        y: -8,
-        rotate: 0,
-        scale: 1.05,
-      }}
+      whileHover={{ y: -8, rotate: 0, scale: 1.05 }}
       className="relative"
-      style={{ transform: `rotate(${randomRotate}deg)` }}
+      style={{ transform: `rotate(${rotate}deg)` }}
     >
       <Link
         href={href}
