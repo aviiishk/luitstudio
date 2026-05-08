@@ -95,7 +95,7 @@ export default function TestimonialsSection() {
               className="absolute inset-0"
               initial={{ opacity: 0, x: 64 }}
               animate={{ opacity: active === i ? 1 : 0, x: active === i ? 0 : 64, scale: active === i ? 1 : 0.97 }}
-              transition={{ duration: 0.42, ease: [0.25, 0.1, 0.25, 1] }}
+              transition={{ duration: 0.42, ease: [0.25, 0.1, 0.25, 1] as const }}
               style={{ zIndex: active === i ? 10 : 0 }}
             >
               <div className="relative rounded-2xl overflow-hidden border border-gray-200 dark:border-white/[0.08] bg-white shadow-sm dark:bg-white/[0.03] dark:shadow-none h-full flex flex-col p-5 sm:p-7">

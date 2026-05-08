@@ -9,7 +9,7 @@ import Footer from "@/components/layout/Footer";
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.5, delay, ease: [0.25, 0.1, 0.25, 1] },
+  transition: { duration: 0.5, delay, ease: [0.25, 0.1, 0.25, 1] as const },
 });
 
 const SERVICE_OPTIONS = ["Website Design", "UI/UX", "Development", "SEO", "Branding", "Other"];
@@ -74,7 +74,7 @@ export default function ContactPage() {
           <motion.div
             initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+            transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const }}
             className="w-full max-w-6xl bg-gradient-to-br from-[#EC4899] to-[#06B6D4] rounded-2xl p-[2px] shadow-[0_24px_80px_rgba(236,72,153,0.2)] dark:shadow-[0_40px_120px_rgba(236,72,153,0.3)]"
           >
             <div className="bg-white dark:bg-[#0d0d18] rounded-[14px] overflow-hidden grid grid-cols-1 md:grid-cols-2">

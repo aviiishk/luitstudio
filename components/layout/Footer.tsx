@@ -28,7 +28,7 @@ const SOCIALS = [
 
 const fadeUp = (delay = 0) => ({
   hidden:  { opacity: 0, y: 32 },
-  show:    { opacity: 1, y: 0, transition: { duration: 0.6, delay, ease: [0.25, 0.1, 0.25, 1] as [number,number,number,number] } },
+  show:    { opacity: 1, y: 0, transition: { duration: 0.6, delay, ease: [0.25, 0.1, 0.25, 1] as const as [number,number,number,number] } },
 });
 
 function NewsletterForm() {
@@ -117,7 +117,7 @@ export default function Footer() {
                   initial={{ y: 72, opacity: 0 }}
                   whileInView={{ y: 0, opacity: 1 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.75, ease: [0.25, 0.1, 0.25, 1] }}
+                  transition={{ duration: 0.75, ease: [0.25, 0.1, 0.25, 1] as const }}
                   className="font-heading text-[36px] sm:text-[52px] md:text-[64px] font-black leading-[0.9] tracking-tight text-gray-900 dark:text-white"
                 >
                   Ready to build
@@ -128,7 +128,7 @@ export default function Footer() {
                   initial={{ y: 72, opacity: 0 }}
                   whileInView={{ y: 0, opacity: 1 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.75, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
+                  transition={{ duration: 0.75, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] as const }}
                   className="font-heading text-[36px] sm:text-[52px] md:text-[64px] font-black leading-[0.9] tracking-tight bg-gradient-to-r from-[#EC4899] to-[#06B6D4] bg-clip-text text-transparent"
                 >
                   something great?

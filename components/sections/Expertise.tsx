@@ -68,7 +68,7 @@ function ServiceCard({ s, index }: { s: typeof SERVICES[number]; index: number }
       ref={ref}
       initial={{ opacity: 0, y: 40 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.55, delay: index * 0.06, ease: [0.25, 0.1, 0.25, 1] }}
+      transition={{ duration: 0.55, delay: index * 0.06, ease: [0.25, 0.1, 0.25, 1] as const }}
       onMouseMove={tiltOn}
       onMouseLeave={tiltOff}
       style={{ transition: "transform 0.18s ease-out", willChange: "transform" }}
@@ -179,7 +179,7 @@ export default function ExpertiseSection() {
             <motion.h2
               initial={{ y: 72, opacity: 0 }}
               animate={headInView ? { y: 0, opacity: 1 } : {}}
-              transition={{ duration: 0.72, ease: [0.25, 0.1, 0.25, 1] }}
+              transition={{ duration: 0.72, ease: [0.25, 0.1, 0.25, 1] as const }}
               className="font-heading text-[34px] sm:text-[52px] md:text-[72px] lg:text-[88px] font-black leading-[0.88] tracking-tight text-gray-900 dark:text-white"
             >
               OUR CORE
@@ -189,7 +189,7 @@ export default function ExpertiseSection() {
             <motion.h2
               initial={{ y: 72, opacity: 0 }}
               animate={headInView ? { y: 0, opacity: 1 } : {}}
-              transition={{ duration: 0.72, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
+              transition={{ duration: 0.72, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] as const }}
               className="font-heading text-[34px] sm:text-[52px] md:text-[72px] lg:text-[88px] font-black leading-[0.88] tracking-tight bg-gradient-to-r from-[#EC4899] to-[#06B6D4] bg-clip-text text-transparent"
             >
               EXPERTISE.
