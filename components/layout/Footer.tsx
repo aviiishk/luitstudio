@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Send, Check } from "lucide-react";
@@ -61,16 +61,16 @@ function NewsletterForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="your@email.com"
-            className="flex-1 min-w-0 bg-black/[0.04] dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl px-4 py-2.5 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-white/25 font-body outline-none focus:border-[#EC4899]/50 transition-colors duration-200"
+            className="flex-1 min-w-0 rounded-xl border border-gray-300/[0.8] bg-white/[0.7] px-4 py-2.5 text-sm text-gray-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)] outline-none transition-all duration-300 placeholder:text-gray-500 focus:border-[#06B6D4]/[0.6] focus:shadow-[0_0_0_3px_rgba(6,182,212,0.12),inset_0_1px_0_rgba(255,255,255,0.8)] dark:border-white/[0.13] dark:bg-white/[0.06] dark:text-white dark:placeholder:text-white/[0.35] dark:focus:border-[#67E8F9]/[0.45] font-body backdrop-blur-xl"
           />
           <button
             type="submit"
             disabled={status === "loading"}
-            className="shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-[#EC4899] to-[#06B6D4] flex items-center justify-center cursor-pointer disabled:opacity-60 transition-opacity hover:opacity-90"
+            className="shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-[#EC4899] via-[#F472B6] to-[#06B6D4] flex items-center justify-center cursor-pointer disabled:opacity-60 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_34px_rgba(6,182,212,0.22),0_0_28px_rgba(236,72,153,0.2)]"
             aria-label="Subscribe"
           >
             {status === "loading"
-              ? <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              ? <span className="w-4 h-4 border-2 border-white/[0.3] border-t-white rounded-full animate-spin" />
               : <Send size={15} className="text-white" />
             }
           </button>
@@ -81,23 +81,34 @@ function NewsletterForm() {
 }
 
 export default function Footer() {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => { setMounted(true); }, []);
-
   return (
-    <footer className="relative bg-gray-50 dark:bg-[#06060e] text-gray-900 dark:text-white overflow-hidden border-t border-gray-200 dark:border-white/[0.06] transition-colors duration-300">
+    <footer className="relative overflow-hidden bg-[#f6f8fc] text-gray-900 transition-colors duration-300 dark:bg-[#050713] dark:text-white">
 
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <div className="absolute top-0 left-[-10%] w-[500px] h-[400px] bg-[#EC4899]/5 dark:bg-[#EC4899]/6 blur-[120px] rounded-full" />
-        <div className="absolute bottom-0 right-[-10%] w-[400px] h-[400px] bg-[#06B6D4]/5 dark:bg-[#06B6D4]/6 blur-[100px] rounded-full" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#06B6D4]/[0.6] to-transparent shadow-[0_0_34px_rgba(6,182,212,0.35)]" />
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#06B6D4]/10 via-[#EC4899]/5 to-transparent dark:from-[#06B6D4]/12 dark:via-[#EC4899]/8" />
+        <motion.div
+          className="absolute top-[-18%] left-[-12%] h-[34rem] w-[44rem] rounded-full bg-[radial-gradient(circle,rgba(236,72,153,0.18),rgba(139,92,246,0.1)_38%,transparent_72%)] blur-[90px]"
+          animate={{ x: [0, 26, 0], y: [0, 18, 0], opacity: [0.62, 0.9, 0.68] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-[-22%] right-[-12%] h-[34rem] w-[42rem] rounded-full bg-[radial-gradient(circle,rgba(6,182,212,0.2),rgba(59,130,246,0.1)_42%,transparent_74%)] blur-[92px]"
+          animate={{ x: [0, -24, 0], y: [0, -18, 0], opacity: [0.58, 0.92, 0.62] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <div className="absolute inset-x-[-18%] bottom-[19%] h-36 bg-[linear-gradient(90deg,transparent,rgba(6,182,212,0.12),rgba(236,72,153,0.12),transparent)] blur-[54px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_36%,rgba(255,255,255,0.44)_80%,rgba(255,255,255,0.86)_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_38%,rgba(5,7,19,0.5)_78%,rgba(5,7,19,0.94)_100%)]" />
+        <div className="absolute inset-0 opacity-[0.08] mix-blend-overlay dark:opacity-[0.13]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E\")" }} />
         <div
-          className="absolute inset-0 opacity-[0.015] dark:opacity-[0.025]"
-          style={{ backgroundImage: "radial-gradient(circle, #EC4899 1px, transparent 1px)", backgroundSize: "38px 38px" }}
+          className="absolute inset-0 opacity-[0.035] dark:opacity-[0.05]"
+          style={{ backgroundImage: "radial-gradient(circle, rgba(236,72,153,0.75) 1px, transparent 1px), radial-gradient(circle, rgba(6,182,212,0.55) 1px, transparent 1px)", backgroundSize: "58px 58px, 86px 86px" }}
         />
       </div>
 
       {/* ══ CTA BLOCK ══════════════════════════════ */}
-      <div className="relative z-10 border-b border-gray-200 dark:border-white/[0.06]">
+      <div className="relative z-10 border-b border-transparent">
+        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gray-300/[0.8] to-transparent dark:via-white/[0.12]" />
         <div className="max-w-7xl mx-auto px-5 sm:px-6 py-16 sm:py-20 md:py-24">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10">
 
@@ -107,7 +118,7 @@ export default function Footer() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="text-xs tracking-[0.28em] uppercase text-[#EC4899] font-body mb-5"
+                className="text-xs tracking-[0.28em] uppercase text-[#BE185D] dark:text-[#F472B6] font-body font-semibold mb-5 drop-shadow-[0_0_18px_rgba(236,72,153,0.22)]"
               >
                 Let&apos;s build together
               </motion.p>
@@ -118,7 +129,7 @@ export default function Footer() {
                   whileInView={{ y: 0, opacity: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.75, ease: [0.25, 0.1, 0.25, 1] as const }}
-                  className="font-heading text-[36px] sm:text-[52px] md:text-[64px] font-black leading-[0.9] tracking-tight text-gray-900 dark:text-white"
+                  className="font-heading text-[36px] sm:text-[52px] md:text-[64px] font-black leading-[0.9] tracking-tight text-gray-950 dark:text-white drop-shadow-[0_18px_42px_rgba(0,0,0,0.2)] dark:drop-shadow-[0_18px_46px_rgba(0,0,0,0.64)]"
                 >
                   Ready to build
                 </motion.h2>
@@ -129,7 +140,7 @@ export default function Footer() {
                   whileInView={{ y: 0, opacity: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.75, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] as const }}
-                  className="font-heading text-[36px] sm:text-[52px] md:text-[64px] font-black leading-[0.9] tracking-tight bg-gradient-to-r from-[#EC4899] to-[#06B6D4] bg-clip-text text-transparent"
+                  className="font-heading text-[36px] sm:text-[52px] md:text-[64px] font-black leading-[0.9] tracking-tight bg-gradient-to-r from-[#EC4899] via-[#F472B6] to-[#06B6D4] bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(236,72,153,0.22)]"
                 >
                   something great?
                 </motion.h2>
@@ -140,7 +151,7 @@ export default function Footer() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.25 }}
-                className="mt-6 text-gray-500 dark:text-white/45 font-body text-base leading-relaxed max-w-md"
+                className="mt-6 text-gray-600 dark:text-white/[0.62] font-body text-base leading-relaxed max-w-md"
               >
                 We take on a limited number of projects each quarter to ensure
                 every client gets our full focus and best work.
@@ -154,13 +165,13 @@ export default function Footer() {
               transition={{ duration: 0.65, delay: 0.2 }}
               className="shrink-0"
             >
-              <div className="bg-white dark:bg-white/[0.04] backdrop-blur-sm border border-gray-200 dark:border-white/10 rounded-2xl p-7 sm:p-8 min-w-[280px] sm:min-w-[320px] shadow-sm dark:shadow-none">
+              <div className="bg-white/[0.74] dark:bg-white/[0.065] backdrop-blur-2xl border border-white/[0.8] dark:border-white/[0.14] rounded-2xl p-7 sm:p-8 min-w-[280px] sm:min-w-[320px] shadow-[0_24px_70px_rgba(15,23,42,0.12),inset_0_1px_0_rgba(255,255,255,0.72)] dark:shadow-[0_26px_80px_rgba(0,0,0,0.46),0_0_54px_rgba(6,182,212,0.1),inset_0_1px_0_rgba(255,255,255,0.12)]">
                 <div className="flex items-center gap-2 mb-5">
                   <span className="relative flex h-2.5 w-2.5">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-60" />
                     <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-400" />
                   </span>
-                  <span className="text-xs text-gray-400 dark:text-white/40 font-body uppercase tracking-widest">
+                  <span className="text-xs text-gray-600 dark:text-white/[0.58] font-body uppercase tracking-widest font-semibold">
                     Accepting projects
                   </span>
                 </div>
@@ -168,23 +179,21 @@ export default function Footer() {
                 <p className="font-heading text-lg font-bold text-gray-900 dark:text-white mb-1">
                   Let&apos;s start a conversation
                 </p>
-                <p className="text-sm text-gray-400 dark:text-white/40 font-body mb-7">
+                <p className="text-sm text-gray-500 dark:text-white/[0.52] font-body mb-7">
                   Tell us about your idea — we respond within 24 hours.
                 </p>
 
                 <Link
                   href="/contact"
-                  className="group w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-gradient-to-r from-[#EC4899] to-[#06B6D4] text-white rounded-xl font-body font-semibold text-sm hover:opacity-90 transition-opacity duration-200 cursor-pointer shadow-[0_0_24px_rgba(236,72,153,0.35)]"
+                  className="group w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-gradient-to-r from-[#EC4899] via-[#F472B6] to-[#06B6D4] text-white rounded-xl font-body font-semibold text-sm transition-all duration-300 hover:-translate-y-0.5 cursor-pointer shadow-[0_16px_44px_rgba(236,72,153,0.28),0_0_28px_rgba(6,182,212,0.16)]"
                 >
                   Start a project
                   <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform duration-200" />
                 </Link>
 
-                {mounted && (
-                  <p className="text-center text-[11px] text-gray-300 dark:text-white/20 font-body mt-4">
-                    hello@luitstudio.com
-                  </p>
-                )}
+                <p className="text-center text-[11px] text-gray-400 dark:text-white/[0.32] font-body mt-4">
+                  hello@luitstudio.com
+                </p>
               </div>
             </motion.div>
           </div>
@@ -192,7 +201,8 @@ export default function Footer() {
       </div>
 
       {/* ══ MAIN GRID ══════════════════════════════ */}
-      <div className="relative z-10 border-b border-gray-200 dark:border-white/[0.06]">
+      <div className="relative z-10 border-b border-transparent">
+        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gray-300/[0.8] to-transparent dark:via-white/[0.11]" />
         <div className="max-w-7xl mx-auto px-5 sm:px-6 py-14 sm:py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
 
           <motion.div
@@ -202,23 +212,23 @@ export default function Footer() {
             viewport={{ once: true }}
             className="sm:col-span-2 lg:col-span-1"
           >
-            <p className="font-heading text-xl font-black text-gray-900 dark:text-white mb-2">
+            <p className="font-heading text-xl font-black text-gray-950 dark:text-white mb-2 drop-shadow-[0_12px_30px_rgba(0,0,0,0.14)] dark:drop-shadow-[0_12px_30px_rgba(0,0,0,0.55)]">
               Luit{" "}
               <span className="bg-gradient-to-r from-[#EC4899] to-[#06B6D4] bg-clip-text text-transparent">
                 Studio
               </span>
             </p>
-            <p className="font-body text-sm text-gray-400 dark:text-white/35 leading-relaxed mb-6 max-w-xs">
+            <p className="font-body text-sm text-gray-600 dark:text-white/[0.58] leading-relaxed mb-6 max-w-xs">
               A digital agency building high-performance websites, apps, and marketing systems for ambitious brands.
             </p>
-            <p className="font-body text-xs text-gray-400 dark:text-white/40 uppercase tracking-widest mb-3">
+            <p className="font-body text-xs text-gray-500 dark:text-white/[0.46] uppercase tracking-widest mb-3 font-semibold">
               Stay in the loop
             </p>
             <NewsletterForm />
           </motion.div>
 
           <motion.div variants={fadeUp(0.1)} initial="hidden" whileInView="show" viewport={{ once: true }}>
-            <p className="font-heading text-xs font-bold uppercase tracking-[0.2em] text-gray-400 dark:text-white/30 mb-5">
+            <p className="font-heading text-xs font-bold uppercase tracking-[0.2em] text-gray-500 dark:text-white/[0.42] mb-5">
               Navigation
             </p>
             <ul className="space-y-3">
@@ -226,9 +236,9 @@ export default function Footer() {
                 <li key={item.label}>
                   <Link
                     href={item.href}
-                    className="group font-body text-sm text-gray-500 dark:text-white/50 hover:text-gray-900 dark:hover:text-white transition-colors duration-200 flex items-center gap-1.5"
+                    className="group font-body text-sm text-gray-600 dark:text-white/[0.62] hover:text-gray-950 dark:hover:text-white transition-all duration-300 flex items-center gap-1.5"
                   >
-                    <span className="w-0 group-hover:w-3 h-px bg-[#EC4899] transition-all duration-200 shrink-0" />
+                    <span className="w-0 group-hover:w-3 h-px bg-[#EC4899] transition-all duration-300 shrink-0 shadow-[0_0_12px_rgba(236,72,153,0.5)]" />
                     {item.label}
                   </Link>
                 </li>
@@ -237,7 +247,7 @@ export default function Footer() {
           </motion.div>
 
           <motion.div variants={fadeUp(0.15)} initial="hidden" whileInView="show" viewport={{ once: true }}>
-            <p className="font-heading text-xs font-bold uppercase tracking-[0.2em] text-gray-400 dark:text-white/30 mb-5">
+            <p className="font-heading text-xs font-bold uppercase tracking-[0.2em] text-gray-500 dark:text-white/[0.42] mb-5">
               Services
             </p>
             <ul className="space-y-3">
@@ -245,9 +255,9 @@ export default function Footer() {
                 <li key={s}>
                   <Link
                     href="/services"
-                    className="group font-body text-sm text-gray-500 dark:text-white/50 hover:text-gray-900 dark:hover:text-white transition-colors duration-200 flex items-center gap-1.5"
+                    className="group font-body text-sm text-gray-600 dark:text-white/[0.62] hover:text-gray-950 dark:hover:text-white transition-all duration-300 flex items-center gap-1.5"
                   >
-                    <span className="w-0 group-hover:w-3 h-px bg-[#06B6D4] transition-all duration-200 shrink-0" />
+                    <span className="w-0 group-hover:w-3 h-px bg-[#06B6D4] transition-all duration-300 shrink-0 shadow-[0_0_12px_rgba(6,182,212,0.5)]" />
                     {s}
                   </Link>
                 </li>
@@ -256,7 +266,7 @@ export default function Footer() {
           </motion.div>
 
           <motion.div variants={fadeUp(0.2)} initial="hidden" whileInView="show" viewport={{ once: true }}>
-            <p className="font-heading text-xs font-bold uppercase tracking-[0.2em] text-gray-400 dark:text-white/30 mb-5">
+            <p className="font-heading text-xs font-bold uppercase tracking-[0.2em] text-gray-500 dark:text-white/[0.42] mb-5">
               Follow us
             </p>
             <div className="grid grid-cols-2 gap-3 mb-8">
@@ -267,10 +277,10 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="group flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-black/[0.03] dark:bg-white/[0.04] border border-gray-200 dark:border-white/8 hover:border-[#EC4899]/40 hover:bg-[#EC4899]/5 transition-all duration-200 cursor-pointer"
+                  className="group flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-white/[0.6] dark:bg-white/[0.055] border border-gray-300/[0.7] dark:border-white/[0.12] hover:border-[#EC4899]/[0.45] dark:hover:border-[#EC4899]/[0.45] hover:bg-white/[0.9] dark:hover:bg-white/[0.085] transition-all duration-300 cursor-pointer backdrop-blur-xl hover:-translate-y-0.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.58)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
                 >
-                  <Icon size={14} className="text-gray-400 dark:text-white/40 group-hover:text-[#EC4899] transition-colors duration-200" />
-                  <span className="font-body text-[11px] text-gray-400 dark:text-white/35 group-hover:text-gray-700 dark:group-hover:text-white/60 transition-colors duration-200">
+                  <Icon size={14} className="text-gray-600 dark:text-white/[0.58] group-hover:text-[#EC4899] transition-all duration-300 group-hover:drop-shadow-[0_0_12px_rgba(236,72,153,0.45)]" />
+                  <span className="font-body text-[11px] text-gray-600 dark:text-white/[0.56] group-hover:text-gray-950 dark:group-hover:text-white transition-colors duration-300">
                     {label.split(" ")[0]}
                   </span>
                 </a>
@@ -278,19 +288,19 @@ export default function Footer() {
             </div>
 
             <div className="space-y-2">
-              <p className="font-heading text-xs font-bold uppercase tracking-[0.2em] text-gray-400 dark:text-white/30 mb-3">
+              <p className="font-heading text-xs font-bold uppercase tracking-[0.2em] text-gray-500 dark:text-white/[0.42] mb-3">
                 Get in touch
               </p>
               <a
                 href="mailto:hello@luitstudio.com"
-                className="flex items-center gap-1.5 font-body text-sm text-gray-500 dark:text-white/45 hover:text-[#EC4899] transition-colors duration-200"
+                className="flex items-center gap-1.5 font-body text-sm text-gray-600 dark:text-white/[0.62] hover:text-[#EC4899] transition-colors duration-300"
               >
                 <ArrowUpRight size={13} className="shrink-0" />
                 hello@luitstudio.com
               </a>
               <Link
                 href="/contact"
-                className="flex items-center gap-1.5 font-body text-sm text-gray-500 dark:text-white/45 hover:text-[#06B6D4] transition-colors duration-200"
+                className="flex items-center gap-1.5 font-body text-sm text-gray-600 dark:text-white/[0.62] hover:text-[#06B6D4] transition-colors duration-300"
               >
                 <ArrowUpRight size={13} className="shrink-0" />
                 Start a project
@@ -301,18 +311,33 @@ export default function Footer() {
       </div>
 
       {/* ══ BRAND TEXT ═════════════════════════════ */}
-      <div className="relative z-10 overflow-hidden py-10 sm:py-14 select-none" aria-hidden="true">
-        <p
-          className="font-heading font-black whitespace-nowrap px-5 sm:px-6 leading-none tracking-tight"
+      <div className="relative z-10 overflow-hidden py-8 sm:py-12 select-none [mask-image:linear-gradient(90deg,transparent,black_10%,black_90%,transparent)]" aria-hidden="true">
+        <div className="absolute inset-x-0 top-1/2 h-24 -translate-y-1/2 bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.16),rgba(236,72,153,0.08)_42%,transparent_72%)] blur-2xl" />
+        <motion.p
+          className="absolute inset-x-0 top-1/2 -translate-y-1/2 font-heading font-black whitespace-nowrap px-5 sm:px-6 leading-none tracking-tight blur-[10px]"
+          animate={{ opacity: [0.12, 0.2, 0.12] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           style={{
-            fontSize: "clamp(64px, 14vw, 220px)",
-            background: "linear-gradient(90deg, #EC4899, #F472B6, #06B6D4, #EC4899)",
+            fontSize: "clamp(58px, 14vw, 198px)",
+            background: "linear-gradient(90deg, rgba(236,72,153,0.55), rgba(6,182,212,0.55), rgba(244,114,182,0.55))",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+          }}
+        >
+          LUIT STUDIO
+        </motion.p>
+        <p
+          className="relative font-heading font-black whitespace-nowrap px-5 sm:px-6 leading-none tracking-[-0.03em]"
+          style={{
+            fontSize: "clamp(58px, 14vw, 198px)",
+            background: "linear-gradient(90deg, rgba(236,72,153,0.26), rgba(244,114,182,0.18), rgba(6,182,212,0.26), rgba(236,72,153,0.2))",
             backgroundSize: "300% 100%",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
-            animation: "brandGradient 6s linear infinite",
-            opacity: 0.1,
+            animation: "brandGradient 12s linear infinite",
+            opacity: 0.72,
           }}
         >
           LUIT STUDIO
@@ -320,23 +345,24 @@ export default function Footer() {
       </div>
 
       {/* ══ BOTTOM BAR ═════════════════════════════ */}
-      <div className="relative z-10 border-t border-gray-200 dark:border-white/[0.06]">
+      <div className="relative z-10 border-t border-transparent">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gray-300/[0.8] to-transparent dark:via-white/[0.11]" />
         <div className="max-w-7xl mx-auto px-5 sm:px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
 
-          <p suppressHydrationWarning className="font-body text-xs text-gray-400 dark:text-white/20">
+          <p suppressHydrationWarning className="font-body text-xs text-gray-500 dark:text-white/[0.38]">
             © {new Date().getFullYear()} Luit Studio. All rights reserved.
           </p>
 
-          <div className="flex items-center gap-1.5 font-body text-xs text-gray-300 dark:text-white/15">
+          <div className="flex items-center gap-1.5 font-body text-xs text-gray-500 dark:text-white/[0.32]">
             <span>Crafted with</span>
             <span className="text-[#EC4899] animate-pulse">♥</span>
             <span>by Luit Studio</span>
           </div>
 
-          <div className="flex gap-5 font-body text-xs text-gray-400 dark:text-white/25">
-            <span className="hover:text-gray-900 dark:hover:text-white/50 transition-colors cursor-pointer">Privacy</span>
-            <span className="hover:text-gray-900 dark:hover:text-white/50 transition-colors cursor-pointer">Terms</span>
-            <span className="hover:text-gray-900 dark:hover:text-white/50 transition-colors cursor-pointer">Cookies</span>
+          <div className="flex gap-5 font-body text-xs text-gray-500 dark:text-white/[0.42]">
+            <span className="hover:text-gray-950 dark:hover:text-white transition-colors cursor-pointer">Privacy</span>
+            <span className="hover:text-gray-950 dark:hover:text-white transition-colors cursor-pointer">Terms</span>
+            <span className="hover:text-gray-950 dark:hover:text-white transition-colors cursor-pointer">Cookies</span>
           </div>
         </div>
       </div>

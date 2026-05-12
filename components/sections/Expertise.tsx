@@ -9,6 +9,7 @@ import {
   TrendingUp, BarChart2, Wand2,
   ArrowUpRight,
 } from "lucide-react";
+import { PROJECT_ARTWORK } from "@/lib/project-artwork";
 
 /* ─── Service data ──────────────────────────────────────── */
 const SERVICES = [
@@ -16,7 +17,7 @@ const SERVICES = [
     id: "01", title: "Web Development",      icon: Code2,      accent: "#EC4899",
     description: "High-performance websites, web apps, and SaaS platforms built for speed, scale, and conversion.",
     stat: "50+", statLabel: "Sites shipped",
-    img: "/projects/dashboard.png", large: true,
+    img: PROJECT_ARTWORK.fintrack, large: true,
   },
   {
     id: "02", title: "App Development",      icon: Smartphone, accent: "#06B6D4",
@@ -37,7 +38,7 @@ const SERVICES = [
     id: "05", title: "Performance Marketing",icon: BarChart2,  accent: "#EC4899",
     description: "Data-driven paid campaigns across Google, Meta, and LinkedIn that consistently beat benchmarks.",
     stat: "5×",   statLabel: "Average ROAS",
-    img: "/projects/socialmedia.png", large: true,
+    img: PROJECT_ARTWORK.brandwave, large: true,
   },
   {
     id: "06", title: "Branding",             icon: Wand2,      accent: "#06B6D4",

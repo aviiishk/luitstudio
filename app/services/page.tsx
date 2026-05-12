@@ -34,7 +34,7 @@ export default function ServicesPage() {
       {/* ── HERO ── */}
       <section className="relative h-[85vh] flex items-center justify-center">
         <Image
-          src="/hero/abouthero.png"
+          src="/hero/cinematic-environment.png"
           alt="Luit Studio services"
           fill
           priority

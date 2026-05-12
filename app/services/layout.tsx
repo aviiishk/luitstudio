@@ -8,13 +8,13 @@ export const metadata: Metadata = {
     title: "Services | Luit Studio",
     description:
       "High-performance digital solutions designed to scale with your business.",
-    images: [{ url: "/hero/abouthero.png", width: 1200, height: 630, alt: "Luit Studio Services" }],
+    images: [{ url: "/hero/cinematic-environment.png", width: 1200, height: 630, alt: "Luit Studio Services" }],
   },
   twitter: {
     title: "Services | Luit Studio",
     description:
       "High-performance digital solutions designed to scale with your business.",
-    images: ["/hero/abouthero.png"],
+    images: ["/hero/cinematic-environment.png"],
   },
   alternates: { canonical: "/services" },
 };

@@ -4,33 +4,34 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { PROJECT_ARTWORK } from "@/lib/project-artwork";
 
 const projects = [
   {
     id: 1, title: "FinTrack Dashboard", category: "Web App",
     description: "Real-time analytics platform for financial data.",
-    img: "/projects/dashboard.png",
+    img: PROJECT_ARTWORK.fintrack,
     tags: ["Next.js", "UI/UX", "Analytics"],
     span: "md:col-span-2", num: "01", accent: "#EC4899",
   },
   {
     id: 2, title: "NexMobile", category: "Mobile App",
     description: "Cross-platform mobile experience built for scale.",
-    img: "/projects/app.png",
+    img: PROJECT_ARTWORK.nexmobile,
     tags: ["React Native", "Design"],
     span: "", num: "02", accent: "#06B6D4",
   },
   {
     id: 3, title: "RankBoost SEO", category: "SEO & Growth",
     description: "Full-stack SEO strategy that tripled organic traffic.",
-    img: "/projects/seo.png",
+    img: PROJECT_ARTWORK.rankboost,
     tags: ["SEO", "Content", "Analytics"],
     span: "", num: "03", accent: "#EC4899",
   },
   {
     id: 4, title: "BrandWave", category: "Social Media",
     description: "End-to-end social campaign driving 10× engagement.",
-    img: "/projects/socialmedia.png",
+    img: PROJECT_ARTWORK.brandwave,
     tags: ["Branding", "Strategy"],
     span: "md:col-span-2", num: "04", accent: "#06B6D4",
   },
@@ -101,20 +102,28 @@ export default function PortfolioSection() {
               onMouseMove={tiltOn}
               onMouseLeave={tiltOff}
               style={{ transition: "transform 0.16s ease-out", willChange: "transform" }}
-              className={`group relative rounded-2xl overflow-hidden cursor-pointer border border-gray-200 dark:border-white/[0.08] hover:border-gray-300 dark:hover:border-white/[0.16] bg-white shadow-sm dark:bg-white/[0.025] dark:shadow-none transition-colors duration-300 ${p.span}`}
+              className={`group relative rounded-[26px] overflow-hidden cursor-pointer border border-gray-200/80 dark:border-white/[0.1] hover:border-gray-300 dark:hover:border-white/[0.22] bg-white shadow-[0_18px_70px_rgba(15,23,42,0.08)] dark:bg-[#090a13] dark:shadow-[0_28px_90px_rgba(0,0,0,0.38)] transition-all duration-300 ${p.span}`}
             >
+              <div
+                aria-hidden="true"
+                className="absolute -inset-8 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-80"
+                style={{ background: `radial-gradient(circle at 50% 22%, ${p.accent}26, transparent 58%)` }}
+              />
+              <div className="absolute inset-x-6 top-0 z-20 h-px bg-gradient-to-r from-transparent via-white/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               {/* Image */}
-              <div className="relative h-[230px] sm:h-[260px] overflow-hidden">
+              <div className="relative h-[250px] sm:h-[290px] overflow-hidden bg-[#050713]">
                 <Image
                   src={p.img} alt={p.title} fill
                   sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw"
-                  className="object-cover opacity-70 group-hover:opacity-90 transition-all duration-500 group-hover:scale-[1.04]"
+                  className="object-cover opacity-100 saturate-[1.12] contrast-[1.06] brightness-[1.08] transition-all duration-700 group-hover:scale-[1.07]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-transparent" />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,7,19,0)_0%,rgba(5,7,19,0.04)_42%,rgba(5,7,19,0.46)_82%,rgba(5,7,19,0.78)_100%)]" />
+                <div className="absolute inset-0 shadow-[inset_0_0_46px_rgba(0,0,0,0.28),inset_0_-62px_76px_rgba(0,0,0,0.48)]" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_115%,rgba(6,182,212,0.18),transparent_52%),radial-gradient(circle_at_15%_10%,rgba(236,72,153,0.14),transparent_38%)] mix-blend-screen" />
                 {/* Hover tint */}
                 <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400"
-                  style={{ background: `radial-gradient(ellipse at 50% 80%, ${p.accent}18, transparent 70%)` }}
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{ background: `radial-gradient(ellipse at 50% 72%, ${p.accent}30, transparent 66%)` }}
                 />
                 {/* Number */}
                 <span className="absolute top-4 left-4 font-heading text-[10px] font-black tracking-[0.2em] text-white/20">
@@ -141,10 +150,11 @@ export default function PortfolioSection() {
               </div>
 
               {/* Tags */}
-              <div className="px-4 sm:px-5 py-3 flex gap-2 flex-wrap bg-gray-50 dark:bg-white/[0.03] border-t border-gray-100 dark:border-white/[0.06]">
+              <div className="relative px-4 sm:px-5 py-3 flex gap-2 flex-wrap bg-gray-50 dark:bg-[#080914]/95 border-t border-gray-100 dark:border-white/[0.08]">
+                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
                 {p.tags.map((tag) => (
                   <span key={tag}
-                    className="text-[10px] px-2.5 py-1 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-500 dark:text-white/38 font-body">
+                    className="text-[10px] px-2.5 py-1 rounded-full bg-gray-100 dark:bg-white/[0.055] border border-gray-200 dark:border-white/10 text-gray-500 dark:text-white/48 font-body backdrop-blur-xl">
                     {tag}
                   </span>
                 ))}

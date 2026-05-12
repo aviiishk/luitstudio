@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { ArrowRight, Code2, Smartphone, Layers } from "lucide-react";
+import { PROJECT_ARTWORK } from "@/lib/project-artwork";
 
 /* ─── Constants ─────────────────────────────────────────── */
 const EASE: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
@@ -38,9 +39,9 @@ const SERVICES = [
 const TECH = ["Next.js", "React Native", "TypeScript", "Tailwind CSS", "Node.js", "Figma", "Flutter", "PostgreSQL"];
 
 const FLOATING_CARDS = [
-  { title: "FinTrack Dashboard", tags: ["Next.js", "UI/UX"],    img: "/projects/dashboard.png", icon: <Layers     size={13} />, accent: "#EC4899", rotate: "-3deg", top: "6%",  right: "2%"  },
-  { title: "NexMobile App",      tags: ["React Native", "iOS"], img: "/projects/app.png",       icon: <Smartphone size={13} />, accent: "#06B6D4", rotate: "3deg",  top: "43%", right: "17%" },
-  { title: "RankBoost SEO",      tags: ["SEO", "Growth"],       img: "/projects/seo.png",       icon: <Code2      size={13} />, accent: "#EC4899", rotate: "-2deg", top: "74%", right: "2%"  },
+  { title: "FinTrack Dashboard", category: "Web App",      tags: ["Next.js", "UI/UX"],    img: PROJECT_ARTWORK.fintrack,  icon: <Layers     size={13} />, accent: "#EC4899", rotate: "-3deg", top: "6%",  right: "2%"  },
+  { title: "NexMobile App",      category: "Mobile App",   tags: ["React Native", "iOS"], img: PROJECT_ARTWORK.nexmobile, icon: <Smartphone size={13} />, accent: "#06B6D4", rotate: "3deg",  top: "43%", right: "17%" },
+  { title: "RankBoost SEO",      category: "SEO & Growth", tags: ["SEO", "Growth"],       img: PROJECT_ARTWORK.rankboost, icon: <Code2      size={13} />, accent: "#EC4899", rotate: "-2deg", top: "74%", right: "2%"  },
 ];
 
 /* ─── Sub-components ────────────────────────────────────── */
@@ -111,24 +112,73 @@ export default function Hero() {
     <section
       ref={sectionRef}
       onMouseMove={onMouseMove}
-      className="relative min-h-screen bg-[#f8f8fc] dark:bg-[#020208] text-gray-900 dark:text-white overflow-hidden flex flex-col transition-colors duration-300"
+      className="relative min-h-screen bg-[#050713] dark:bg-[#050713] text-gray-900 dark:text-white overflow-hidden flex flex-col transition-colors duration-300"
     >
       {/* ── BACKGROUND ── */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+      <div className="absolute inset-0 pointer-events-none bg-[#050713]" aria-hidden="true">
+        <motion.div
+          className="absolute inset-0 scale-[1.08]"
+          animate={shouldReduce ? undefined : { scale: [1.08, 1.12, 1.08], x: [0, -18, 0], y: [0, 8, 0] }}
+          transition={{ duration: 28, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <Image
+            src="/hero/cinematic-environment.png"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center opacity-[0.88] saturate-[1.14] contrast-[1.08]"
+          />
+        </motion.div>
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,7,19,0.46)_0%,rgba(5,7,19,0.2)_28%,rgba(5,7,19,0.06)_54%,rgba(5,7,19,0.42)_100%),linear-gradient(180deg,rgba(5,7,19,0.2)_0%,rgba(5,7,19,0.08)_38%,rgba(5,7,19,0.72)_82%,#050713_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_24%_39%,rgba(244,114,182,0.26),transparent_26%),radial-gradient(circle_at_42%_42%,rgba(6,182,212,0.18),transparent_35%),radial-gradient(circle_at_70%_31%,rgba(139,92,246,0.28),transparent_28%)] mix-blend-screen" />
+        <motion.div
+          className="absolute left-[5%] top-[20%] h-[42rem] w-[42rem] rounded-full bg-[radial-gradient(circle,rgba(255,204,179,0.28)_0%,rgba(236,72,153,0.16)_26%,rgba(6,182,212,0.08)_48%,transparent_72%)] blur-2xl mix-blend-screen"
+          animate={shouldReduce ? undefined : { opacity: [0.7, 1, 0.78], scale: [1, 1.08, 1] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute right-[10%] top-[8%] h-[34rem] w-[30rem] rotate-[-18deg] bg-[linear-gradient(90deg,transparent,rgba(168,85,247,0.22),rgba(6,182,212,0.14),transparent)] blur-3xl mix-blend-screen"
+          animate={shouldReduce ? undefined : { opacity: [0.45, 0.78, 0.5], x: [0, 24, 0] }}
+          transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute inset-x-[-15%] bottom-[5%] h-[16rem] bg-[linear-gradient(90deg,transparent,rgba(6,182,212,0.22),rgba(236,72,153,0.2),transparent)] blur-[54px] opacity-75"
+          animate={shouldReduce ? undefined : { x: ["-4%", "4%", "-4%"], opacity: [0.55, 0.85, 0.62] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute inset-x-[-20%] bottom-[13%] h-[11rem] bg-[radial-gradient(ellipse_at_center,rgba(198,219,255,0.2),rgba(93,108,180,0.12)_36%,transparent_72%)] blur-2xl"
+          animate={shouldReduce ? undefined : { x: ["5%", "-5%", "5%"], opacity: [0.44, 0.76, 0.48] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <div className="absolute inset-x-0 bottom-0 h-[38%] bg-[linear-gradient(180deg,transparent,rgba(5,7,19,0.52)_42%,#050713_100%)]" />
+        <div className="absolute inset-0 opacity-[0.13] mix-blend-overlay" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E\")" }} />
+        <div className="absolute inset-0 opacity-[0.34]" style={{ backgroundImage: "radial-gradient(circle at 14% 18%, rgba(255,255,255,0.68) 0 1px, transparent 1.6px), radial-gradient(circle at 74% 12%, rgba(6,182,212,0.48) 0 1px, transparent 1.8px), radial-gradient(circle at 54% 54%, rgba(236,72,153,0.38) 0 1px, transparent 1.6px)", backgroundSize: "180px 180px, 260px 260px, 220px 220px" }} />
+        {Array.from({ length: 14 }).map((_, i) => (
+          <motion.span
+            key={i}
+            className="absolute h-1 w-1 rounded-full bg-cyan-200/70 shadow-[0_0_16px_rgba(103,232,249,0.9)]"
+            style={{
+              left: `${10 + ((i * 17) % 82)}%`,
+              top: `${14 + ((i * 23) % 68)}%`,
+            }}
+            animate={shouldReduce ? undefined : { y: [0, -18, 0], opacity: [0.12, 0.82, 0.18], scale: [0.7, 1.25, 0.7] }}
+            transition={{ duration: 7 + (i % 5), repeat: Infinity, delay: i * 0.45, ease: "easeInOut" }}
+          />
+        ))}
         {/* Spotlight cursor */}
         <div
-          className="absolute inset-0 hidden md:block"
+          className="absolute inset-0 hidden md:block mix-blend-screen"
           style={{
-            background: "radial-gradient(500px circle at var(--mx, 50%) var(--my, 40%), rgba(236,72,153,0.07), transparent 70%)",
+            background: "radial-gradient(620px circle at var(--mx, 50%) var(--my, 40%), rgba(6,182,212,0.22), rgba(236,72,153,0.13) 35%, transparent 72%)",
           }}
         />
-        {/* Ambient glows */}
-        <div className="absolute top-0 left-0 w-[600px] h-[600px] rounded-full bg-[#EC4899]/5 dark:bg-[#EC4899]/7 blur-[140px]" />
-        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-[#06B6D4]/5 dark:bg-[#06B6D4]/7 blur-[120px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_36%,rgba(5,7,19,0.38)_73%,rgba(5,7,19,0.94)_100%)]" />
         {/* Dot grid */}
         <div
-          className="absolute inset-0 opacity-[0.04] dark:opacity-[0.03]"
-          style={{ backgroundImage: "radial-gradient(circle, #EC4899 1px, transparent 1px)", backgroundSize: "40px 40px" }}
+          className="absolute inset-0 opacity-[0.025]"
+          style={{ backgroundImage: "linear-gradient(rgba(236,72,153,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.5) 1px, transparent 1px)", backgroundSize: "96px 96px" }}
         />
       </div>
 
@@ -137,18 +187,24 @@ export default function Hero() {
         <div className="w-full max-w-7xl mx-auto px-5 sm:px-6 pt-24 sm:pt-28 pb-10 grid grid-cols-1 lg:grid-cols-[1fr_460px] gap-10 lg:gap-6 items-center">
 
           {/* LEFT — Text */}
-          <div>
+          <div className="relative">
+            <motion.div
+              className="absolute -left-20 top-8 -z-10 h-[34rem] w-[42rem] rounded-full bg-[radial-gradient(circle,rgba(6,182,212,0.18)_0%,rgba(236,72,153,0.14)_28%,rgba(5,7,19,0.34)_58%,transparent_76%)] blur-2xl"
+              animate={shouldReduce ? undefined : { opacity: [0.72, 1, 0.78], scale: [0.98, 1.05, 0.98] }}
+              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+              aria-hidden="true"
+            />
             {/* Status badge */}
             <motion.div
               variants={fadeIn(0.05)}
               initial="hidden" animate="show"
-              className="inline-flex items-center gap-2.5 mb-7 px-4 py-2 rounded-full border border-[#EC4899]/25 bg-[#EC4899]/5 backdrop-blur-sm"
+              className="inline-flex items-center gap-2.5 mb-7 px-4 py-2 rounded-full border border-white/[0.16] bg-white/[0.07] backdrop-blur-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_18px_48px_rgba(6,182,212,0.16)]"
             >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
               </span>
-              <span className="text-[11px] tracking-[0.22em] uppercase text-gray-500 dark:text-white/60 font-body">
+              <span className="text-[11px] tracking-[0.22em] uppercase text-white/[0.68] font-body">
                 Available for new projects
               </span>
             </motion.div>
@@ -162,7 +218,7 @@ export default function Hero() {
                   variants={wordVariant}
                   initial={shouldReduce ? "show" : "hidden"}
                   animate="show"
-                  className="font-heading block text-[clamp(48px,9vw,108px)] font-black leading-[0.88] tracking-tight text-gray-900 dark:text-white"
+                  className="font-heading block text-[clamp(48px,9vw,108px)] font-black leading-[0.88] tracking-tight text-white drop-shadow-[0_18px_48px_rgba(0,0,0,0.72)]"
                 >
                   {word}
                 </motion.span>
@@ -172,7 +228,7 @@ export default function Hero() {
                 variants={wordVariant}
                 initial={shouldReduce ? "show" : "hidden"}
                 animate="show"
-                className="font-heading block text-[clamp(48px,9vw,108px)] font-black leading-[0.88] tracking-tight bg-gradient-to-r from-[#EC4899] via-[#F472B6] to-[#06B6D4] bg-clip-text text-transparent"
+                className="font-heading block text-[clamp(48px,9vw,108px)] font-black leading-[0.88] tracking-tight bg-gradient-to-r from-[#ff7ad1] via-[#d7a5ff] to-[#67e8f9] bg-clip-text text-transparent drop-shadow-[0_0_36px_rgba(236,72,153,0.62)]"
               >
                 DIGITAL
               </motion.span>
@@ -181,7 +237,7 @@ export default function Hero() {
                 variants={wordVariant}
                 initial={shouldReduce ? "show" : "hidden"}
                 animate="show"
-                className="font-heading block text-[clamp(48px,9vw,108px)] font-black leading-[0.88] tracking-tight text-gray-900 dark:text-white"
+                className="font-heading block text-[clamp(48px,9vw,108px)] font-black leading-[0.88] tracking-tight text-white drop-shadow-[0_18px_48px_rgba(0,0,0,0.72)]"
               >
                 PRODUCTS.
               </motion.span>
@@ -191,7 +247,7 @@ export default function Hero() {
             <motion.p
               variants={fadeIn(0.7)}
               initial="hidden" animate="show"
-              className="font-body text-gray-500 dark:text-white/50 text-base md:text-lg leading-relaxed max-w-lg mb-10"
+              className="font-body text-white/[0.72] text-base md:text-lg leading-relaxed max-w-lg mb-10 [text-wrap:balance] drop-shadow-[0_12px_34px_rgba(0,0,0,0.58)]"
             >
               From pixel-perfect websites to cross-platform mobile apps — we design, build,
               and scale digital experiences that drive real business growth.
@@ -206,16 +262,16 @@ export default function Hero() {
               <MagneticWrap>
                 <Link
                   href="/contact"
-                  className="group inline-flex items-center gap-2 px-7 py-3.5 bg-gradient-to-r from-[#EC4899] to-[#06B6D4] text-white rounded-full font-body font-semibold text-sm transition-opacity duration-200 hover:opacity-90 cursor-pointer shadow-[0_0_28px_rgba(236,72,153,0.4)]"
+                  className="group relative inline-flex items-center gap-2 overflow-hidden px-7 py-3.5 bg-gradient-to-r from-[#EC4899] via-[#F472B6] to-[#06B6D4] text-white rounded-full font-body font-semibold text-sm transition-all duration-300 hover:-translate-y-0.5 cursor-pointer shadow-[0_0_34px_rgba(236,72,153,0.36),0_18px_48px_rgba(6,182,212,0.16)] before:absolute before:inset-0 before:bg-[linear-gradient(110deg,transparent,rgba(255,255,255,0.38),transparent)] before:translate-x-[-120%] hover:before:translate-x-[120%] before:transition-transform before:duration-700"
                 >
-                  Start a project
-                  <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-200" />
+                  <span className="relative z-10">Start a project</span>
+                  <ArrowRight size={16} className="relative z-10 group-hover:translate-x-1 transition-transform duration-200" />
                 </Link>
               </MagneticWrap>
 
               <Link
                 href="/work"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-gray-200 dark:border-white/12 text-gray-600 dark:text-white/70 hover:border-[#EC4899]/50 hover:text-gray-900 dark:hover:text-white font-body font-medium text-sm transition-all duration-200 cursor-pointer backdrop-blur-sm"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/[0.16] bg-white/[0.07] text-white/[0.78] hover:border-[#67e8f9]/[0.45] hover:text-white font-body font-medium text-sm transition-all duration-300 hover:-translate-y-0.5 cursor-pointer backdrop-blur-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_16px_46px_rgba(0,0,0,0.28)]"
               >
                 View our work
               </Link>
@@ -229,10 +285,10 @@ export default function Hero() {
             >
               {STATS.map((s) => (
                 <div key={s.label}>
-                  <p className="font-heading text-2xl sm:text-3xl font-black text-gray-900 dark:text-white tabular-nums">
+                  <p className="font-heading text-2xl sm:text-3xl font-black text-white tabular-nums drop-shadow-[0_10px_26px_rgba(0,0,0,0.62)]">
                     <Counter to={s.num} suffix={s.suffix} />
                   </p>
-                  <p className="font-body text-[11px] text-gray-400 dark:text-white/35 mt-0.5 uppercase tracking-wider">{s.label}</p>
+                  <p className="font-body text-[11px] text-white/[0.42] mt-0.5 uppercase tracking-wider">{s.label}</p>
                 </div>
               ))}
             </motion.div>
@@ -246,7 +302,7 @@ export default function Hero() {
               {TECH.map((t) => (
                 <span
                   key={t}
-                  className="text-[10px] px-2.5 py-1 rounded-full border border-gray-200 dark:border-white/8 bg-gray-100 dark:bg-white/4 text-gray-400 dark:text-white/30 font-body tracking-wide"
+                  className="text-[10px] px-2.5 py-1 rounded-full border border-white/[0.11] bg-white/[0.055] text-white/[0.46] font-body tracking-wide backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]"
                 >
                   {t}
                 </span>
@@ -255,36 +311,72 @@ export default function Hero() {
           </div>
 
           {/* RIGHT — Desktop floating cards */}
-          <div className="relative h-[480px] lg:h-full min-h-[480px] hidden sm:block">
+          <div className="relative h-[480px] lg:h-full min-h-[480px] hidden sm:block [perspective:1100px]">
+            <motion.div
+              className="absolute left-[-8%] top-[8%] h-[28rem] w-[28rem] rounded-full bg-[radial-gradient(circle,rgba(6,182,212,0.2),rgba(236,72,153,0.12)_34%,transparent_72%)] blur-2xl"
+              animate={shouldReduce ? undefined : { opacity: [0.5, 0.9, 0.58], scale: [0.96, 1.08, 0.96] }}
+              transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
+              aria-hidden="true"
+            />
             {FLOATING_CARDS.map((card, i) => (
               <motion.div
                 key={card.title}
                 initial={{ opacity: 0, scale: 0.85, y: 24 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
+                whileHover={shouldReduce ? undefined : { y: -8, scale: 1.025 }}
                 transition={{ duration: 0.7, delay: i * 0.22 + 0.5, ease: EASE }}
-                className="absolute w-[200px] md:w-[218px]"
+                className="group absolute w-[200px] md:w-[218px] [transform-style:preserve-3d]"
                 style={{
                   top: card.top, right: card.right,
                   transform: `rotate(${card.rotate})`,
                   animation: shouldReduce ? undefined : `floatCard${i} ${4.8 + i * 0.7}s ease-in-out infinite`,
                 }}
               >
-                <div className="rounded-2xl overflow-hidden bg-white dark:bg-white/[0.045] backdrop-blur-xl border border-black/[0.08] dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.55)]">
+                <div className="relative rounded-2xl overflow-hidden bg-[#071023]/[0.46] backdrop-blur-[28px] border border-white/[0.18] shadow-[0_30px_90px_rgba(0,0,0,0.62),0_0_54px_rgba(6,182,212,0.16),inset_0_1px_0_rgba(255,255,255,0.14)] transition-all duration-300 group-hover:border-white/[0.34] group-hover:shadow-[0_34px_100px_rgba(0,0,0,0.68),0_0_72px_rgba(236,72,153,0.2),inset_0_1px_0_rgba(255,255,255,0.22)]">
+                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/90 to-transparent" />
+                  <div className="absolute inset-0 bg-[linear-gradient(125deg,rgba(255,255,255,0.16),transparent_32%,rgba(6,182,212,0.08)_62%,transparent)] opacity-80" />
                   <div className="relative h-[120px] overflow-hidden">
-                    <Image src={card.img} alt={card.title} fill sizes="218px" className="object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/65 to-transparent" />
+                    <Image src={card.img} alt={card.title} fill sizes="218px" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_115%,rgba(0,0,0,0.86),rgba(0,0,0,0.36)_42%,transparent_72%),linear-gradient(180deg,rgba(0,0,0,0.04),rgba(0,0,0,0.24)_56%,rgba(0,0,0,0.88))]" />
+                    <div className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" style={{ background: `radial-gradient(circle at 70% 20%, ${card.accent}40, transparent 45%)` }} />
                   </div>
-                  <div className="px-4 py-3">
-                    <div className="flex items-center gap-1.5 mb-2">
-                      <span style={{ color: card.accent }}>{card.icon}</span>
-                      <p className="font-heading text-[11px] font-semibold text-gray-900 dark:text-white truncate">{card.title}</p>
+                  <div className="relative px-4 py-3.5 bg-[linear-gradient(180deg,rgba(3,8,22,0.1),rgba(3,8,22,0.74)_42%,rgba(2,6,18,0.92))] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+                    <div className="absolute inset-x-0 -top-10 h-14 bg-[linear-gradient(180deg,transparent,rgba(3,8,22,0.82))]" />
+                    <div className="relative mb-2 flex items-center gap-2">
+                      <span
+                        className="inline-flex items-center gap-1.5 rounded-full border px-2 py-1 text-[8px] font-bold uppercase leading-none tracking-[0.22em] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] transition-all duration-300 group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.24)]"
+                        style={{
+                          borderColor: `${card.accent}55`,
+                          color: card.accent,
+                          background: `linear-gradient(135deg, ${card.accent}20, rgba(255,255,255,0.055))`,
+                          textShadow: `0 0 14px ${card.accent}88`,
+                        }}
+                      >
+                        <span style={{ color: card.accent, filter: `drop-shadow(0 0 7px ${card.accent})` }}>{card.icon}</span>
+                        {card.category}
+                      </span>
                     </div>
-                    <div className="flex gap-1.5 flex-wrap">
+                    <div className="relative mb-3">
+                      <p
+                        className="font-heading text-[15px] font-black leading-[1.02] tracking-[0.01em] text-white transition-all duration-300 group-hover:text-white md:text-[16px]"
+                        style={{
+                          textShadow: `0 1px 0 rgba(255,255,255,0.18), 0 10px 24px rgba(0,0,0,0.82), 0 0 18px ${card.accent}55`,
+                        }}
+                      >
+                        {card.title}
+                      </p>
+                      <div className="mt-1.5 h-px w-14 bg-gradient-to-r from-white/55 to-transparent shadow-[0_0_14px_rgba(255,255,255,0.3)]" />
+                    </div>
+                    <div className="relative flex gap-1.5 flex-wrap">
                       {card.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="text-[9px] px-2 py-0.5 rounded-full border font-body"
-                          style={{ borderColor: `${card.accent}35`, color: card.accent, background: `${card.accent}08` }}
+                          className="rounded-full border px-2.5 py-1 text-[9px] font-semibold leading-none tracking-[0.08em] text-white/[0.78] backdrop-blur-xl transition-all duration-300 group-hover:text-white"
+                          style={{
+                            borderColor: `${card.accent}42`,
+                            background: `linear-gradient(135deg, rgba(255,255,255,0.085), ${card.accent}12)`,
+                            boxShadow: `inset 0 1px 0 rgba(255,255,255,0.16), 0 0 16px ${card.accent}18`,
+                          }}
                         >
                           {tag}
                         </span>
@@ -292,7 +384,7 @@ export default function Hero() {
                     </div>
                   </div>
                 </div>
-                <div className="absolute -inset-1 rounded-2xl -z-10 blur-xl opacity-10 dark:opacity-15" style={{ background: card.accent }} />
+                <div className="absolute -inset-5 rounded-[2rem] -z-10 blur-2xl opacity-[0.46] transition-opacity duration-300 group-hover:opacity-[0.72]" style={{ background: `radial-gradient(circle, ${card.accent}70, rgba(6,182,212,0.22) 38%, transparent 72%)` }} />
               </motion.div>
             ))}
 
@@ -300,12 +392,12 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0 }} animate={{ opacity: 1 }}
               transition={{ duration: 1.5, delay: 0.4 }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full border border-[#EC4899]/[0.06] dark:border-[#EC4899]/8 pointer-events-none"
+              className="absolute top-1/2 left-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#EC4899]/[0.09] dark:border-[#EC4899]/[0.12] pointer-events-none shadow-[0_0_80px_rgba(236,72,153,0.08)]"
             />
             <motion.div
               initial={{ opacity: 0 }} animate={{ opacity: 1 }}
               transition={{ duration: 1.8, delay: 0.6 }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] h-[420px] rounded-full border border-[#06B6D4]/[0.04] dark:border-[#06B6D4]/5 pointer-events-none"
+              className="absolute top-1/2 left-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#06B6D4]/[0.07] dark:border-[#06B6D4]/10 pointer-events-none shadow-[0_0_110px_rgba(6,182,212,0.07)]"
             />
           </div>
         </div>
@@ -317,20 +409,47 @@ export default function Hero() {
           {FLOATING_CARDS.map((card) => (
             <div
               key={card.title}
-              className="snap-start shrink-0 w-[195px] rounded-xl overflow-hidden bg-white dark:bg-white/[0.045] backdrop-blur-xl border border-black/[0.08] dark:border-white/10 shadow-sm dark:shadow-none"
+              className="snap-start shrink-0 w-[195px] rounded-xl overflow-hidden bg-[#071023]/[0.5] backdrop-blur-2xl border border-white/[0.16] shadow-[0_18px_52px_rgba(0,0,0,0.42),0_0_36px_rgba(6,182,212,0.12)]"
             >
               <div className="relative h-[110px]">
                 <Image src={card.img} alt={card.title} fill sizes="195px" className="object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_115%,rgba(0,0,0,0.86),rgba(0,0,0,0.38)_42%,transparent_72%),linear-gradient(180deg,rgba(0,0,0,0.04),rgba(0,0,0,0.22)_56%,rgba(0,0,0,0.86))]" />
               </div>
-              <div className="px-3.5 py-2.5">
-                <div className="flex items-center gap-1.5 mb-1.5">
-                  <span style={{ color: card.accent }}>{card.icon}</span>
-                  <p className="font-heading text-[11px] font-semibold text-gray-900 dark:text-white truncate">{card.title}</p>
+              <div className="relative px-3.5 py-3 bg-[linear-gradient(180deg,rgba(3,8,22,0.12),rgba(3,8,22,0.76)_42%,rgba(2,6,18,0.92))] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+                <div className="absolute inset-x-0 -top-9 h-12 bg-[linear-gradient(180deg,transparent,rgba(3,8,22,0.82))]" />
+                <div className="relative mb-2 flex items-center gap-1.5">
+                  <span
+                    className="inline-flex items-center gap-1.5 rounded-full border px-2 py-1 text-[7.5px] font-bold uppercase leading-none tracking-[0.2em] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.16)]"
+                    style={{
+                      borderColor: `${card.accent}55`,
+                      color: card.accent,
+                      background: `linear-gradient(135deg, ${card.accent}20, rgba(255,255,255,0.055))`,
+                      textShadow: `0 0 12px ${card.accent}88`,
+                    }}
+                  >
+                    <span style={{ color: card.accent, filter: `drop-shadow(0 0 6px ${card.accent})` }}>{card.icon}</span>
+                    {card.category}
+                  </span>
                 </div>
-                <div className="flex gap-1.5">
+                <p
+                  className="relative mb-2.5 font-heading text-[14px] font-black leading-[1.02] tracking-[0.01em] text-white"
+                  style={{
+                    textShadow: `0 1px 0 rgba(255,255,255,0.18), 0 10px 22px rgba(0,0,0,0.82), 0 0 16px ${card.accent}55`,
+                  }}
+                >
+                  {card.title}
+                </p>
+                <div className="relative flex gap-1.5">
                   {card.tags.map((t) => (
-                    <span key={t} className="text-[9px] px-1.5 py-0.5 rounded-full border font-body" style={{ borderColor: `${card.accent}35`, color: card.accent }}>
+                    <span
+                      key={t}
+                      className="rounded-full border px-2 py-1 text-[8.5px] font-semibold leading-none tracking-[0.08em] text-white/[0.78] backdrop-blur-xl"
+                      style={{
+                        borderColor: `${card.accent}42`,
+                        background: `linear-gradient(135deg, rgba(255,255,255,0.085), ${card.accent}12)`,
+                        boxShadow: `inset 0 1px 0 rgba(255,255,255,0.16), 0 0 14px ${card.accent}18`,
+                      }}
+                    >
                       {t}
                     </span>
                   ))}
@@ -342,9 +461,9 @@ export default function Hero() {
       </div>
 
       {/* ── MARQUEE TICKER ── */}
-      <div className="relative z-10 border-t border-black/[0.06] dark:border-white/[0.06] overflow-hidden">
+      <div className="relative z-10 border-t border-white/[0.08] bg-black/[0.16] backdrop-blur-xl overflow-hidden">
         <div
-          className="flex whitespace-nowrap py-3.5 text-[10px] uppercase tracking-[0.22em] font-body text-gray-400 dark:text-white/20"
+          className="flex whitespace-nowrap py-3.5 text-[10px] uppercase tracking-[0.22em] font-body text-white/25"
           style={{ animation: "marqueeScroll 26s linear infinite" }}
         >
           {SERVICES.map((s, i) => (

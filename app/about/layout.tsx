@@ -8,13 +8,13 @@ export const metadata: Metadata = {
     title: "About Us | Luit Studio",
     description:
       "We build products with a clear focus on performance, usability, and real-world impact.",
-    images: [{ url: "/hero/abouthero.png", width: 1200, height: 630, alt: "About Luit Studio" }],
+    images: [{ url: "/about/about-hero-journey.png", width: 1200, height: 630, alt: "About Luit Studio" }],
   },
   twitter: {
     title: "About Us | Luit Studio",
     description:
       "We build products with a clear focus on performance, usability, and real-world impact.",
-    images: ["/hero/abouthero.png"],
+    images: ["/about/about-hero-journey.png"],
   },
   alternates: { canonical: "/about" },
 };

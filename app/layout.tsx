@@ -33,13 +33,13 @@ export const metadata: Metadata = {
     type: "website", locale: "en_US", url: SITE_URL, siteName: "Luit Studio",
     title: "Luit Studio — Digital Agency",
     description: "High-performance websites, apps, and digital marketing solutions built for scale.",
-    images: [{ url: "/hero/abouthero.png", width: 1200, height: 630, alt: "Luit Studio — Digital Agency" }],
+    images: [{ url: "/hero/cinematic-environment.png", width: 1200, height: 630, alt: "Luit Studio — Digital Agency" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Luit Studio — Digital Agency",
     description: "High-performance websites, apps, and digital marketing solutions built for scale.",
-    images: ["/hero/abouthero.png"],
+    images: ["/hero/cinematic-environment.png"],
     creator: "@luitstudio",
   },
   robots: {

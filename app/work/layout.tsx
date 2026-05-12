@@ -8,13 +8,13 @@ export const metadata: Metadata = {
     title: "Our Work | Luit Studio",
     description:
       "Real products for real businesses. Every project built with a focus on performance, design, and measurable results.",
-    images: [{ url: "/projects/dashboard.png", width: 1200, height: 630, alt: "Luit Studio Portfolio" }],
+    images: [{ url: "/projects/fintrack-cinematic-command-center-v2.webp", width: 1200, height: 630, alt: "Luit Studio Portfolio" }],
   },
   twitter: {
     title: "Our Work | Luit Studio",
     description:
       "Real products for real businesses. Every project built with a focus on performance, design, and measurable results.",
-    images: ["/projects/dashboard.png"],
+    images: ["/projects/fintrack-cinematic-command-center-v2.webp"],
   },
   alternates: { canonical: "/work" },
 };

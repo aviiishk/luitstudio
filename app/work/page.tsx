@@ -6,6 +6,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Footer from "@/components/layout/Footer";
+import { PROJECT_ARTWORK } from "@/lib/project-artwork";
 
 const ALL_PROJECTS = [
   {
@@ -14,7 +15,7 @@ const ALL_PROJECTS = [
     category: "Web App",
     tags: ["Next.js", "UI/UX", "Analytics"],
     description: "A real-time financial analytics platform with custom charting, role-based access, and live data feeds. Built for a fintech startup serving 50k+ users.",
-    img: "/projects/dashboard.png",
+    img: PROJECT_ARTWORK.fintrack,
     year: "2024",
     result: "2.4× faster load time",
     accent: "#EC4899",
@@ -25,7 +26,7 @@ const ALL_PROJECTS = [
     category: "Mobile App",
     tags: ["React Native", "Design", "iOS"],
     description: "Cross-platform mobile app delivering a seamless shopping experience across iOS and Android. Launched in 3 months from first wireframe.",
-    img: "/projects/app.png",
+    img: PROJECT_ARTWORK.nexmobile,
     year: "2024",
     result: "4.8★ App Store rating",
     accent: "#06B6D4",
@@ -36,7 +37,7 @@ const ALL_PROJECTS = [
     category: "SEO",
     tags: ["SEO", "Content", "Analytics"],
     description: "Full-stack SEO strategy combining technical audits, content architecture, and backlink campaigns. Delivered measurable growth in 90 days.",
-    img: "/projects/seo.png",
+    img: PROJECT_ARTWORK.rankboost,
     year: "2023",
     result: "3× organic traffic",
     accent: "#EC4899",
@@ -47,7 +48,7 @@ const ALL_PROJECTS = [
     category: "Social Media",
     tags: ["Branding", "Strategy", "Content"],
     description: "End-to-end social media campaign covering brand identity, content calendar, and paid distribution across Instagram, LinkedIn, and X.",
-    img: "/projects/socialmedia.png",
+    img: PROJECT_ARTWORK.brandwave,
     year: "2023",
     result: "10× engagement rate",
     accent: "#06B6D4",
@@ -161,25 +162,33 @@ export default function WorkPage() {
                   onMouseMove={tiltOn}
                   onMouseLeave={tiltOff}
                   style={{ transition: "transform 0.18s ease-out", willChange: "transform" }}
-                  className="group relative rounded-2xl overflow-hidden border bg-white shadow-sm border-gray-200 hover:border-gray-300 dark:bg-white/[0.025] dark:shadow-none dark:border-white/[0.08] dark:hover:border-white/[0.16] transition-colors duration-300 cursor-pointer"
+                  className="group relative rounded-[26px] overflow-hidden border bg-white shadow-[0_18px_70px_rgba(15,23,42,0.08)] border-gray-200/80 hover:border-gray-300 dark:bg-[#090a13] dark:shadow-[0_28px_90px_rgba(0,0,0,0.38)] dark:border-white/[0.1] dark:hover:border-white/[0.22] transition-all duration-300 cursor-pointer"
                 >
+                  <div
+                    aria-hidden="true"
+                    className="absolute -inset-10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-80"
+                    style={{ background: `radial-gradient(circle at 50% 18%, ${project.accent}26, transparent 58%)` }}
+                  />
+                  <div className="absolute inset-x-6 top-0 z-20 h-px bg-gradient-to-r from-transparent via-white/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   {/* Image */}
-                  <div className="relative h-[240px] sm:h-[280px] overflow-hidden">
+                  <div className="relative h-[260px] sm:h-[320px] overflow-hidden bg-[#050713]">
                     <Image
                       src={project.img}
                       alt={project.title}
                       fill
                       sizes="(max-width:768px) 100vw, 50vw"
-                      className="object-cover opacity-65 group-hover:opacity-85 transition-all duration-500 group-hover:scale-[1.04]"
+                      className="object-cover opacity-100 saturate-[1.12] contrast-[1.06] brightness-[1.08] transition-all duration-700 group-hover:scale-[1.07]"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent" />
+                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,7,19,0)_0%,rgba(5,7,19,0.04)_42%,rgba(5,7,19,0.46)_82%,rgba(5,7,19,0.78)_100%)]" />
+                    <div className="absolute inset-0 shadow-[inset_0_0_46px_rgba(0,0,0,0.28),inset_0_-62px_76px_rgba(0,0,0,0.48)]" />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_115%,rgba(6,182,212,0.18),transparent_52%),radial-gradient(circle_at_15%_10%,rgba(236,72,153,0.14),transparent_38%)] mix-blend-screen" />
                     <div
-                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400"
-                      style={{ background: `radial-gradient(ellipse at 50% 80%, ${project.accent}18, transparent 70%)` }}
+                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                      style={{ background: `radial-gradient(ellipse at 50% 72%, ${project.accent}30, transparent 66%)` }}
                     />
 
                     {/* Year badge */}
-                    <span className="absolute top-4 left-4 bg-gray-900/8 backdrop-blur-sm border border-gray-900/12 text-gray-600 dark:bg-white/8 dark:border-white/12 dark:text-white/70 text-[10px] px-3 py-1 rounded-full font-body">
+                    <span className="absolute top-4 left-4 bg-black/30 backdrop-blur-xl border border-white/12 text-white/70 text-[10px] px-3 py-1 rounded-full font-body shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]">
                       {project.year}
                     </span>
 
@@ -198,7 +207,8 @@ export default function WorkPage() {
                   </div>
 
                   {/* Content */}
-                  <div className="p-5 sm:p-6">
+                  <div className="relative p-5 sm:p-6 bg-white dark:bg-[#080914]/95">
+                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
                     <div className="mb-3">
                       <p className="text-[10px] uppercase tracking-widest font-body font-medium mb-1.5" style={{ color: project.accent }}>
                         {project.category}
