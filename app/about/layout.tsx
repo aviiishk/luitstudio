@@ -1,22 +1,44 @@
 import type { Metadata } from "next";
+import { absoluteUrl, seoImages, siteConfig } from "@/lib/seo";
+
+const description =
+  "Meet Luit Studio, a Guwahati-based creative digital agency building fast websites, polished UI/UX, brand systems, and growth-focused digital products.";
 
 export const metadata: Metadata = {
   title: "About Us",
-  description:
-    "Meet the team behind Luit Studio. We build high-performance digital products — websites, apps, and marketing systems — that deliver real-world impact.",
+  description,
+  keywords: [
+    "creative agency guwahati",
+    "UI UX agency guwahati",
+    "branding agency guwahati",
+    "digital product studio guwahati",
+  ],
+  alternates: {
+    canonical: absoluteUrl("/about"),
+  },
   openGraph: {
+    type: "website",
+    locale: siteConfig.locale,
+    url: absoluteUrl("/about"),
+    siteName: siteConfig.name,
     title: "About Us | Luit Studio",
-    description:
-      "We build products with a clear focus on performance, usability, and real-world impact.",
-    images: [{ url: "/about/about-hero-journey.png", width: 1200, height: 630, alt: "About Luit Studio" }],
+    description,
+    images: [
+      {
+        url: seoImages.about,
+        width: 1200,
+        height: 630,
+        alt: "About Luit Studio, a creative digital agency in Guwahati",
+      },
+    ],
   },
   twitter: {
+    card: "summary_large_image",
+    creator: "@luitstudio",
     title: "About Us | Luit Studio",
-    description:
-      "We build products with a clear focus on performance, usability, and real-world impact.",
-    images: ["/about/about-hero-journey.png"],
+    description,
+    images: [seoImages.about],
   },
-  alternates: { canonical: "/about" },
 };
 
 export default function AboutLayout({ children }: { children: React.ReactNode }) {

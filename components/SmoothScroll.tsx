@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { motion, useScroll, useSpring } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
 import Lenis from "lenis";
 
 function ScrollProgress() {
@@ -20,21 +20,37 @@ function ScrollProgress() {
 }
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
+  const shouldReduce = useReducedMotion();
+
   useEffect(() => {
-    const lenis = new Lenis({ lerp: 0.08 });
-    function raf(time: number) { lenis.raf(time); requestAnimationFrame(raf); }
-    requestAnimationFrame(raf);
-    return () => lenis.destroy();
-  }, []);
+    const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+    if (shouldReduce || coarsePointer) return;
+
+    const lenis = new Lenis({
+      lerp: 0.075,
+      wheelMultiplier: 0.85,
+      touchMultiplier: 1,
+    });
+    let frame = 0;
+    function raf(time: number) {
+      lenis.raf(time);
+      frame = requestAnimationFrame(raf);
+    }
+    frame = requestAnimationFrame(raf);
+    return () => {
+      cancelAnimationFrame(frame);
+      lenis.destroy();
+    };
+  }, [shouldReduce]);
 
   return (
     <>
       <ScrollProgress />
       <div
         aria-hidden="true"
-        className="pointer-events-none fixed inset-0 z-[199] opacity-[0.028]"
+        className="pointer-events-none fixed inset-0 z-[199] hidden opacity-[0.022] md:block"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E")`,
           backgroundRepeat: "repeat",
         }}
       />

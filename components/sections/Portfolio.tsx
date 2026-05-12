@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { PROJECT_ARTWORK } from "@/lib/project-artwork";
+import { BLUR_DATA_URL } from "@/lib/site-images";
 
 const projects = [
   {
@@ -38,6 +39,7 @@ const projects = [
 ];
 
 function tiltOn(e: React.MouseEvent<HTMLDivElement>) {
+  if (window.innerWidth < 1024) return;
   const r = e.currentTarget.getBoundingClientRect();
   const x = (e.clientX - r.left) / r.width  - 0.5;
   const y = (e.clientY - r.top)  / r.height - 0.5;
@@ -102,11 +104,11 @@ export default function PortfolioSection() {
               onMouseMove={tiltOn}
               onMouseLeave={tiltOff}
               style={{ transition: "transform 0.16s ease-out", willChange: "transform" }}
-              className={`group relative rounded-[26px] overflow-hidden cursor-pointer border border-gray-200/80 dark:border-white/[0.1] hover:border-gray-300 dark:hover:border-white/[0.22] bg-white shadow-[0_18px_70px_rgba(15,23,42,0.08)] dark:bg-[#090a13] dark:shadow-[0_28px_90px_rgba(0,0,0,0.38)] transition-all duration-300 ${p.span}`}
+              className={`group relative rounded-[26px] overflow-hidden cursor-pointer border border-gray-200/80 dark:border-white/[0.1] hover:border-gray-300 dark:hover:border-white/[0.22] bg-white shadow-[0_14px_44px_rgba(15,23,42,0.07)] dark:bg-[#090a13] dark:shadow-[0_18px_54px_rgba(0,0,0,0.32)] transition-colors duration-300 ${p.span}`}
             >
               <div
                 aria-hidden="true"
-                className="absolute -inset-8 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-80"
+                className="absolute -inset-6 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-60"
                 style={{ background: `radial-gradient(circle at 50% 22%, ${p.accent}26, transparent 58%)` }}
               />
               <div className="absolute inset-x-6 top-0 z-20 h-px bg-gradient-to-r from-transparent via-white/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -115,10 +117,12 @@ export default function PortfolioSection() {
                 <Image
                   src={p.img} alt={p.title} fill
                   sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw"
+                  placeholder="blur"
+                  blurDataURL={BLUR_DATA_URL}
                   className="object-cover opacity-100 saturate-[1.12] contrast-[1.06] brightness-[1.08] transition-all duration-700 group-hover:scale-[1.07]"
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,7,19,0)_0%,rgba(5,7,19,0.04)_42%,rgba(5,7,19,0.46)_82%,rgba(5,7,19,0.78)_100%)]" />
-                <div className="absolute inset-0 shadow-[inset_0_0_46px_rgba(0,0,0,0.28),inset_0_-62px_76px_rgba(0,0,0,0.48)]" />
+                <div className="absolute inset-0 shadow-[inset_0_-48px_64px_rgba(0,0,0,0.44)]" />
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_115%,rgba(6,182,212,0.18),transparent_52%),radial-gradient(circle_at_15%_10%,rgba(236,72,153,0.14),transparent_38%)] mix-blend-screen" />
                 {/* Hover tint */}
                 <div
@@ -130,7 +134,7 @@ export default function PortfolioSection() {
                   {p.num}
                 </span>
                 {/* Arrow */}
-                <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/8 backdrop-blur-sm border border-white/12 flex items-center justify-center opacity-0 group-hover:opacity-100 -translate-y-1 group-hover:translate-y-0 transition-all duration-250">
+                <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 border border-white/12 flex items-center justify-center opacity-0 group-hover:opacity-100 -translate-y-1 group-hover:translate-y-0 transition-all duration-250">
                   <ArrowUpRight size={13} className="text-white" />
                 </div>
                 {/* Bottom info */}
@@ -154,7 +158,7 @@ export default function PortfolioSection() {
                 <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
                 {p.tags.map((tag) => (
                   <span key={tag}
-                    className="text-[10px] px-2.5 py-1 rounded-full bg-gray-100 dark:bg-white/[0.055] border border-gray-200 dark:border-white/10 text-gray-500 dark:text-white/48 font-body backdrop-blur-xl">
+                    className="text-[10px] px-2.5 py-1 rounded-full bg-gray-100 dark:bg-white/[0.055] border border-gray-200 dark:border-white/10 text-gray-500 dark:text-white/48 font-body">
                     {tag}
                   </span>
                 ))}

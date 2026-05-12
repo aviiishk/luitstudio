@@ -3,7 +3,8 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import Footer from "@/components/layout/Footer";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
+import { ABOUT_IMAGES, BLUR_DATA_URL } from "@/lib/site-images";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 60 },
@@ -19,12 +20,6 @@ const stagger = {
   show: { transition: { staggerChildren: 0.15 } },
 };
 
-const aboutImages = {
-  hero: "/about/about-hero-journey.png",
-  impact: "/about/about-impact-studio.png",
-  philosophy: "/about/about-philosophy-beacon.png",
-};
-
 function EditorialImageFrame({
   children,
   className = "",
@@ -36,15 +31,15 @@ function EditorialImageFrame({
 }) {
   return (
     <div
-      className={`group relative overflow-hidden rounded-[28px] border border-white/10 bg-[#08080f] shadow-[0_34px_120px_rgba(0,0,0,0.36)] ${className}`}
+      className={`group relative overflow-hidden rounded-[28px] border border-white/10 bg-[#08080f] shadow-[0_22px_70px_rgba(0,0,0,0.28)] ${className}`}
     >
       <div className="absolute -inset-px z-10 rounded-[28px] bg-[linear-gradient(135deg,rgba(236,72,153,0.38),transparent_28%,rgba(6,182,212,0.34)_70%,transparent)] opacity-70" />
       <div className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_25%_12%,rgba(236,72,153,0.24),transparent_34%),radial-gradient(circle_at_80%_32%,rgba(6,182,212,0.22),transparent_36%),linear-gradient(180deg,rgba(8,8,15,0)_42%,rgba(8,8,15,0.28)_100%)] mix-blend-screen" />
       <div
         className={`absolute inset-0 z-10 ${
           intensity === "hero"
-            ? "shadow-[inset_0_0_90px_rgba(8,8,15,0.50),inset_0_-90px_120px_rgba(8,8,15,0.58)]"
-            : "shadow-[inset_0_0_70px_rgba(8,8,15,0.52),inset_0_-70px_100px_rgba(8,8,15,0.58)]"
+            ? "shadow-[inset_0_-72px_96px_rgba(8,8,15,0.56)]"
+            : "shadow-[inset_0_-56px_82px_rgba(8,8,15,0.56)]"
         }`}
       />
       <div className="absolute inset-x-10 top-0 z-20 h-px bg-gradient-to-r from-transparent via-[#06B6D4]/80 to-transparent" />
@@ -67,7 +62,7 @@ function FloatingMetric({
       aria-hidden="true"
       animate={{ y: [0, -8, 0] }}
       transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-      className={`absolute z-30 hidden rounded-2xl border border-white/10 bg-[#10101a]/75 px-4 py-3 text-left shadow-[0_18px_50px_rgba(0,0,0,0.32)] backdrop-blur-xl sm:block ${className}`}
+      className={`absolute z-30 hidden rounded-2xl border border-white/10 bg-[#10101a]/80 px-4 py-3 text-left shadow-[0_14px_34px_rgba(0,0,0,0.28)] sm:block ${className}`}
     >
       <p className="font-body text-[10px] uppercase tracking-[0.22em] text-white/35">{label}</p>
       <p className="mt-1 font-heading text-sm font-bold text-white">{value}</p>
@@ -76,14 +71,11 @@ function FloatingMetric({
 }
 
 export default function AboutPage() {
-  const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 1000], [0, -80]);
-
   return (
     <main className="bg-[#fafafa] dark:bg-[#08080f] text-gray-900 dark:text-white min-h-screen transition-colors duration-300">
       <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0">
-        <div className="absolute top-0 left-[-10%] w-[500px] h-[500px] bg-[#EC4899]/4 blur-[120px] rounded-full" />
-        <div className="absolute bottom-0 right-[-10%] w-[500px] h-[500px] bg-[#06B6D4]/4 blur-[120px] rounded-full" />
+        <div className="absolute top-0 left-[-10%] hidden h-[340px] w-[420px] rounded-full bg-[#EC4899]/4 blur-[76px] md:block" />
+        <div className="absolute bottom-0 right-[-10%] hidden h-[340px] w-[420px] rounded-full bg-[#06B6D4]/4 blur-[76px] md:block" />
       </div>
 
       <div className="relative z-10">
@@ -115,14 +107,16 @@ export default function AboutPage() {
             <motion.div variants={fadeUp} className="relative mt-14 md:mt-20" whileHover={{ scale: 1.01 }}>
               <FloatingMetric label="checkpoint" value="MVP to Scale" className="left-2 top-10" />
               <FloatingMetric label="signal" value="Impact + Growth" className="right-2 bottom-12" />
-              <div className="absolute -inset-8 -z-10 rounded-[36px] bg-[radial-gradient(circle_at_50%_16%,rgba(6,182,212,0.20),transparent_34%),radial-gradient(circle_at_64%_74%,rgba(236,72,153,0.18),transparent_38%)] blur-2xl" />
+              <div className="absolute -inset-6 -z-10 rounded-[36px] bg-[radial-gradient(circle_at_50%_16%,rgba(6,182,212,0.16),transparent_34%),radial-gradient(circle_at_64%_74%,rgba(236,72,153,0.14),transparent_38%)] blur-xl" />
               <EditorialImageFrame intensity="hero">
                 <Image
-                  src={aboutImages.hero}
+                  src={ABOUT_IMAGES.hero}
                   alt="Cinematic startup journey with builders climbing toward a glowing digital product summit"
                   width={1792}
                   height={1024}
                   priority
+                  placeholder="blur"
+                  blurDataURL={BLUR_DATA_URL}
                   sizes="(min-width: 1280px) 1120px, calc(100vw - 40px)"
                   className="aspect-[16/9] w-full object-cover"
                 />
@@ -148,14 +142,16 @@ export default function AboutPage() {
             </h2>
 
             <motion.div className="relative mt-10 md:mt-16" whileHover={{ y: -6, scale: 1.02 }}>
-              <div className="absolute -inset-6 -z-10 rounded-[34px] bg-[#06B6D4]/10 blur-2xl" />
+              <div className="absolute -inset-5 -z-10 rounded-[34px] bg-[#06B6D4]/8 blur-xl" />
               <EditorialImageFrame>
                 <Image
-                  src={aboutImages.impact}
+                  src={ABOUT_IMAGES.impact}
                   alt="Premium collaborative product studio with builders, floating dashboards and digital architecture"
                   width={1536}
                   height={1024}
                   sizes="(min-width: 768px) 520px, calc(100vw - 40px)"
+                  placeholder="blur"
+                  blurDataURL={BLUR_DATA_URL}
                   className="aspect-[4/3] w-full object-cover"
                 />
               </EditorialImageFrame>
@@ -219,16 +215,18 @@ export default function AboutPage() {
             </div>
           </motion.div>
 
-          <motion.div style={{ y }} className="relative flex justify-center md:justify-end mt-6 md:mt-0">
-            <div className="absolute -inset-6 -z-10 rounded-[34px] bg-[#EC4899]/10 blur-2xl" />
+          <motion.div variants={fadeUp} className="relative flex justify-center md:justify-end mt-6 md:mt-0">
+            <div className="absolute -inset-5 -z-10 rounded-[34px] bg-[#EC4899]/8 blur-xl" />
             <div className="w-full max-w-[560px]">
               <EditorialImageFrame>
                 <Image
-                  src={aboutImages.philosophy}
+                  src={ABOUT_IMAGES.philosophy}
                   alt="Futuristic lighthouse guiding product systems across a glowing digital ocean"
                   width={1536}
                   height={1024}
                   sizes="(min-width: 768px) 560px, calc(100vw - 40px)"
+                  placeholder="blur"
+                  blurDataURL={BLUR_DATA_URL}
                   className="aspect-[4/3] w-full object-cover"
                 />
               </EditorialImageFrame>

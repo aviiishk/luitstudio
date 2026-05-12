@@ -3,22 +3,23 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Footer from "@/components/layout/Footer";
+import { BLUR_DATA_URL, HERO_IMAGES, SERVICE_IMAGES } from "@/lib/site-images";
 
 const capabilities = [
-  { title: "Cloud Systems",  desc: "Scalable backend systems built for performance and reliability.",  img: "/services/cloud.png",      accent: "#06B6D4" },
-  { title: "Mobile First",   desc: "Optimized mobile-first experiences across all devices.",           img: "/services/mobile.jpg",     accent: "#EC4899" },
-  { title: "Analytics",      desc: "Data-driven insights for smarter business decisions.",             img: "/services/analytics.jpg",  accent: "#06B6D4" },
-  { title: "Automation",     desc: "Automate workflows and scale operations efficiently.",              img: "/services/automation.jpg", accent: "#EC4899" },
-  { title: "Security",       desc: "Enterprise-grade security and infrastructure design.",             img: "/services/security.jpg",   accent: "#06B6D4" },
+  { title: "Cloud Systems",  desc: "Scalable backend systems built for performance and reliability.",  img: SERVICE_IMAGES.cloud,      accent: "#06B6D4" },
+  { title: "Mobile First",   desc: "Optimized mobile-first experiences across all devices.",           img: SERVICE_IMAGES.mobile,     accent: "#EC4899" },
+  { title: "Analytics",      desc: "Data-driven insights for smarter business decisions.",             img: SERVICE_IMAGES.analytics,  accent: "#06B6D4" },
+  { title: "Automation",     desc: "Automate workflows and scale operations efficiently.",              img: SERVICE_IMAGES.automation, accent: "#EC4899" },
+  { title: "Security",       desc: "Enterprise-grade security and infrastructure design.",             img: SERVICE_IMAGES.security,   accent: "#06B6D4" },
 ];
 
 const services = [
-  { title: "Web Development",       img: "/services/code.png",      accent: "#EC4899" },
-  { title: "UI/UX Design",          img: "/services/uiux.png",      accent: "#06B6D4" },
-  { title: "SEO Optimization",      img: "/services/seo.png",       accent: "#EC4899" },
-  { title: "Social Media",          img: "/services/social.png",    accent: "#06B6D4" },
-  { title: "Performance Marketing", img: "/services/marketing.png", accent: "#EC4899" },
-  { title: "Branding",              img: "/services/branding.png",  accent: "#06B6D4" },
+  { title: "Web Development",       img: SERVICE_IMAGES.code,      accent: "#EC4899" },
+  { title: "UI/UX Design",          img: SERVICE_IMAGES.uiux,      accent: "#06B6D4" },
+  { title: "SEO Optimization",      img: SERVICE_IMAGES.seo,       accent: "#EC4899" },
+  { title: "Social Media",          img: SERVICE_IMAGES.social,    accent: "#06B6D4" },
+  { title: "Performance Marketing", img: SERVICE_IMAGES.marketing, accent: "#EC4899" },
+  { title: "Branding",              img: SERVICE_IMAGES.branding,  accent: "#06B6D4" },
 ];
 
 export default function ServicesPage() {
@@ -27,17 +28,20 @@ export default function ServicesPage() {
 
       {/* Ambient glows */}
       <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0">
-        <div className="absolute top-0 left-[-10%] w-[600px] h-[600px] bg-[#EC4899]/4 blur-[140px] rounded-full" />
-        <div className="absolute bottom-0 right-[-10%] w-[600px] h-[600px] bg-[#06B6D4]/4 blur-[140px] rounded-full" />
+        <div className="absolute top-0 left-[-10%] hidden h-[380px] w-[460px] rounded-full bg-[#EC4899]/4 blur-[80px] md:block" />
+        <div className="absolute bottom-0 right-[-10%] hidden h-[380px] w-[460px] rounded-full bg-[#06B6D4]/4 blur-[80px] md:block" />
       </div>
 
       {/* ── HERO ── */}
       <section className="relative h-[85vh] flex items-center justify-center">
         <Image
-          src="/hero/cinematic-environment.png"
+          src={HERO_IMAGES.cinematic}
           alt="Luit Studio services"
           fill
           priority
+          placeholder="blur"
+          blurDataURL={BLUR_DATA_URL}
+          sizes="100vw"
           className="object-cover opacity-40"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/90" />
@@ -101,7 +105,7 @@ export default function ServicesPage() {
               transition={{ duration: 0.8 }}
               className="relative h-[280px] sm:h-[360px] md:h-[420px] rounded-2xl overflow-hidden border border-gray-200 dark:border-white/[0.08]"
             >
-              <Image src="/services/code.png" alt="Web and app development" fill className="object-cover opacity-60" />
+              <Image src={SERVICE_IMAGES.code} alt="Web and app development" fill sizes="(max-width: 768px) 100vw, 50vw" placeholder="blur" blurDataURL={BLUR_DATA_URL} className="object-cover opacity-60" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
             </motion.div>
 
@@ -156,7 +160,7 @@ export default function ServicesPage() {
                 transition={{ duration: 0.8 }}
                 className={`relative h-[220px] sm:h-[340px] md:h-[440px] rounded-2xl overflow-hidden border border-gray-200 dark:border-white/[0.08] ${i % 2 === 1 ? "md:order-1" : ""}`}
               >
-                <Image src={item.img} alt={item.title} fill className="object-cover opacity-55" />
+                <Image src={item.img} alt={item.title} fill sizes="(max-width: 768px) 100vw, 50vw" placeholder="blur" blurDataURL={BLUR_DATA_URL} className="object-cover opacity-55" />
                 <div
                   className="absolute inset-0 opacity-20"
                   style={{ background: `radial-gradient(ellipse at 50% 100%, ${item.accent}40, transparent 70%)` }}
@@ -208,6 +212,9 @@ export default function ServicesPage() {
                     src={item.img}
                     alt={item.title}
                     fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    placeholder="blur"
+                    blurDataURL={BLUR_DATA_URL}
                     className="object-cover opacity-50 transition-all duration-500 group-hover:opacity-70 group-hover:scale-[1.04]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />

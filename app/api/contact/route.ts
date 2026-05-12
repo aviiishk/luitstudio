@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 const TO_EMAIL = "luitstudio.in@gmail.com";
 const FROM_EMAIL = "Luit Studio <hello@luitstudio.com>";
 
@@ -42,6 +41,17 @@ export async function POST(req: NextRequest) {
   };
 
   const serviceList = clean.services.length ? clean.services.join(", ") : "Not specified";
+  const apiKey = process.env.RESEND_API_KEY;
+
+  if (!apiKey) {
+    console.error("[contact] missing RESEND_API_KEY");
+    return NextResponse.json(
+      { error: "Contact form is not configured yet. Please email us directly." },
+      { status: 500 }
+    );
+  }
+
+  const resend = new Resend(apiKey);
 
   const { data, error } = await resend.emails.send({
     from:    FROM_EMAIL,

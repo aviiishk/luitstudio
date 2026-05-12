@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { CheckCircle, Loader2 } from "lucide-react";
 import Footer from "@/components/layout/Footer";
+import { BLUR_DATA_URL, HERO_IMAGES } from "@/lib/site-images";
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
@@ -65,8 +66,8 @@ export default function ContactPage() {
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-[#EC4899]/5 via-transparent to-[#06B6D4]/5 dark:from-[#EC4899]/10 dark:to-[#06B6D4]/10" />
-        <div className="absolute top-[-80px] left-[-80px] w-[400px] h-[400px] bg-[#EC4899]/10 dark:bg-[#EC4899]/20 blur-[100px] rounded-full" />
-        <div className="absolute bottom-[-80px] right-[-80px] w-[400px] h-[400px] bg-[#06B6D4]/10 dark:bg-[#06B6D4]/20 blur-[100px] rounded-full" />
+        <div className="absolute top-[-80px] left-[-80px] hidden h-[320px] w-[320px] rounded-full bg-[#EC4899]/10 blur-[64px] dark:bg-[#EC4899]/16 md:block" />
+        <div className="absolute bottom-[-80px] right-[-80px] hidden h-[320px] w-[320px] rounded-full bg-[#06B6D4]/10 blur-[64px] dark:bg-[#06B6D4]/16 md:block" />
       </div>
 
       <div className="relative z-10">
@@ -199,10 +200,12 @@ export default function ContactPage() {
               {/* ── VISUAL SIDE ── */}
               <div className="relative hidden md:block min-h-[500px]">
                 <Image
-                  src="/hero/contact-visual.png"
+                  src={HERO_IMAGES.contact}
                   alt="Contact Luit Studio"
                   fill
                   sizes="(min-width: 768px) 50vw, 100vw"
+                  placeholder="blur"
+                  blurDataURL={BLUR_DATA_URL}
                   className="object-cover"
                   priority
                 />

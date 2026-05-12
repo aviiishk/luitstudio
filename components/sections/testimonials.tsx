@@ -36,8 +36,8 @@ export default function TestimonialsSection() {
 
       {/* Background */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <div className="absolute top-[-20%] left-[-10%] w-[400px] h-[400px] bg-[#EC4899]/6 blur-[100px] rounded-full" />
-        <div className="absolute bottom-[-20%] right-[-10%] w-[400px] h-[400px] bg-[#06B6D4]/6 blur-[100px] rounded-full" />
+        <div className="absolute top-[-20%] left-[-10%] hidden h-[300px] w-[320px] rounded-full bg-[#EC4899]/5 blur-[64px] md:block" />
+        <div className="absolute bottom-[-20%] right-[-10%] hidden h-[300px] w-[320px] rounded-full bg-[#06B6D4]/5 blur-[64px] md:block" />
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-16 items-center">

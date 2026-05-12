@@ -1,9 +1,21 @@
+import dynamic from "next/dynamic";
 import Hero from "@/components/sections/Hero";
-import Footer from "@/components/layout/Footer";
-import Expertise from "@/components/sections/Expertise";
-import FeatureCarousel from "@/components/ui/feature-carousel";
-import TestimonialsSection from "@/components/sections/testimonials";
-import PortfolioSection from "@/components/sections/Portfolio";
+
+const Expertise = dynamic(() => import("@/components/sections/Expertise"), {
+  loading: () => <div className="h-24 bg-[#fafafa] dark:bg-[#08080f]" />,
+});
+const PortfolioSection = dynamic(() => import("@/components/sections/Portfolio"), {
+  loading: () => <div className="h-24 bg-[#fafafa] dark:bg-[#08080f]" />,
+});
+const FeatureCarousel = dynamic(() => import("@/components/ui/feature-carousel"), {
+  loading: () => <div className="h-24 bg-[#fafafa] dark:bg-[#08080f]" />,
+});
+const TestimonialsSection = dynamic(() => import("@/components/sections/testimonials"), {
+  loading: () => <div className="h-24 bg-[#fafafa] dark:bg-[#08080f]" />,
+});
+const Footer = dynamic(() => import("@/components/layout/Footer"), {
+  loading: () => <div className="h-24 bg-[#fafafa] dark:bg-[#08080f]" />,
+});
 
 export default function Home() {
   return (

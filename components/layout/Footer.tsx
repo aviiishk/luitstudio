@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Send, Check } from "lucide-react";
 import { FaInstagram, FaLinkedinIn, FaGithub, FaXTwitter } from "react-icons/fa6";
 
@@ -61,7 +61,7 @@ function NewsletterForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="your@email.com"
-            className="flex-1 min-w-0 rounded-xl border border-gray-300/[0.8] bg-white/[0.7] px-4 py-2.5 text-sm text-gray-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)] outline-none transition-all duration-300 placeholder:text-gray-500 focus:border-[#06B6D4]/[0.6] focus:shadow-[0_0_0_3px_rgba(6,182,212,0.12),inset_0_1px_0_rgba(255,255,255,0.8)] dark:border-white/[0.13] dark:bg-white/[0.06] dark:text-white dark:placeholder:text-white/[0.35] dark:focus:border-[#67E8F9]/[0.45] font-body backdrop-blur-xl"
+            className="flex-1 min-w-0 rounded-xl border border-gray-300/[0.8] bg-white/[0.7] px-4 py-2.5 text-sm text-gray-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)] outline-none transition-colors duration-300 placeholder:text-gray-500 focus:border-[#06B6D4]/[0.6] focus:shadow-[0_0_0_3px_rgba(6,182,212,0.12),inset_0_1px_0_rgba(255,255,255,0.8)] dark:border-white/[0.13] dark:bg-white/[0.06] dark:text-white dark:placeholder:text-white/[0.35] dark:focus:border-[#67E8F9]/[0.45] font-body md:backdrop-blur-sm"
           />
           <button
             type="submit"
@@ -81,6 +81,8 @@ function NewsletterForm() {
 }
 
 export default function Footer() {
+  const shouldReduce = useReducedMotion();
+
   return (
     <footer className="relative overflow-hidden bg-[#f6f8fc] text-gray-900 transition-colors duration-300 dark:bg-[#050713] dark:text-white">
 
@@ -88,16 +90,16 @@ export default function Footer() {
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#06B6D4]/[0.6] to-transparent shadow-[0_0_34px_rgba(6,182,212,0.35)]" />
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#06B6D4]/10 via-[#EC4899]/5 to-transparent dark:from-[#06B6D4]/12 dark:via-[#EC4899]/8" />
         <motion.div
-          className="absolute top-[-18%] left-[-12%] h-[34rem] w-[44rem] rounded-full bg-[radial-gradient(circle,rgba(236,72,153,0.18),rgba(139,92,246,0.1)_38%,transparent_72%)] blur-[90px]"
-          animate={{ x: [0, 26, 0], y: [0, 18, 0], opacity: [0.62, 0.9, 0.68] }}
+          className="absolute top-[-18%] left-[-12%] hidden h-[26rem] w-[34rem] rounded-full bg-[radial-gradient(circle,rgba(236,72,153,0.14),rgba(139,92,246,0.08)_38%,transparent_72%)] blur-[58px] md:block"
+          animate={shouldReduce ? undefined : { x: [0, 18, 0], y: [0, 12, 0], opacity: [0.56, 0.78, 0.58] }}
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute bottom-[-22%] right-[-12%] h-[34rem] w-[42rem] rounded-full bg-[radial-gradient(circle,rgba(6,182,212,0.2),rgba(59,130,246,0.1)_42%,transparent_74%)] blur-[92px]"
-          animate={{ x: [0, -24, 0], y: [0, -18, 0], opacity: [0.58, 0.92, 0.62] }}
+          className="absolute bottom-[-22%] right-[-12%] hidden h-[26rem] w-[34rem] rounded-full bg-[radial-gradient(circle,rgba(6,182,212,0.16),rgba(59,130,246,0.08)_42%,transparent_74%)] blur-[60px] md:block"
+          animate={shouldReduce ? undefined : { x: [0, -18, 0], y: [0, -12, 0], opacity: [0.54, 0.82, 0.58] }}
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
         />
-        <div className="absolute inset-x-[-18%] bottom-[19%] h-36 bg-[linear-gradient(90deg,transparent,rgba(6,182,212,0.12),rgba(236,72,153,0.12),transparent)] blur-[54px]" />
+        <div className="absolute inset-x-[-18%] bottom-[19%] hidden h-28 bg-[linear-gradient(90deg,transparent,rgba(6,182,212,0.1),rgba(236,72,153,0.1),transparent)] blur-[34px] md:block" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_36%,rgba(255,255,255,0.44)_80%,rgba(255,255,255,0.86)_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_38%,rgba(5,7,19,0.5)_78%,rgba(5,7,19,0.94)_100%)]" />
         <div className="absolute inset-0 opacity-[0.08] mix-blend-overlay dark:opacity-[0.13]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E\")" }} />
         <div
@@ -165,7 +167,7 @@ export default function Footer() {
               transition={{ duration: 0.65, delay: 0.2 }}
               className="shrink-0"
             >
-              <div className="bg-white/[0.74] dark:bg-white/[0.065] backdrop-blur-2xl border border-white/[0.8] dark:border-white/[0.14] rounded-2xl p-7 sm:p-8 min-w-[280px] sm:min-w-[320px] shadow-[0_24px_70px_rgba(15,23,42,0.12),inset_0_1px_0_rgba(255,255,255,0.72)] dark:shadow-[0_26px_80px_rgba(0,0,0,0.46),0_0_54px_rgba(6,182,212,0.1),inset_0_1px_0_rgba(255,255,255,0.12)]">
+              <div className="bg-white/[0.82] dark:bg-white/[0.07] md:backdrop-blur-xl border border-white/[0.8] dark:border-white/[0.14] rounded-2xl p-7 sm:p-8 min-w-[280px] sm:min-w-[320px] shadow-[0_18px_46px_rgba(15,23,42,0.1),inset_0_1px_0_rgba(255,255,255,0.72)] dark:shadow-[0_20px_58px_rgba(0,0,0,0.38),0_0_34px_rgba(6,182,212,0.08),inset_0_1px_0_rgba(255,255,255,0.12)]">
                 <div className="flex items-center gap-2 mb-5">
                   <span className="relative flex h-2.5 w-2.5">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-60" />
@@ -277,7 +279,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="group flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-white/[0.6] dark:bg-white/[0.055] border border-gray-300/[0.7] dark:border-white/[0.12] hover:border-[#EC4899]/[0.45] dark:hover:border-[#EC4899]/[0.45] hover:bg-white/[0.9] dark:hover:bg-white/[0.085] transition-all duration-300 cursor-pointer backdrop-blur-xl hover:-translate-y-0.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.58)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
+                  className="group flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-white/[0.65] dark:bg-white/[0.055] border border-gray-300/[0.7] dark:border-white/[0.12] hover:border-[#EC4899]/[0.45] dark:hover:border-[#EC4899]/[0.45] hover:bg-white/[0.9] dark:hover:bg-white/[0.085] transition-transform duration-300 cursor-pointer hover:-translate-y-0.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.58)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
                 >
                   <Icon size={14} className="text-gray-600 dark:text-white/[0.58] group-hover:text-[#EC4899] transition-all duration-300 group-hover:drop-shadow-[0_0_12px_rgba(236,72,153,0.45)]" />
                   <span className="font-body text-[11px] text-gray-600 dark:text-white/[0.56] group-hover:text-gray-950 dark:group-hover:text-white transition-colors duration-300">
@@ -315,7 +317,7 @@ export default function Footer() {
         <div className="absolute inset-x-0 top-1/2 h-24 -translate-y-1/2 bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.16),rgba(236,72,153,0.08)_42%,transparent_72%)] blur-2xl" />
         <motion.p
           className="absolute inset-x-0 top-1/2 -translate-y-1/2 font-heading font-black whitespace-nowrap px-5 sm:px-6 leading-none tracking-tight blur-[10px]"
-          animate={{ opacity: [0.12, 0.2, 0.12] }}
+          animate={shouldReduce ? undefined : { opacity: [0.12, 0.2, 0.12] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           style={{
             fontSize: "clamp(58px, 14vw, 198px)",

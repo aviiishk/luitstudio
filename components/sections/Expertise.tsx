@@ -10,6 +10,7 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import { PROJECT_ARTWORK } from "@/lib/project-artwork";
+import { BLUR_DATA_URL } from "@/lib/site-images";
 
 /* ─── Service data ──────────────────────────────────────── */
 const SERVICES = [
@@ -49,6 +50,7 @@ const SERVICES = [
 
 /* ─── Tilt handlers ─────────────────────────────────────── */
 function tiltOn(e: React.MouseEvent<HTMLElement>) {
+  if (window.innerWidth < 1024) return;
   const r = e.currentTarget.getBoundingClientRect();
   const x = (e.clientX - r.left) / r.width  - 0.5;
   const y = (e.clientY - r.top)  / r.height - 0.5;
@@ -73,7 +75,7 @@ function ServiceCard({ s, index }: { s: typeof SERVICES[number]; index: number }
       onMouseMove={tiltOn}
       onMouseLeave={tiltOff}
       style={{ transition: "transform 0.18s ease-out", willChange: "transform" }}
-      className={`group relative rounded-2xl overflow-hidden cursor-pointer border border-gray-200 dark:border-white/[0.08] hover:border-gray-300 dark:hover:border-white/[0.16] bg-white shadow-sm dark:bg-white/[0.03] dark:shadow-none hover:bg-gray-50 dark:hover:bg-white/[0.055] transition-all duration-300 ${
+      className={`group relative rounded-2xl overflow-hidden cursor-pointer border border-gray-200 dark:border-white/[0.08] hover:border-gray-300 dark:hover:border-white/[0.16] bg-white shadow-sm dark:bg-white/[0.03] dark:shadow-none hover:bg-gray-50 dark:hover:bg-white/[0.055] transition-colors duration-300 ${
         s.large ? "md:col-span-2" : ""
       }`}
     >
@@ -84,6 +86,8 @@ function ServiceCard({ s, index }: { s: typeof SERVICES[number]; index: number }
             <div className="relative h-[160px] sm:h-[180px] overflow-hidden shrink-0">
               <Image src={s.img} alt={s.title} fill
                 sizes="(max-width:768px) 100vw, 50vw"
+                placeholder="blur"
+                blurDataURL={BLUR_DATA_URL}
                 className="object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500 group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent" />
@@ -158,8 +162,8 @@ export default function ExpertiseSection() {
 
       {/* Ambient glows */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <div className="absolute top-0 left-0 w-[500px] h-[400px] bg-[#EC4899]/5 blur-[120px] rounded-full" />
-        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[#06B6D4]/5 blur-[100px] rounded-full" />
+        <div className="absolute top-0 left-0 hidden h-[320px] w-[380px] rounded-full bg-[#EC4899]/4 blur-[70px] md:block" />
+        <div className="absolute bottom-0 right-0 hidden h-[300px] w-[340px] rounded-full bg-[#06B6D4]/4 blur-[70px] md:block" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6">

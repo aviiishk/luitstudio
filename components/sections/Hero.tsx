@@ -6,6 +6,7 @@ import Link from "next/link";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { ArrowRight, Code2, Smartphone, Layers } from "lucide-react";
 import { PROJECT_ARTWORK } from "@/lib/project-artwork";
+import { BLUR_DATA_URL, HERO_IMAGES } from "@/lib/site-images";
 
 /* ─── Constants ─────────────────────────────────────────── */
 const EASE: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
@@ -99,13 +100,26 @@ function MagneticWrap({ children }: { children: React.ReactNode }) {
 export default function Hero() {
   const shouldReduce = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
+  const rafRef = useRef<number | null>(null);
 
   const onMouseMove = useCallback((e: React.MouseEvent) => {
+    if (window.innerWidth < 1024) return;
     const el = sectionRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
-    el.style.setProperty("--mx", `${e.clientX - rect.left}px`);
-    el.style.setProperty("--my", `${e.clientY - rect.top}px`);
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(() => {
+      el.style.setProperty("--mx", `${x}px`);
+      el.style.setProperty("--my", `${y}px`);
+    });
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
   }, []);
 
   return (
@@ -122,40 +136,42 @@ export default function Hero() {
           transition={{ duration: 28, repeat: Infinity, ease: "easeInOut" }}
         >
           <Image
-            src="/hero/cinematic-environment.png"
+            src={HERO_IMAGES.cinematic}
             alt=""
             fill
             priority
-            sizes="100vw"
+            placeholder="blur"
+            blurDataURL={BLUR_DATA_URL}
+            sizes="(max-width: 768px) 100vw, 100vw"
             className="object-cover object-center opacity-[0.88] saturate-[1.14] contrast-[1.08]"
           />
         </motion.div>
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,7,19,0.46)_0%,rgba(5,7,19,0.2)_28%,rgba(5,7,19,0.06)_54%,rgba(5,7,19,0.42)_100%),linear-gradient(180deg,rgba(5,7,19,0.2)_0%,rgba(5,7,19,0.08)_38%,rgba(5,7,19,0.72)_82%,#050713_100%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_24%_39%,rgba(244,114,182,0.26),transparent_26%),radial-gradient(circle_at_42%_42%,rgba(6,182,212,0.18),transparent_35%),radial-gradient(circle_at_70%_31%,rgba(139,92,246,0.28),transparent_28%)] mix-blend-screen" />
         <motion.div
-          className="absolute left-[5%] top-[20%] h-[42rem] w-[42rem] rounded-full bg-[radial-gradient(circle,rgba(255,204,179,0.28)_0%,rgba(236,72,153,0.16)_26%,rgba(6,182,212,0.08)_48%,transparent_72%)] blur-2xl mix-blend-screen"
+          className="absolute left-[5%] top-[20%] hidden h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(circle,rgba(255,204,179,0.22)_0%,rgba(236,72,153,0.13)_30%,rgba(6,182,212,0.07)_50%,transparent_72%)] blur-xl mix-blend-screen md:block"
           animate={shouldReduce ? undefined : { opacity: [0.7, 1, 0.78], scale: [1, 1.08, 1] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute right-[10%] top-[8%] h-[34rem] w-[30rem] rotate-[-18deg] bg-[linear-gradient(90deg,transparent,rgba(168,85,247,0.22),rgba(6,182,212,0.14),transparent)] blur-3xl mix-blend-screen"
+          className="absolute right-[10%] top-[8%] hidden h-[28rem] w-[24rem] rotate-[-18deg] bg-[linear-gradient(90deg,transparent,rgba(168,85,247,0.18),rgba(6,182,212,0.11),transparent)] blur-2xl mix-blend-screen lg:block"
           animate={shouldReduce ? undefined : { opacity: [0.45, 0.78, 0.5], x: [0, 24, 0] }}
           transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute inset-x-[-15%] bottom-[5%] h-[16rem] bg-[linear-gradient(90deg,transparent,rgba(6,182,212,0.22),rgba(236,72,153,0.2),transparent)] blur-[54px] opacity-75"
+          className="absolute inset-x-[-15%] bottom-[5%] hidden h-[12rem] bg-[linear-gradient(90deg,transparent,rgba(6,182,212,0.18),rgba(236,72,153,0.16),transparent)] blur-[34px] opacity-65 md:block"
           animate={shouldReduce ? undefined : { x: ["-4%", "4%", "-4%"], opacity: [0.55, 0.85, 0.62] }}
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute inset-x-[-20%] bottom-[13%] h-[11rem] bg-[radial-gradient(ellipse_at_center,rgba(198,219,255,0.2),rgba(93,108,180,0.12)_36%,transparent_72%)] blur-2xl"
+          className="absolute inset-x-[-20%] bottom-[13%] hidden h-[9rem] bg-[radial-gradient(ellipse_at_center,rgba(198,219,255,0.16),rgba(93,108,180,0.09)_36%,transparent_72%)] blur-xl md:block"
           animate={shouldReduce ? undefined : { x: ["5%", "-5%", "5%"], opacity: [0.44, 0.76, 0.48] }}
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
         />
         <div className="absolute inset-x-0 bottom-0 h-[38%] bg-[linear-gradient(180deg,transparent,rgba(5,7,19,0.52)_42%,#050713_100%)]" />
         <div className="absolute inset-0 opacity-[0.13] mix-blend-overlay" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E\")" }} />
         <div className="absolute inset-0 opacity-[0.34]" style={{ backgroundImage: "radial-gradient(circle at 14% 18%, rgba(255,255,255,0.68) 0 1px, transparent 1.6px), radial-gradient(circle at 74% 12%, rgba(6,182,212,0.48) 0 1px, transparent 1.8px), radial-gradient(circle at 54% 54%, rgba(236,72,153,0.38) 0 1px, transparent 1.6px)", backgroundSize: "180px 180px, 260px 260px, 220px 220px" }} />
-        {Array.from({ length: 14 }).map((_, i) => (
+        {Array.from({ length: 8 }).map((_, i) => (
           <motion.span
             key={i}
             className="absolute h-1 w-1 rounded-full bg-cyan-200/70 shadow-[0_0_16px_rgba(103,232,249,0.9)]"
@@ -169,7 +185,7 @@ export default function Hero() {
         ))}
         {/* Spotlight cursor */}
         <div
-          className="absolute inset-0 hidden md:block mix-blend-screen"
+          className="absolute inset-0 hidden lg:block mix-blend-screen"
           style={{
             background: "radial-gradient(620px circle at var(--mx, 50%) var(--my, 40%), rgba(6,182,212,0.22), rgba(236,72,153,0.13) 35%, transparent 72%)",
           }}
@@ -189,7 +205,7 @@ export default function Hero() {
           {/* LEFT — Text */}
           <div className="relative">
             <motion.div
-              className="absolute -left-20 top-8 -z-10 h-[34rem] w-[42rem] rounded-full bg-[radial-gradient(circle,rgba(6,182,212,0.18)_0%,rgba(236,72,153,0.14)_28%,rgba(5,7,19,0.34)_58%,transparent_76%)] blur-2xl"
+              className="absolute -left-20 top-8 -z-10 hidden h-[28rem] w-[34rem] rounded-full bg-[radial-gradient(circle,rgba(6,182,212,0.15)_0%,rgba(236,72,153,0.1)_30%,rgba(5,7,19,0.28)_58%,transparent_76%)] blur-xl md:block"
               animate={shouldReduce ? undefined : { opacity: [0.72, 1, 0.78], scale: [0.98, 1.05, 0.98] }}
               transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
               aria-hidden="true"
@@ -198,7 +214,7 @@ export default function Hero() {
             <motion.div
               variants={fadeIn(0.05)}
               initial="hidden" animate="show"
-              className="inline-flex items-center gap-2.5 mb-7 px-4 py-2 rounded-full border border-white/[0.16] bg-white/[0.07] backdrop-blur-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_18px_48px_rgba(6,182,212,0.16)]"
+              className="inline-flex items-center gap-2.5 mb-7 px-4 py-2 rounded-full border border-white/[0.16] bg-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_14px_34px_rgba(6,182,212,0.12)]"
             >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
@@ -210,7 +226,7 @@ export default function Hero() {
             </motion.div>
 
             {/* Headline */}
-            <div style={{ perspective: "1000px" }} className="mb-6 overflow-hidden">
+            <h1 style={{ perspective: "1000px" }} className="mb-6 overflow-hidden">
               {["WE", "BUILD"].map((word, i) => (
                 <motion.span
                   key={word}
@@ -230,8 +246,8 @@ export default function Hero() {
                 animate="show"
                 className="font-heading block text-[clamp(48px,9vw,108px)] font-black leading-[0.88] tracking-tight bg-gradient-to-r from-[#ff7ad1] via-[#d7a5ff] to-[#67e8f9] bg-clip-text text-transparent drop-shadow-[0_0_36px_rgba(236,72,153,0.62)]"
               >
-                DIGITAL
-              </motion.span>
+                  DIGITAL
+                </motion.span>
               <motion.span
                 custom={3}
                 variants={wordVariant}
@@ -241,7 +257,7 @@ export default function Hero() {
               >
                 PRODUCTS.
               </motion.span>
-            </div>
+            </h1>
 
             {/* Subheading */}
             <motion.p
@@ -262,7 +278,7 @@ export default function Hero() {
               <MagneticWrap>
                 <Link
                   href="/contact"
-                  className="group relative inline-flex items-center gap-2 overflow-hidden px-7 py-3.5 bg-gradient-to-r from-[#EC4899] via-[#F472B6] to-[#06B6D4] text-white rounded-full font-body font-semibold text-sm transition-all duration-300 hover:-translate-y-0.5 cursor-pointer shadow-[0_0_34px_rgba(236,72,153,0.36),0_18px_48px_rgba(6,182,212,0.16)] before:absolute before:inset-0 before:bg-[linear-gradient(110deg,transparent,rgba(255,255,255,0.38),transparent)] before:translate-x-[-120%] hover:before:translate-x-[120%] before:transition-transform before:duration-700"
+                  className="group relative inline-flex items-center gap-2 overflow-hidden px-7 py-3.5 bg-gradient-to-r from-[#EC4899] via-[#F472B6] to-[#06B6D4] text-white rounded-full font-body font-semibold text-sm transition-transform duration-300 hover:-translate-y-0.5 cursor-pointer shadow-[0_14px_34px_rgba(236,72,153,0.24),0_10px_32px_rgba(6,182,212,0.12)] before:absolute before:inset-0 before:bg-[linear-gradient(110deg,transparent,rgba(255,255,255,0.32),transparent)] before:translate-x-[-120%] hover:before:translate-x-[120%] before:transition-transform before:duration-700"
                 >
                   <span className="relative z-10">Start a project</span>
                   <ArrowRight size={16} className="relative z-10 group-hover:translate-x-1 transition-transform duration-200" />
@@ -271,7 +287,7 @@ export default function Hero() {
 
               <Link
                 href="/work"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/[0.16] bg-white/[0.07] text-white/[0.78] hover:border-[#67e8f9]/[0.45] hover:text-white font-body font-medium text-sm transition-all duration-300 hover:-translate-y-0.5 cursor-pointer backdrop-blur-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_16px_46px_rgba(0,0,0,0.28)]"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/[0.16] bg-white/[0.08] text-white/[0.78] hover:border-[#67e8f9]/[0.45] hover:text-white font-body font-medium text-sm transition-transform duration-300 hover:-translate-y-0.5 cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_12px_32px_rgba(0,0,0,0.22)]"
               >
                 View our work
               </Link>
@@ -302,7 +318,7 @@ export default function Hero() {
               {TECH.map((t) => (
                 <span
                   key={t}
-                  className="text-[10px] px-2.5 py-1 rounded-full border border-white/[0.11] bg-white/[0.055] text-white/[0.46] font-body tracking-wide backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]"
+                  className="text-[10px] px-2.5 py-1 rounded-full border border-white/[0.11] bg-white/[0.055] text-white/[0.46] font-body tracking-wide md:backdrop-blur-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]"
                 >
                   {t}
                 </span>
@@ -313,7 +329,7 @@ export default function Hero() {
           {/* RIGHT — Desktop floating cards */}
           <div className="relative h-[480px] lg:h-full min-h-[480px] hidden sm:block [perspective:1100px]">
             <motion.div
-              className="absolute left-[-8%] top-[8%] h-[28rem] w-[28rem] rounded-full bg-[radial-gradient(circle,rgba(6,182,212,0.2),rgba(236,72,153,0.12)_34%,transparent_72%)] blur-2xl"
+              className="absolute left-[-8%] top-[8%] h-[22rem] w-[22rem] rounded-full bg-[radial-gradient(circle,rgba(6,182,212,0.14),rgba(236,72,153,0.08)_38%,transparent_72%)] blur-xl"
               animate={shouldReduce ? undefined : { opacity: [0.5, 0.9, 0.58], scale: [0.96, 1.08, 0.96] }}
               transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
               aria-hidden="true"
@@ -325,18 +341,18 @@ export default function Hero() {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 whileHover={shouldReduce ? undefined : { y: -8, scale: 1.025 }}
                 transition={{ duration: 0.7, delay: i * 0.22 + 0.5, ease: EASE }}
-                className="group absolute w-[200px] md:w-[218px] [transform-style:preserve-3d]"
+                className="group absolute w-[200px] md:w-[218px] [transform-style:preserve-3d] will-change-transform"
                 style={{
                   top: card.top, right: card.right,
                   transform: `rotate(${card.rotate})`,
                   animation: shouldReduce ? undefined : `floatCard${i} ${4.8 + i * 0.7}s ease-in-out infinite`,
                 }}
               >
-                <div className="relative rounded-2xl overflow-hidden bg-[#071023]/[0.46] backdrop-blur-[28px] border border-white/[0.18] shadow-[0_30px_90px_rgba(0,0,0,0.62),0_0_54px_rgba(6,182,212,0.16),inset_0_1px_0_rgba(255,255,255,0.14)] transition-all duration-300 group-hover:border-white/[0.34] group-hover:shadow-[0_34px_100px_rgba(0,0,0,0.68),0_0_72px_rgba(236,72,153,0.2),inset_0_1px_0_rgba(255,255,255,0.22)]">
+                <div className="relative rounded-2xl overflow-hidden bg-[#071023]/[0.68] backdrop-blur-sm border border-white/[0.18] shadow-[0_22px_60px_rgba(0,0,0,0.48),0_0_34px_rgba(6,182,212,0.12),inset_0_1px_0_rgba(255,255,255,0.14)] transition-colors duration-300 group-hover:border-white/[0.30]">
                   <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/90 to-transparent" />
                   <div className="absolute inset-0 bg-[linear-gradient(125deg,rgba(255,255,255,0.16),transparent_32%,rgba(6,182,212,0.08)_62%,transparent)] opacity-80" />
                   <div className="relative h-[120px] overflow-hidden">
-                    <Image src={card.img} alt={card.title} fill sizes="218px" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <Image src={card.img} alt={card.title} fill sizes="218px" placeholder="blur" blurDataURL={BLUR_DATA_URL} className="object-cover transition-transform duration-700 group-hover:scale-105" />
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_115%,rgba(0,0,0,0.86),rgba(0,0,0,0.36)_42%,transparent_72%),linear-gradient(180deg,rgba(0,0,0,0.04),rgba(0,0,0,0.24)_56%,rgba(0,0,0,0.88))]" />
                     <div className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" style={{ background: `radial-gradient(circle at 70% 20%, ${card.accent}40, transparent 45%)` }} />
                   </div>
@@ -344,7 +360,7 @@ export default function Hero() {
                     <div className="absolute inset-x-0 -top-10 h-14 bg-[linear-gradient(180deg,transparent,rgba(3,8,22,0.82))]" />
                     <div className="relative mb-2 flex items-center gap-2">
                       <span
-                        className="inline-flex items-center gap-1.5 rounded-full border px-2 py-1 text-[8px] font-bold uppercase leading-none tracking-[0.22em] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] transition-all duration-300 group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.24)]"
+                        className="inline-flex items-center gap-1.5 rounded-full border px-2 py-1 text-[8px] font-bold uppercase leading-none tracking-[0.22em] shadow-[inset_0_1px_0_rgba(255,255,255,0.16)]"
                         style={{
                           borderColor: `${card.accent}55`,
                           color: card.accent,
@@ -371,11 +387,11 @@ export default function Hero() {
                       {card.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="rounded-full border px-2.5 py-1 text-[9px] font-semibold leading-none tracking-[0.08em] text-white/[0.78] backdrop-blur-xl transition-all duration-300 group-hover:text-white"
+                          className="rounded-full border px-2.5 py-1 text-[9px] font-semibold leading-none tracking-[0.08em] text-white/[0.78] transition-colors duration-300 group-hover:text-white"
                           style={{
                             borderColor: `${card.accent}42`,
                             background: `linear-gradient(135deg, rgba(255,255,255,0.085), ${card.accent}12)`,
-                            boxShadow: `inset 0 1px 0 rgba(255,255,255,0.16), 0 0 16px ${card.accent}18`,
+                            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.14)",
                           }}
                         >
                           {tag}
@@ -384,7 +400,7 @@ export default function Hero() {
                     </div>
                   </div>
                 </div>
-                <div className="absolute -inset-5 rounded-[2rem] -z-10 blur-2xl opacity-[0.46] transition-opacity duration-300 group-hover:opacity-[0.72]" style={{ background: `radial-gradient(circle, ${card.accent}70, rgba(6,182,212,0.22) 38%, transparent 72%)` }} />
+                <div className="absolute -inset-4 rounded-[2rem] -z-10 blur-xl opacity-[0.36] transition-opacity duration-300 group-hover:opacity-[0.52]" style={{ background: `radial-gradient(circle, ${card.accent}55, rgba(6,182,212,0.16) 38%, transparent 72%)` }} />
               </motion.div>
             ))}
 
@@ -409,17 +425,17 @@ export default function Hero() {
           {FLOATING_CARDS.map((card) => (
             <div
               key={card.title}
-              className="snap-start shrink-0 w-[195px] rounded-xl overflow-hidden bg-[#071023]/[0.5] backdrop-blur-2xl border border-white/[0.16] shadow-[0_18px_52px_rgba(0,0,0,0.42),0_0_36px_rgba(6,182,212,0.12)]"
+              className="snap-start shrink-0 w-[195px] rounded-xl overflow-hidden bg-[#071023]/[0.72] border border-white/[0.16] shadow-[0_14px_34px_rgba(0,0,0,0.34),0_0_24px_rgba(6,182,212,0.08)]"
             >
               <div className="relative h-[110px]">
-                <Image src={card.img} alt={card.title} fill sizes="195px" className="object-cover" />
+                <Image src={card.img} alt={card.title} fill sizes="195px" placeholder="blur" blurDataURL={BLUR_DATA_URL} className="object-cover" />
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_115%,rgba(0,0,0,0.86),rgba(0,0,0,0.38)_42%,transparent_72%),linear-gradient(180deg,rgba(0,0,0,0.04),rgba(0,0,0,0.22)_56%,rgba(0,0,0,0.86))]" />
               </div>
               <div className="relative px-3.5 py-3 bg-[linear-gradient(180deg,rgba(3,8,22,0.12),rgba(3,8,22,0.76)_42%,rgba(2,6,18,0.92))] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
                 <div className="absolute inset-x-0 -top-9 h-12 bg-[linear-gradient(180deg,transparent,rgba(3,8,22,0.82))]" />
                 <div className="relative mb-2 flex items-center gap-1.5">
                   <span
-                    className="inline-flex items-center gap-1.5 rounded-full border px-2 py-1 text-[7.5px] font-bold uppercase leading-none tracking-[0.2em] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.16)]"
+                    className="inline-flex items-center gap-1.5 rounded-full border px-2 py-1 text-[7.5px] font-bold uppercase leading-none tracking-[0.2em] shadow-[inset_0_1px_0_rgba(255,255,255,0.16)]"
                     style={{
                       borderColor: `${card.accent}55`,
                       color: card.accent,
@@ -443,11 +459,11 @@ export default function Hero() {
                   {card.tags.map((t) => (
                     <span
                       key={t}
-                      className="rounded-full border px-2 py-1 text-[8.5px] font-semibold leading-none tracking-[0.08em] text-white/[0.78] backdrop-blur-xl"
+                      className="rounded-full border px-2 py-1 text-[8.5px] font-semibold leading-none tracking-[0.08em] text-white/[0.78]"
                       style={{
                         borderColor: `${card.accent}42`,
                         background: `linear-gradient(135deg, rgba(255,255,255,0.085), ${card.accent}12)`,
-                        boxShadow: `inset 0 1px 0 rgba(255,255,255,0.16), 0 0 14px ${card.accent}18`,
+                        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.14)",
                       }}
                     >
                       {t}
@@ -461,7 +477,7 @@ export default function Hero() {
       </div>
 
       {/* ── MARQUEE TICKER ── */}
-      <div className="relative z-10 border-t border-white/[0.08] bg-black/[0.16] backdrop-blur-xl overflow-hidden">
+      <div className="relative z-10 border-t border-white/[0.08] bg-black/[0.18] md:backdrop-blur-sm overflow-hidden">
         <div
           className="flex whitespace-nowrap py-3.5 text-[10px] uppercase tracking-[0.22em] font-body text-white/25"
           style={{ animation: "marqueeScroll 26s linear infinite" }}

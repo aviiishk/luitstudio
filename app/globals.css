@@ -20,15 +20,14 @@
 }
 
 /* ─── Font families ─────────────────────────────────────── */
-/* Loaded via <link> in layout.tsx — no build-time network fetch */
 :root {
-  --font-body:    "Space Grotesk", system-ui, sans-serif;
-  --font-heading: "Archivo",       system-ui, sans-serif;
+  --font-body:    var(--font-space-grotesk), system-ui, sans-serif;
+  --font-heading: var(--font-archivo),       system-ui, sans-serif;
 }
 
 @theme {
-  --font-body:    "Space Grotesk", system-ui, sans-serif;
-  --font-heading: "Archivo",       system-ui, sans-serif;
+  --font-body:    var(--font-space-grotesk), system-ui, sans-serif;
+  --font-heading: var(--font-archivo),       system-ui, sans-serif;
   --font-display: "UnifrakturCook", cursive;
 }
 

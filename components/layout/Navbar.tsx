@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FiHome, FiInfo, FiMail, FiBriefcase } from "react-icons/fi";
+import { FiHome, FiInfo, FiMail, FiBriefcase, FiGrid } from "react-icons/fi";
 import ThemeToggle from "@/components/ThemeToggle";
 
 const navItems = [
   { label: "Home",    href: "/",        icon: FiHome      },
   { label: "Work",    href: "/work",    icon: FiBriefcase },
   { label: "About",   href: "/about",   icon: FiInfo      },
+  { label: "Services", href: "/services", icon: FiGrid    },
   { label: "Contact", href: "/contact", icon: FiMail      },
 ];
 
@@ -23,8 +24,8 @@ export default function Navbar() {
           bg-white/88 dark:bg-[#0d0d18]/85
           border border-black/[0.08] dark:border-white/[0.1]
           rounded-full px-1.5 py-1.5
-          shadow-[0_4px_24px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.5)]
-          backdrop-blur-xl"
+          shadow-[0_4px_18px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_24px_rgba(0,0,0,0.38)]
+          md:backdrop-blur-xl"
       >
         {navItems.map((item) => {
           const Icon = item.icon;

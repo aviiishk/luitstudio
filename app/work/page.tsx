@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import Footer from "@/components/layout/Footer";
 import { PROJECT_ARTWORK } from "@/lib/project-artwork";
+import { BLUR_DATA_URL } from "@/lib/site-images";
 
 const ALL_PROJECTS = [
   {
@@ -58,6 +58,7 @@ const ALL_PROJECTS = [
 const FILTERS = ["All", "Web App", "Mobile App", "SEO", "Social Media"];
 
 function tiltOn(e: React.MouseEvent<HTMLElement>) {
+  if (window.innerWidth < 1024) return;
   const r = e.currentTarget.getBoundingClientRect();
   const x = (e.clientX - r.left) / r.width  - 0.5;
   const y = (e.clientY - r.top)  / r.height - 0.5;
@@ -80,8 +81,8 @@ export default function WorkPage() {
 
       {/* Ambient glows */}
       <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0">
-        <div className="absolute top-0 left-[-10%] w-[500px] h-[500px] bg-[#EC4899]/4 blur-[120px] rounded-full" />
-        <div className="absolute bottom-0 right-[-10%] w-[500px] h-[500px] bg-[#06B6D4]/4 blur-[120px] rounded-full" />
+        <div className="absolute top-0 left-[-10%] hidden h-[340px] w-[420px] rounded-full bg-[#EC4899]/4 blur-[76px] md:block" />
+        <div className="absolute bottom-0 right-[-10%] hidden h-[340px] w-[420px] rounded-full bg-[#06B6D4]/4 blur-[76px] md:block" />
       </div>
 
       <div className="relative z-10">
@@ -162,11 +163,11 @@ export default function WorkPage() {
                   onMouseMove={tiltOn}
                   onMouseLeave={tiltOff}
                   style={{ transition: "transform 0.18s ease-out", willChange: "transform" }}
-                  className="group relative rounded-[26px] overflow-hidden border bg-white shadow-[0_18px_70px_rgba(15,23,42,0.08)] border-gray-200/80 hover:border-gray-300 dark:bg-[#090a13] dark:shadow-[0_28px_90px_rgba(0,0,0,0.38)] dark:border-white/[0.1] dark:hover:border-white/[0.22] transition-all duration-300 cursor-pointer"
+                  className="group relative rounded-[26px] overflow-hidden border bg-white shadow-[0_14px_44px_rgba(15,23,42,0.07)] border-gray-200/80 hover:border-gray-300 dark:bg-[#090a13] dark:shadow-[0_18px_54px_rgba(0,0,0,0.32)] dark:border-white/[0.1] dark:hover:border-white/[0.22] transition-colors duration-300 cursor-pointer"
                 >
                   <div
                     aria-hidden="true"
-                    className="absolute -inset-10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-80"
+                    className="absolute -inset-6 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-60"
                     style={{ background: `radial-gradient(circle at 50% 18%, ${project.accent}26, transparent 58%)` }}
                   />
                   <div className="absolute inset-x-6 top-0 z-20 h-px bg-gradient-to-r from-transparent via-white/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -177,10 +178,12 @@ export default function WorkPage() {
                       alt={project.title}
                       fill
                       sizes="(max-width:768px) 100vw, 50vw"
+                      placeholder="blur"
+                      blurDataURL={BLUR_DATA_URL}
                       className="object-cover opacity-100 saturate-[1.12] contrast-[1.06] brightness-[1.08] transition-all duration-700 group-hover:scale-[1.07]"
                     />
                     <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,7,19,0)_0%,rgba(5,7,19,0.04)_42%,rgba(5,7,19,0.46)_82%,rgba(5,7,19,0.78)_100%)]" />
-                    <div className="absolute inset-0 shadow-[inset_0_0_46px_rgba(0,0,0,0.28),inset_0_-62px_76px_rgba(0,0,0,0.48)]" />
+                    <div className="absolute inset-0 shadow-[inset_0_-48px_64px_rgba(0,0,0,0.44)]" />
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_115%,rgba(6,182,212,0.18),transparent_52%),radial-gradient(circle_at_15%_10%,rgba(236,72,153,0.14),transparent_38%)] mix-blend-screen" />
                     <div
                       className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
@@ -188,7 +191,7 @@ export default function WorkPage() {
                     />
 
                     {/* Year badge */}
-                    <span className="absolute top-4 left-4 bg-black/30 backdrop-blur-xl border border-white/12 text-white/70 text-[10px] px-3 py-1 rounded-full font-body shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]">
+                    <span className="absolute top-4 left-4 bg-black/36 border border-white/12 text-white/70 text-[10px] px-3 py-1 rounded-full font-body shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]">
                       {project.year}
                     </span>
 
@@ -201,7 +204,7 @@ export default function WorkPage() {
                     </span>
 
                     {/* Arrow */}
-                    <div className="absolute bottom-4 right-4 w-8 h-8 rounded-full bg-white/8 backdrop-blur-sm border border-white/12 flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-250">
+                    <div className="absolute bottom-4 right-4 w-8 h-8 rounded-full bg-white/10 border border-white/12 flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-250">
                       <ArrowUpRight size={13} className="text-white" />
                     </div>
                   </div>

@@ -3,8 +3,13 @@
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useRef } from "react";
 
-export default function Card3D({ item }: any) {
-  const ref = useRef<any>(null);
+type Card3DItem = {
+  title: string;
+  desc: string;
+};
+
+export default function Card3D({ item }: { item: Card3DItem }) {
+  const ref = useRef<HTMLDivElement>(null);
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -12,7 +17,8 @@ export default function Card3D({ item }: any) {
   const rotateX = useTransform(y, [-100, 100], [8, -8]);
   const rotateY = useTransform(x, [-100, 100], [-8, 8]);
 
-  const handleMove = (e: any) => {
+  const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!ref.current || window.innerWidth < 1024) return;
     const rect = ref.current.getBoundingClientRect();
     const px = e.clientX - rect.left - rect.width / 2;
     const py = e.clientY - rect.top - rect.height / 2;

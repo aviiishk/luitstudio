@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -12,11 +11,7 @@ interface Props {
 }
 
 export default function SocialIconKey({ href, icon, title }: Props) {
-  const [rotate, setRotate] = useState(0);
-
-  useEffect(() => {
-    setRotate(Math.floor(Math.random() * 10 - 5));
-  }, []);
+  const rotate = (title.charCodeAt(0) % 10) - 5;
 
   return (
     <motion.div
@@ -39,6 +34,7 @@ export default function SocialIconKey({ href, icon, title }: Props) {
             src={icon}
             alt={title}
             fill
+            sizes="110px"
             className="object-contain drop-shadow-[0_10px_15px_rgba(0,0,0,0.3)]"
           />
         </div>

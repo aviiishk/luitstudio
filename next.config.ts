@@ -1,12 +1,16 @@
 import type { NextConfig } from "next";
+import path from "node:path";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  outputFileTracingRoot: path.join(__dirname),
 
   // Image optimisation
   images: {
     formats: ["image/avif", "image/webp"],
+    deviceSizes: [360, 414, 640, 768, 1024, 1280, 1536],
+    imageSizes: [96, 128, 192, 256, 384],
     minimumCacheTTL: 31536000,
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com" },
