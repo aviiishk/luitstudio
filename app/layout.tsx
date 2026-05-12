@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import ThemeProvider from "@/components/ThemeProvider";
 import Navbar from "@/components/layout/Navbar";
@@ -38,6 +38,7 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   applicationName: siteConfig.name,
+  manifest: "/manifest.webmanifest",
   title: {
     default: "Luit Studio | Creative Digital Agency in Guwahati",
     template: "%s | Luit Studio",
@@ -49,7 +50,27 @@ export const metadata: Metadata = {
   publisher: siteConfig.name,
   category: "Digital agency",
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/icon.png?v=20260512", type: "image/png", sizes: "512x512" },
+      { url: "/icon-192.png?v=20260512", type: "image/png", sizes: "192x192" },
+      { url: "/icon-512.png?v=20260512", type: "image/png", sizes: "512x512" },
+    ],
+    shortcut: [{ url: "/favicon.ico?v=20260512" }],
+    apple: [
+      { url: "/apple-icon.png?v=20260512", type: "image/png", sizes: "180x180" },
+    ],
+    other: [
+      {
+        rel: "mask-icon",
+        url: "/safari-pinned-tab.svg?v=20260512",
+        color: "#082747",
+      },
+    ],
+  },
+  appleWebApp: {
+    capable: true,
+    title: siteConfig.name,
+    statusBarStyle: "black-translucent",
   },
   formatDetection: {
     email: false,
@@ -93,6 +114,14 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#e8d7b2" },
+    { media: "(prefers-color-scheme: dark)", color: "#082747" },
+  ],
+  colorScheme: "light dark",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

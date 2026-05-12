@@ -44,7 +44,7 @@ export const seoImages = {
   services: absoluteUrl(HERO_IMAGES.cinematic),
   work: absoluteUrl(PROJECT_ARTWORK.fintrack),
   contact: absoluteUrl(HERO_IMAGES.contact),
-  logo: absoluteUrl("/favicon.ico"),
+  logo: absoluteUrl("/icon-512.png"),
 } as const;
 
 export const defaultDescription =
