@@ -12,15 +12,17 @@ export default function ThemeToggle() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => { setMounted(true); }, []);
 
-  // Before mount render a neutral placeholder — prevents server/client mismatch
-  if (!mounted) {
-    return <button aria-label="Toggle theme" className={BTN_CLASS} />;
-  }
-
-  const isDark = theme === "dark";
+  // Before mount always treat as dark — matches the server's default theme ("dark")
+  // so server HTML and initial client render are identical → no hydration mismatch
+  const isDark = !mounted || theme === "dark";
 
   return (
-    <button onClick={toggle} aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"} className={BTN_CLASS}>
+    <button
+      onClick={toggle}
+      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      suppressHydrationWarning
+      className={BTN_CLASS}
+    >
       <AnimatePresence mode="wait" initial={false}>
         {isDark ? (
           <motion.span key="moon" initial={{ rotate: -30, opacity: 0, scale: 0.7 }} animate={{ rotate: 0, opacity: 1, scale: 1 }} exit={{ rotate: 30, opacity: 0, scale: 0.7 }} transition={{ duration: 0.2 }} className="absolute">
