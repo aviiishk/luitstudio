@@ -101,6 +101,7 @@ export default function Hero() {
   const shouldReduce = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const rafRef = useRef<number | null>(null);
+  const heroInView = useInView(sectionRef, { amount: 0.1 });
 
   const onMouseMove = useCallback((e: React.MouseEvent) => {
     if (window.innerWidth < 1024) return;
@@ -150,37 +151,37 @@ export default function Hero() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_24%_39%,rgba(244,114,182,0.26),transparent_26%),radial-gradient(circle_at_42%_42%,rgba(6,182,212,0.18),transparent_35%),radial-gradient(circle_at_70%_31%,rgba(139,92,246,0.28),transparent_28%)] mix-blend-screen" />
         <motion.div
           className="absolute left-[5%] top-[20%] hidden h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(circle,rgba(255,204,179,0.22)_0%,rgba(236,72,153,0.13)_30%,rgba(6,182,212,0.07)_50%,transparent_72%)] blur-xl mix-blend-screen md:block"
-          animate={shouldReduce ? undefined : { opacity: [0.7, 1, 0.78], scale: [1, 1.08, 1] }}
+          animate={shouldReduce || !heroInView ? undefined : { opacity: [0.7, 1, 0.78], scale: [1, 1.08, 1] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
           className="absolute right-[10%] top-[8%] hidden h-[28rem] w-[24rem] rotate-[-18deg] bg-[linear-gradient(90deg,transparent,rgba(168,85,247,0.18),rgba(6,182,212,0.11),transparent)] blur-2xl mix-blend-screen lg:block"
-          animate={shouldReduce ? undefined : { opacity: [0.45, 0.78, 0.5], x: [0, 24, 0] }}
+          animate={shouldReduce || !heroInView ? undefined : { opacity: [0.45, 0.78, 0.5], x: [0, 24, 0] }}
           transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
           className="absolute inset-x-[-15%] bottom-[5%] hidden h-[12rem] bg-[linear-gradient(90deg,transparent,rgba(6,182,212,0.18),rgba(236,72,153,0.16),transparent)] blur-[34px] opacity-65 md:block"
-          animate={shouldReduce ? undefined : { x: ["-4%", "4%", "-4%"], opacity: [0.55, 0.85, 0.62] }}
+          animate={shouldReduce || !heroInView ? undefined : { x: ["-4%", "4%", "-4%"], opacity: [0.55, 0.85, 0.62] }}
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
           className="absolute inset-x-[-20%] bottom-[13%] hidden h-[9rem] bg-[radial-gradient(ellipse_at_center,rgba(198,219,255,0.16),rgba(93,108,180,0.09)_36%,transparent_72%)] blur-xl md:block"
-          animate={shouldReduce ? undefined : { x: ["5%", "-5%", "5%"], opacity: [0.44, 0.76, 0.48] }}
+          animate={shouldReduce || !heroInView ? undefined : { x: ["5%", "-5%", "5%"], opacity: [0.44, 0.76, 0.48] }}
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
         />
         <div className="absolute inset-x-0 bottom-0 h-[38%] bg-[linear-gradient(180deg,transparent,rgba(5,7,19,0.52)_42%,#050713_100%)]" />
         <div className="absolute inset-0 opacity-[0.13] mix-blend-overlay" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E\")" }} />
         <div className="absolute inset-0 opacity-[0.34]" style={{ backgroundImage: "radial-gradient(circle at 14% 18%, rgba(255,255,255,0.68) 0 1px, transparent 1.6px), radial-gradient(circle at 74% 12%, rgba(6,182,212,0.48) 0 1px, transparent 1.8px), radial-gradient(circle at 54% 54%, rgba(236,72,153,0.38) 0 1px, transparent 1.6px)", backgroundSize: "180px 180px, 260px 260px, 220px 220px" }} />
-        {Array.from({ length: 8 }).map((_, i) => (
+        {heroInView && Array.from({ length: 4 }).map((_, i) => (
           <motion.span
             key={i}
             className="absolute h-1 w-1 rounded-full bg-cyan-200/70 shadow-[0_0_16px_rgba(103,232,249,0.9)]"
             style={{
-              left: `${10 + ((i * 17) % 82)}%`,
-              top: `${14 + ((i * 23) % 68)}%`,
+              left: `${14 + ((i * 22) % 72)}%`,
+              top: `${18 + ((i * 27) % 58)}%`,
             }}
-            animate={shouldReduce ? undefined : { y: [0, -18, 0], opacity: [0.12, 0.82, 0.18], scale: [0.7, 1.25, 0.7] }}
-            transition={{ duration: 7 + (i % 5), repeat: Infinity, delay: i * 0.45, ease: "easeInOut" }}
+            animate={shouldReduce ? undefined : { y: [0, -16, 0], opacity: [0.1, 0.75, 0.12], scale: [0.7, 1.2, 0.7] }}
+            transition={{ duration: 8 + i * 1.5, repeat: Infinity, delay: i * 0.6, ease: "easeInOut" }}
           />
         ))}
         {/* Spotlight cursor */}
@@ -206,7 +207,7 @@ export default function Hero() {
           <div className="relative">
             <motion.div
               className="absolute -left-20 top-8 -z-10 hidden h-[28rem] w-[34rem] rounded-full bg-[radial-gradient(circle,rgba(6,182,212,0.15)_0%,rgba(236,72,153,0.1)_30%,rgba(5,7,19,0.28)_58%,transparent_76%)] blur-xl md:block"
-              animate={shouldReduce ? undefined : { opacity: [0.72, 1, 0.78], scale: [0.98, 1.05, 0.98] }}
+              animate={shouldReduce || !heroInView ? undefined : { opacity: [0.72, 1, 0.78], scale: [0.98, 1.05, 0.98] }}
               transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
               aria-hidden="true"
             />
@@ -330,7 +331,7 @@ export default function Hero() {
           <div className="relative h-[480px] lg:h-full min-h-[480px] hidden sm:block [perspective:1100px]">
             <motion.div
               className="absolute left-[-8%] top-[8%] h-[22rem] w-[22rem] rounded-full bg-[radial-gradient(circle,rgba(6,182,212,0.14),rgba(236,72,153,0.08)_38%,transparent_72%)] blur-xl"
-              animate={shouldReduce ? undefined : { opacity: [0.5, 0.9, 0.58], scale: [0.96, 1.08, 0.96] }}
+              animate={shouldReduce || !heroInView ? undefined : { opacity: [0.5, 0.9, 0.58], scale: [0.96, 1.08, 0.96] }}
               transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
               aria-hidden="true"
             />
@@ -480,7 +481,7 @@ export default function Hero() {
       <div className="relative z-10 border-t border-white/[0.08] bg-black/[0.18] md:backdrop-blur-sm overflow-hidden">
         <div
           className="flex whitespace-nowrap py-3.5 text-[10px] uppercase tracking-[0.22em] font-body text-white/25"
-          style={{ animation: "marqueeScroll 26s linear infinite" }}
+          style={{ animation: "marqueeScroll 26s linear infinite", willChange: "transform" }}
         >
           {SERVICES.map((s, i) => (
             <span key={i} className="mr-10">

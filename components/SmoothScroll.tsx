@@ -26,19 +26,33 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
     if (shouldReduce || coarsePointer) return;
 
-    const lenis = new Lenis({
-      lerp: 0.075,
-      wheelMultiplier: 0.85,
-      touchMultiplier: 1,
-    });
+    const lenis = new Lenis({ lerp: 0.075, wheelMultiplier: 0.85 });
     let frame = 0;
+    let active = true;
+
     function raf(time: number) {
+      if (!active) return;
       lenis.raf(time);
       frame = requestAnimationFrame(raf);
     }
+
+    function onVisibility() {
+      if (document.hidden) {
+        active = false;
+        cancelAnimationFrame(frame);
+      } else {
+        active = true;
+        frame = requestAnimationFrame(raf);
+      }
+    }
+
     frame = requestAnimationFrame(raf);
+    document.addEventListener("visibilitychange", onVisibility);
+
     return () => {
+      active = false;
       cancelAnimationFrame(frame);
+      document.removeEventListener("visibilitychange", onVisibility);
       lenis.destroy();
     };
   }, [shouldReduce]);

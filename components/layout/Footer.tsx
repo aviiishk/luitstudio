@@ -315,10 +315,8 @@ export default function Footer() {
       {/* ══ BRAND TEXT ═════════════════════════════ */}
       <div className="relative z-10 overflow-hidden py-8 sm:py-12 select-none [mask-image:linear-gradient(90deg,transparent,black_10%,black_90%,transparent)]" aria-hidden="true">
         <div className="absolute inset-x-0 top-1/2 h-24 -translate-y-1/2 bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.16),rgba(236,72,153,0.08)_42%,transparent_72%)] blur-2xl" />
-        <motion.p
-          className="absolute inset-x-0 top-1/2 -translate-y-1/2 font-heading font-black whitespace-nowrap px-5 sm:px-6 leading-none tracking-tight blur-[10px]"
-          animate={shouldReduce ? undefined : { opacity: [0.12, 0.2, 0.12] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        <p
+          className="absolute inset-x-0 top-1/2 -translate-y-1/2 font-heading font-black whitespace-nowrap px-5 sm:px-6 leading-none tracking-tight opacity-[0.15]"
           style={{
             fontSize: "clamp(58px, 14vw, 198px)",
             background: "linear-gradient(90deg, rgba(236,72,153,0.55), rgba(6,182,212,0.55), rgba(244,114,182,0.55))",
@@ -328,7 +326,7 @@ export default function Footer() {
           }}
         >
           LUIT STUDIO
-        </motion.p>
+        </p>
         <p
           className="relative font-heading font-black whitespace-nowrap px-5 sm:px-6 leading-none tracking-[-0.03em]"
           style={{

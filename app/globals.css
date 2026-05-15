@@ -77,7 +77,7 @@ body {
   0%, 100% { transform: translateY(0px); }
   50%       { transform: translateY(-6px); }
 }
-.float { animation: floaty 3s ease-in-out infinite; }
+.float { animation: floaty 3s ease-in-out infinite; will-change: transform; }
 
 @keyframes borderMove {
   0%   { background-position: 0% 50%; }

@@ -143,8 +143,8 @@ export default function FeatureCarousel() {
               >
                 <motion.div
                   className="absolute inset-0"
-                  animate={shouldReduce ? { scale: 1.04 } : { scale: [1.04, 1.08], x: [0, -8], y: [0, 5] }}
-                  transition={{ duration: 10, ease: "easeInOut", repeat: shouldReduce ? 0 : Infinity, repeatType: "reverse" }}
+                  animate={shouldReduce || !isInView ? { scale: 1.04 } : { scale: [1.04, 1.08], x: [0, -8], y: [0, 5] }}
+                  transition={{ duration: 10, ease: "easeInOut", repeat: shouldReduce || !isInView ? 0 : Infinity, repeatType: "reverse" }}
                 >
                   <Image
                     src={activeFeature.image}
@@ -158,7 +158,7 @@ export default function FeatureCarousel() {
                 </motion.div>
                 <motion.div
                   className="absolute inset-x-[-12%] bottom-[12%] hidden h-24 bg-[linear-gradient(90deg,transparent,rgba(6,182,212,0.14),rgba(236,72,153,0.1),transparent)] blur-[28px] md:block"
-                  animate={shouldReduce ? undefined : { x: ["-3%", "3%", "-3%"], opacity: [0.42, 0.7, 0.46] }}
+                  animate={shouldReduce || !isInView ? undefined : { x: ["-3%", "3%", "-3%"], opacity: [0.42, 0.7, 0.46] }}
                   transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
                 />
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_22%,rgba(6,182,212,0.16),transparent_30%),radial-gradient(circle_at_30%_34%,rgba(236,72,153,0.1),transparent_34%),linear-gradient(90deg,rgba(5,7,19,0.42),rgba(5,7,19,0.04)_46%,rgba(5,7,19,0.24)),linear-gradient(180deg,rgba(5,7,19,0.04),rgba(5,7,19,0.22)_50%,rgba(0,0,0,0.92))]" />
