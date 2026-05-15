@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { FiHome, FiInfo, FiMail, FiBriefcase, FiGrid, FiStar } from "react-icons/fi";
+import { FiHome, FiInfo, FiMail, FiBriefcase, FiGrid, FiStar, FiBookOpen } from "react-icons/fi";
 import ThemeToggle from "@/components/ThemeToggle";
 
 const navItems = [
@@ -11,6 +11,7 @@ const navItems = [
   { label: "Work",     href: "/work",     icon: FiBriefcase },
   { label: "About",    href: "/about",    icon: FiInfo      },
   { label: "Services", href: "/services", icon: FiGrid      },
+  { label: "Blog",     href: "/blog",     icon: FiBookOpen  },
   { label: "Contact",  href: "/contact",  icon: FiMail      },
   { label: "Intern",   href: "/intern",   icon: FiStar      },
 ];

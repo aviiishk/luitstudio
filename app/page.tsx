@@ -1,5 +1,7 @@
+import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import Hero from "@/components/sections/Hero";
+import BlogPreview from "@/components/sections/BlogPreview";
 
 const Expertise = dynamic(() => import("@/components/sections/Expertise"), {
   loading: () => <div className="h-24 bg-[#fafafa] dark:bg-[#08080f]" />,
@@ -25,6 +27,9 @@ export default function Home() {
       <PortfolioSection />
       <FeatureCarousel />
       <TestimonialsSection />
+      <Suspense fallback={<div className="h-24 bg-[#fafafa] dark:bg-[#08080f]" />}>
+        <BlogPreview />
+      </Suspense>
       <Footer />
     </main>
   );
