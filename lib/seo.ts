@@ -5,7 +5,7 @@ export const siteConfig = {
   name: "Luit Studio",
   legalName: "Luit Studio",
   url: "https://luitstudio.com",
-  email: "hello@luitstudio.com",
+  email: "luitstudio.in@gmail.com",
   locale: "en_US",
   location: {
     locality: "Guwahati",

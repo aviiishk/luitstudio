@@ -206,7 +206,7 @@ export default function Footer({ variant = "agency" }: FooterProps) {
                 </Link>
 
                 <p className="text-center text-[11px] text-gray-400 dark:text-white/[0.32] font-body mt-4">
-                  hello@luitstudio.com
+                  luitstudio.in@gmail.com
                 </p>
               </div>
             </motion.div>
@@ -310,11 +310,11 @@ export default function Footer({ variant = "agency" }: FooterProps) {
                 Get in touch
               </p>
               <a
-                href="mailto:hello@luitstudio.com"
+                href="mailto:luitstudio.in@gmail.com"
                 className="flex items-center gap-1.5 font-body text-sm text-gray-600 dark:text-white/[0.62] hover:text-[#EC4899] transition-colors duration-300"
               >
                 <ArrowUpRight size={13} className="shrink-0" />
-                hello@luitstudio.com
+                luitstudio.in@gmail.com
               </a>
               <Link
                 href={footerCopyVariant === "internship" ? "/intern#application-form" : "/contact"}

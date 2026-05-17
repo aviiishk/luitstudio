@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
 const TO_EMAIL = "luitstudio.in@gmail.com";
-const FROM_EMAIL = "Luit Studio <hello@luitstudio.com>";
+const FROM_EMAIL = "Luit Studio <luitstudio.in@gmail.com>";
 
 interface ContactPayload {
   name: string;
