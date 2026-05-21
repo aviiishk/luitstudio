@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import type { ReactNode } from "react";
@@ -42,7 +42,7 @@ function EditorialImageFrame({
             : "shadow-[inset_0_-56px_82px_rgba(8,8,15,0.56)]"
         }`}
       />
-      <div className="absolute inset-x-10 top-0 z-20 h-px bg-gradient-to-r from-transparent via-[#06B6D4]/80 to-transparent" />
+      <div className="absolute inset-x-10 top-0 z-20 h-px bg-linear-to-r from-transparent via-[#06B6D4]/80 to-transparent" />
       <div className="relative z-0">{children}</div>
     </div>
   );
@@ -74,17 +74,17 @@ export default function AboutPage() {
   return (
     <main className="bg-[#fafafa] dark:bg-[#08080f] text-gray-900 dark:text-white min-h-screen transition-colors duration-300">
       <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0">
-        <div className="absolute top-0 left-[-10%] hidden h-[340px] w-[420px] rounded-full bg-[#EC4899]/4 blur-[76px] md:block" />
-        <div className="absolute bottom-0 right-[-10%] hidden h-[340px] w-[420px] rounded-full bg-[#06B6D4]/4 blur-[76px] md:block" />
+        <div className="absolute top-0 left-[-10%] hidden h-85 w-105 rounded-full bg-[#EC4899]/4 blur-[76px] md:block" />
+        <div className="absolute bottom-0 right-[-10%] hidden h-85 w-105 rounded-full bg-[#06B6D4]/4 blur-[76px] md:block" />
       </div>
 
       <div className="relative z-10">
         <section className="text-center pt-32 md:pt-36 pb-20 md:pb-28 px-5 sm:px-6 max-w-6xl mx-auto">
           <motion.div variants={stagger} initial="hidden" animate="show">
             <motion.div variants={fadeUp} className="flex items-center justify-center gap-3 mb-6">
-              <div className="h-px w-8 bg-gradient-to-r from-transparent to-[#EC4899]" />
+              <div className="h-px w-8 bg-linear-to-r from-transparent to-[#EC4899]" />
               <p className="font-body text-xs tracking-[0.28em] uppercase text-gray-400 dark:text-white/35">About</p>
-              <div className="h-px w-8 bg-gradient-to-r from-[#06B6D4] to-transparent" />
+              <div className="h-px w-8 bg-linear-to-r from-[#06B6D4] to-transparent" />
             </motion.div>
 
             <motion.h1
@@ -92,7 +92,7 @@ export default function AboutPage() {
               className="font-heading text-[36px] sm:text-[52px] md:text-[72px] lg:text-[88px] font-black tracking-tight leading-[0.92] text-gray-900 dark:text-white"
             >
               Hi, we&apos;re{" "}
-              <span className="bg-gradient-to-r from-[#EC4899] to-[#06B6D4] bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-[#EC4899] to-[#06B6D4] bg-clip-text text-transparent">
                 Luit Studios
               </span>
             </motion.h1>
@@ -118,7 +118,7 @@ export default function AboutPage() {
                   placeholder="blur"
                   blurDataURL={BLUR_DATA_URL}
                   sizes="(min-width: 1280px) 1120px, calc(100vw - 40px)"
-                  className="aspect-[16/9] w-full object-cover"
+                  className="aspect-video w-full object-cover"
                 />
               </EditorialImageFrame>
             </motion.div>
@@ -130,13 +130,13 @@ export default function AboutPage() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="px-5 sm:px-6 py-20 md:py-32 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 md:gap-20 items-start border-t border-gray-100 dark:border-white/[0.06]"
+          className="px-5 sm:px-6 py-20 md:py-32 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 md:gap-20 items-start border-t border-gray-100 dark:border-white/6"
         >
           <motion.div variants={fadeUp}>
             <h2 className="font-heading text-[28px] sm:text-[36px] md:text-[48px] font-black leading-[0.92] tracking-tight text-gray-900 dark:text-white">
               Built for real-world impact.
               <br />
-              <span className="bg-gradient-to-r from-[#EC4899] to-[#06B6D4] bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-[#EC4899] to-[#06B6D4] bg-clip-text text-transparent">
                 Not just visuals.
               </span>
             </h2>
@@ -152,7 +152,7 @@ export default function AboutPage() {
                   sizes="(min-width: 768px) 520px, calc(100vw - 40px)"
                   placeholder="blur"
                   blurDataURL={BLUR_DATA_URL}
-                  className="aspect-[4/3] w-full object-cover"
+                  className="aspect-4/3 w-full object-cover"
                 />
               </EditorialImageFrame>
             </motion.div>
@@ -177,11 +177,11 @@ export default function AboutPage() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="px-5 sm:px-6 py-20 md:py-32 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 md:gap-20 items-start border-t border-gray-100 dark:border-white/[0.06]"
+          className="px-5 sm:px-6 py-20 md:py-32 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 md:gap-20 items-start border-t border-gray-100 dark:border-white/6"
         >
           <motion.div variants={fadeUp}>
             <div className="flex items-center gap-3 mb-6">
-              <div className="h-px w-8 bg-gradient-to-r from-[#EC4899] to-transparent" />
+              <div className="h-px w-8 bg-linear-to-r from-[#EC4899] to-transparent" />
               <p className="font-body text-xs tracking-[0.28em] uppercase text-gray-400 dark:text-white/35">Our beliefs</p>
             </div>
             <h2 className="font-heading text-[28px] sm:text-[36px] md:text-[48px] font-black leading-[0.92] tracking-tight text-gray-900 dark:text-white mb-6">
@@ -203,13 +203,13 @@ export default function AboutPage() {
                   key={item.title}
                   variants={fadeUp}
                   whileHover={{ y: -4 }}
-                  className="group cursor-pointer p-4 rounded-xl border bg-white border-gray-200 shadow-sm hover:border-gray-300 dark:bg-white/[0.025] dark:border-white/[0.06] dark:shadow-none dark:hover:border-white/[0.12] transition-all duration-200"
+                  className="group cursor-pointer p-4 rounded-xl border bg-white border-gray-200 shadow-sm hover:border-gray-300 dark:bg-white/2.5 dark:border-white/6 dark:shadow-none dark:hover:border-white/12 transition-all duration-200"
                 >
                   <h3 className="font-heading font-bold text-base sm:text-lg mb-2 text-gray-900 dark:text-white">
                     {item.title}
                   </h3>
                   <p className="text-gray-500 dark:text-white/40 text-sm leading-relaxed font-body">{item.desc}</p>
-                  <div className="h-[1.5px] w-0 bg-gradient-to-r from-[#EC4899] to-[#06B6D4] mt-3 group-hover:w-10 transition-all duration-300" />
+                  <div className="h-[1.5px] w-0 bg-linear-to-r from-[#EC4899] to-[#06B6D4] mt-3 group-hover:w-10 transition-all duration-300" />
                 </motion.div>
               ))}
             </div>
@@ -217,7 +217,7 @@ export default function AboutPage() {
 
           <motion.div variants={fadeUp} className="relative flex justify-center md:justify-end mt-6 md:mt-0">
             <div className="absolute -inset-5 -z-10 rounded-[34px] bg-[#EC4899]/8 blur-xl" />
-            <div className="w-full max-w-[560px]">
+            <div className="w-full max-w-140">
               <EditorialImageFrame>
                 <Image
                   src={ABOUT_IMAGES.philosophy}
@@ -227,7 +227,7 @@ export default function AboutPage() {
                   sizes="(min-width: 768px) 560px, calc(100vw - 40px)"
                   placeholder="blur"
                   blurDataURL={BLUR_DATA_URL}
-                  className="aspect-[4/3] w-full object-cover"
+                  className="aspect-4/3 w-full object-cover"
                 />
               </EditorialImageFrame>
             </div>
@@ -239,23 +239,23 @@ export default function AboutPage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
-          className="py-20 md:py-32 px-5 sm:px-6 text-center border-t border-gray-100 dark:border-white/[0.06]"
+          className="py-20 md:py-32 px-5 sm:px-6 text-center border-t border-gray-100 dark:border-white/6"
         >
           <h2 className="font-heading text-[22px] sm:text-[32px] md:text-[44px] lg:text-[52px] font-black leading-[0.95] tracking-tight max-w-3xl mx-auto text-gray-900 dark:text-white">
             &ldquo;We think like product builders,
             <br />{" "}
-            <span className="bg-gradient-to-r from-[#EC4899] to-[#06B6D4] bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-[#EC4899] to-[#06B6D4] bg-clip-text text-transparent">
               not just designers.
             </span>&rdquo;
           </h2>
-          <div className="w-10 md:w-12 h-[2px] bg-gradient-to-r from-[#EC4899] to-[#06B6D4] mx-auto mt-8 rounded-full" />
+          <div className="w-10 md:w-12 h-0.5 bg-linear-to-r from-[#EC4899] to-[#06B6D4] mx-auto mt-8 rounded-full" />
         </motion.section>
 
-        <section className="px-5 sm:px-6 py-12 md:py-16 max-w-3xl mx-auto text-center border-t border-gray-100 dark:border-white/[0.06]">
-          <div className="rounded-2xl border bg-white border-gray-200 shadow-sm dark:bg-white/[0.025] dark:border-white/[0.08] dark:shadow-none p-8 sm:p-10 md:p-14 transition-colors duration-300">
+        <section className="px-5 sm:px-6 py-12 md:py-16 max-w-3xl mx-auto text-center border-t border-gray-100 dark:border-white/6">
+          <div className="rounded-2xl border bg-white border-gray-200 shadow-sm dark:bg-white/2.5 dark:border-white/8 dark:shadow-none p-8 sm:p-10 md:p-14 transition-colors duration-300">
             <h2 className="font-heading text-[24px] sm:text-[32px] md:text-[40px] font-black leading-[0.95] tracking-tight mb-4 text-gray-900 dark:text-white">
               Let&apos;s build something that{" "}
-              <span className="bg-gradient-to-r from-[#EC4899] to-[#06B6D4] bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-[#EC4899] to-[#06B6D4] bg-clip-text text-transparent">
                 stands out
               </span>
             </h2>
