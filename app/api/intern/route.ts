@@ -9,25 +9,28 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid request." }, { status: 400 });
   }
 
-  const { full_name, email, phone, college, course, year } = body as {
+  const { full_name, email, phone, college, course, year, utr } = body as {
     full_name: string; email: string; phone: string;
-    college: string; course: string; year: string;
+    college: string; course: string; year: string; utr: string;
   };
 
   if (!full_name?.trim() || !email?.trim() || !phone?.trim())
     return NextResponse.json({ error: "Name, email and phone are required." }, { status: 422 });
   if (!college?.trim() || !course?.trim() || !year?.trim())
     return NextResponse.json({ error: "Academic details are required." }, { status: 422 });
+  if (!utr?.trim() || utr.trim().length < 6)
+    return NextResponse.json({ error: "Please enter a valid UTR / transaction ID." }, { status: 422 });
 
   const { error } = await supabaseAdmin.from("intern_applications").insert({
-    full_name: full_name.trim().slice(0, 100),
-    email: email.trim().toLowerCase().slice(0, 200),
-    phone: phone.trim().slice(0, 20),
-    college: college.trim().slice(0, 200),
-    course: course.trim().slice(0, 100),
-    year: year.trim(),
-    skills: [],
-    why_join: "",
+    full_name:    full_name.trim().slice(0, 100),
+    email:        email.trim().toLowerCase().slice(0, 200),
+    phone:        phone.trim().slice(0, 20),
+    college:      college.trim().slice(0, 200),
+    course:       course.trim().slice(0, 100),
+    year:         year.trim(),
+    utr:          utr.trim().slice(0, 50),
+    skills:       [],
+    why_join:     "",
     portfolio_url: null,
   });
 

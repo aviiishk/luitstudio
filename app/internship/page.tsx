@@ -48,7 +48,8 @@ const BOTTOM_BAR = [
 ];
 
 const EASE: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
-const STEP_LABELS = ["Personal Info", "Academic Details"];
+const STEP_LABELS = ["Personal Info", "Academic Details", "Payment"];
+const UPI_ID = "abhishekkumarprasad03@okhdfcbank";
 const stepVariants = {
   enter:  (d: number) => ({ x: d * 24, opacity: 0 }),
   center: { x: 0, opacity: 1 },
@@ -64,6 +65,7 @@ function RegistrationForm() {
   const [form, setForm] = useState({
     full_name: "", email: "", phone: "",
     college: "", course: "", year: "",
+    utr: "",
   });
 
   const set   = (k: string, v: unknown) => setForm(p => ({ ...p, [k]: v }));
@@ -103,13 +105,13 @@ function RegistrationForm() {
       {/* Progress */}
       <div className="mb-5">
         <div className="flex items-center mb-2.5">
-          {[1, 2].map((n, idx) => (
+          {[1, 2, 3].map((n, idx) => (
             <div key={n} className="flex items-center flex-1 last:flex-none">
               <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-black border-2 transition-all duration-200 shrink-0 ${step >= n ? "border-[#1A1A1A] text-[#1A1A1A]" : "border-gray-300 text-gray-300"}`}
                 style={step >= n ? { background: YELLOW } : {}}>
                 {step > n ? <Check size={11} strokeWidth={3} /> : n}
               </div>
-              {idx < 1 && (
+              {idx < 2 && (
                 <div className="flex-1 mx-1.5 h-0.5 bg-gray-200 relative overflow-hidden">
                   <div className="absolute inset-0 bg-[#1A1A1A] transition-transform duration-300 origin-left"
                     style={{ transform: step > n ? "scaleX(1)" : "scaleX(0)" }} />
@@ -118,7 +120,7 @@ function RegistrationForm() {
             </div>
           ))}
         </div>
-        <p className="text-[11px] font-body font-bold text-gray-500 uppercase tracking-widest">{STEP_LABELS[step - 1]} · {step}/2</p>
+        <p className="text-[11px] font-body font-bold text-gray-500 uppercase tracking-widest">{STEP_LABELS[step - 1]} · {step}/3</p>
       </div>
 
       <div className="overflow-hidden min-h-52">
@@ -150,6 +152,47 @@ function RegistrationForm() {
                 </div>
               </div>
             )}
+            {step === 3 && (
+              <div className="space-y-3">
+                {/* 3-step guide */}
+                <div className="grid grid-cols-3 gap-2">
+                  {[
+                    { n: "1", label: "Scan QR",   bg: "white"  },
+                    { n: "2", label: "Pay ₹1,999", bg: "white"  },
+                    { n: "3", label: "Enter UTR",  bg: YELLOW   },
+                  ].map(s => (
+                    <div key={s.n} className="flex flex-col items-center gap-1.5 py-3 px-2 rounded-2xl border-2 border-[#1A1A1A] text-center"
+                      style={{ background: s.bg }}>
+                      <span className="w-5 h-5 rounded-full bg-[#1A1A1A] text-white text-[10px] font-black flex items-center justify-center shrink-0">{s.n}</span>
+                      <p className="font-body text-[10px] font-black text-[#1A1A1A] leading-tight">{s.label}</p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* QR image — centered, constrained */}
+                <div className="flex justify-center">
+                  <div className="w-52 rounded-2xl overflow-hidden border-2 border-[#1A1A1A] shadow-[3px_3px_0px_#1A1A1A]">
+                    <img src="/upi-qr.png" alt="Scan to pay ₹1,999" className="w-full" />
+                  </div>
+                </div>
+
+                {/* UTR input — highlighted box */}
+                <div className="rounded-2xl border-2 border-[#1A1A1A] overflow-hidden">
+                  <div className="px-4 py-2 border-b-2 border-[#1A1A1A]" style={{ background: YELLOW }}>
+                    <p className="font-body text-[11px] font-black text-[#1A1A1A] uppercase tracking-widest">
+                      After paying, enter below
+                    </p>
+                  </div>
+                  <div className="p-3 bg-white">
+                    <input className={inp + " text-base font-black tracking-wider"} placeholder="UTR / Transaction ID"
+                      value={form.utr} onChange={e => set("utr", e.target.value)} />
+                    <p className="font-body text-[10px] text-gray-400 mt-1.5">
+                      UPI app → Payment history → 12-digit reference number
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
           </motion.div>
         </AnimatePresence>
       </div>
@@ -165,10 +208,10 @@ function RegistrationForm() {
             ← Back
           </button>
         )}
-        {step < 2 ? (
+        {step < 3 ? (
           <button type="button" onClick={() => goTo(step + 1)}
             className="flex-1 py-3 rounded-xl border-2 border-[#1A1A1A] bg-[#1A1A1A] text-white font-body font-bold text-sm hover:opacity-90 transition-opacity cursor-pointer">
-            Continue →
+            {step === 2 ? "Proceed to Payment →" : "Continue →"}
           </button>
         ) : (
           <button type="button" onClick={handleSubmit} disabled={status === "loading"}
@@ -259,7 +302,7 @@ export default function InternshipPage() {
               {/* Stats */}
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.25 }}
                 className="grid grid-cols-2 sm:flex sm:flex-wrap gap-4 sm:gap-8 mt-8 pt-6 border-t-2 border-[#1A1A1A]/10">
-                {[["3", "Months"], ["₹1,999", "Cost"], ["Remote", "Mode"], ["20", "Seats"]].map(([v, l]) => (
+                {[["3", "Months"], ["₹1,999", "Cost"], ["Remote", "Mode"], ["30", "Seats"]].map(([v, l]) => (
                   <div key={l}>
                     <p className="font-heading text-xl sm:text-2xl font-black text-[#1A1A1A]">{v}</p>
                     <p className="font-body text-[11px] text-gray-500 uppercase tracking-wider mt-0.5">{l}</p>
@@ -370,7 +413,7 @@ export default function InternshipPage() {
             <div className="border-4 border-[#1A1A1A] rounded-3xl overflow-hidden bg-white shadow-[4px_4px_0px_#1A1A1A] sm:shadow-[6px_6px_0px_#1A1A1A]">
               <div className="px-5 sm:px-7 py-4 border-b-4 border-[#1A1A1A]" style={{ background: YELLOW }}>
                 <p className="font-heading font-black text-[#1A1A1A] text-base sm:text-lg">Web Dev Internship Application</p>
-                <p className="font-body text-xs text-[#1A1A1A]/60 mt-0.5">Batch 01 · 20 seats available</p>
+                <p className="font-body text-xs text-[#1A1A1A]/60 mt-0.5">Batch 01 · 30 seats available</p>
               </div>
               <RegistrationForm />
             </div>
