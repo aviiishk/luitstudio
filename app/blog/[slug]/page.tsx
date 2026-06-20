@@ -44,7 +44,7 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) notFound();
 
   return (
-    <main className="bg-[#fafafa] dark:bg-[#08080f] min-h-screen transition-colors duration-300">
+    <main className="bg-[#fafafa] min-h-screen transition-colors duration-300">
       <Navbar />
 
       <article className="pt-28 pb-20 px-5 sm:px-8">
@@ -52,7 +52,7 @@ export default async function BlogPostPage({ params }: Props) {
 
           {/* Back */}
           <Link href="/blog"
-            className="inline-flex items-center gap-1.5 text-sm font-body text-gray-400 dark:text-white/30 hover:text-gray-900 dark:hover:text-white transition-colors duration-200 mb-10 group">
+            className="inline-flex items-center gap-1.5 text-sm font-body text-gray-400 hover:text-gray-900 transition-colors duration-200 mb-10 group">
             <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform duration-200" />
             All posts
           </Link>
@@ -69,17 +69,17 @@ export default async function BlogPostPage({ params }: Props) {
           )}
 
           {/* Title */}
-          <h1 className="font-heading text-[30px] sm:text-[42px] font-black text-gray-900 dark:text-white leading-tight tracking-tight mb-5">
+          <h1 className="font-heading text-[30px] sm:text-[42px] font-black text-gray-900 leading-tight tracking-tight mb-5">
             {post.title}
           </h1>
 
           {/* Meta */}
-          <div className="flex items-center gap-5 mb-8 pb-8 border-b border-gray-100 dark:border-white/[0.08]">
-            <span className="flex items-center gap-1.5 text-sm font-body text-gray-400 dark:text-white/35">
+          <div className="flex items-center gap-5 mb-8 pb-8 border-b border-gray-100">
+            <span className="flex items-center gap-1.5 text-sm font-body text-gray-400">
               <CalendarDays size={13} />
               {new Date(post.published_at).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}
             </span>
-            <span className="flex items-center gap-1.5 text-sm font-body text-gray-400 dark:text-white/35">
+            <span className="flex items-center gap-1.5 text-sm font-body text-gray-400">
               <Clock size={13} />
               {readTime(post.content)} min read
             </span>
@@ -87,7 +87,7 @@ export default async function BlogPostPage({ params }: Props) {
 
           {/* Cover image */}
           {post.cover_image && (
-            <div className="rounded-2xl overflow-hidden mb-10 bg-gray-100 dark:bg-white/[0.04] aspect-video">
+            <div className="rounded-2xl overflow-hidden mb-10 bg-gray-100 aspect-video">
               <img src={post.cover_image} alt={post.title} className="w-full h-full object-cover" />
             </div>
           )}

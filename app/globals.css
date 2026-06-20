@@ -1,9 +1,5 @@
 @import "tailwindcss";
 
-/* Tailwind v4 — explicit class-based dark mode variant.
-   Applies dark: utilities when <html> (or any ancestor) has class="dark" */
-@custom-variant dark (&:where(.dark, .dark *));
-
 /* ─── Design System Tokens ─────────────────────────────── */
 :root {
   --color-primary:    #EC4899;
@@ -112,16 +108,3 @@ body {
 .blog-prose td { padding: 0.6rem 1rem; border: 1px solid #E5E7EB; }
 .blog-prose img { border-radius: 12px; max-width: 100%; }
 
-/* Dark mode overrides */
-.dark .blog-prose { color: rgba(255,255,255,0.65); }
-.dark .blog-prose h1,
-.dark .blog-prose h2,
-.dark .blog-prose h3  { color: #fff; }
-.dark .blog-prose strong { color: #fff; }
-.dark .blog-prose blockquote { border-color: #EC4899; color: rgba(255,255,255,0.4); }
-.dark .blog-prose hr  { border-color: rgba(255,255,255,0.08); }
-.dark .blog-prose code { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.1); color: #F472B6; }
-.dark .blog-prose pre { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); }
-.dark .blog-prose pre code { color: rgba(255,255,255,0.8); }
-.dark .blog-prose th { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); color: #fff; }
-.dark .blog-prose td { border-color: rgba(255,255,255,0.07); }

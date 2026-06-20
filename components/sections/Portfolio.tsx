@@ -52,7 +52,7 @@ function tiltOff(e: React.MouseEvent<HTMLDivElement>) {
 
 export default function PortfolioSection() {
   return (
-    <section className="bg-[#fafafa] dark:bg-[#08080f] py-20 sm:py-28 px-5 sm:px-6 border-t border-gray-100 dark:border-white/[0.06] transition-colors duration-300">
+    <section className="bg-[#fafafa] py-20 sm:py-28 px-5 sm:px-6 border-t border-gray-100 transition-colors duration-300">
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}
@@ -69,11 +69,11 @@ export default function PortfolioSection() {
               className="flex items-center gap-3 mb-5"
             >
               <div className="h-px w-8 bg-gradient-to-r from-[#EC4899] to-transparent" />
-              <p className="font-body text-xs tracking-[0.28em] uppercase text-gray-400 dark:text-white/35">Selected Work</p>
+              <p className="font-body text-xs tracking-[0.28em] uppercase text-gray-400">Selected Work</p>
             </motion.div>
             <motion.h2
               variants={{ hidden: { opacity: 0, y: 32 }, show: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}
-              className="font-heading text-[30px] sm:text-[46px] md:text-[60px] font-black leading-[0.92] tracking-tight text-gray-900 dark:text-white"
+              className="font-heading text-[30px] sm:text-[46px] md:text-[60px] font-black leading-[0.92] tracking-tight text-gray-900"
             >
               OUR{" "}
               <span className="bg-gradient-to-r from-[#EC4899] to-[#06B6D4] bg-clip-text text-transparent">
@@ -86,7 +86,7 @@ export default function PortfolioSection() {
             className="shrink-0"
           >
             <Link href="/work"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-200 dark:border-white/10 text-gray-500 dark:text-white/50 hover:border-[#06B6D4]/40 hover:text-gray-900 dark:hover:text-white transition-all duration-200 font-body font-medium text-sm cursor-pointer">
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-200 text-gray-500 hover:border-[#06B6D4]/40 hover:text-gray-900 transition-all duration-200 font-body font-medium text-sm cursor-pointer">
               View all <ArrowRight size={14} />
             </Link>
           </motion.div>
@@ -104,7 +104,7 @@ export default function PortfolioSection() {
               onMouseMove={tiltOn}
               onMouseLeave={tiltOff}
               style={{ transition: "transform 0.16s ease-out", willChange: "transform" }}
-              className={`group relative rounded-[26px] overflow-hidden cursor-pointer border border-gray-200/80 dark:border-white/[0.1] hover:border-gray-300 dark:hover:border-white/[0.22] bg-white shadow-[0_14px_44px_rgba(15,23,42,0.07)] dark:bg-[#090a13] dark:shadow-[0_18px_54px_rgba(0,0,0,0.32)] transition-colors duration-300 ${p.span}`}
+              className={`group relative rounded-[26px] overflow-hidden cursor-pointer border border-gray-200/80 hover:border-gray-300 bg-white shadow-[0_14px_44px_rgba(15,23,42,0.07)] transition-colors duration-300 ${p.span}`}
             >
               <div
                 aria-hidden="true"
@@ -154,11 +154,11 @@ export default function PortfolioSection() {
               </div>
 
               {/* Tags */}
-              <div className="relative px-4 sm:px-5 py-3 flex gap-2 flex-wrap bg-gray-50 dark:bg-[#080914]/95 border-t border-gray-100 dark:border-white/[0.08]">
+              <div className="relative px-4 sm:px-5 py-3 flex gap-2 flex-wrap bg-gray-50 border-t border-gray-100">
                 <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
                 {p.tags.map((tag) => (
                   <span key={tag}
-                    className="text-[10px] px-2.5 py-1 rounded-full bg-gray-100 dark:bg-white/[0.055] border border-gray-200 dark:border-white/10 text-gray-500 dark:text-white/48 font-body">
+                    className="text-[10px] px-2.5 py-1 rounded-full bg-gray-100 border border-gray-200 text-gray-500 font-body">
                     {tag}
                   </span>
                 ))}

@@ -46,7 +46,7 @@ export default function FeatureCarousel() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden border-t border-gray-100 bg-[#fafafa] py-20 text-gray-900 transition-colors duration-300 dark:border-white/[0.06] dark:bg-[#08080f] dark:text-white sm:py-28"
+      className="relative overflow-hidden border-t border-gray-100 bg-[#fafafa] py-20 text-gray-900 transition-colors duration-300 sm:py-28"
     >
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
         <div className="absolute left-0 top-0 hidden h-[320px] w-[380px] -translate-x-1/4 -translate-y-1/4 rounded-full bg-[#EC4899]/4 blur-[70px] md:block" />
@@ -65,9 +65,9 @@ export default function FeatureCarousel() {
         <div className="mb-12 sm:mb-16">
           <div className="mb-5 flex items-center gap-3">
             <div className="h-px w-8 bg-gradient-to-r from-[#EC4899] to-transparent" />
-            <p className="font-body text-xs uppercase tracking-[0.28em] text-gray-400 dark:text-white/35">Capabilities</p>
+            <p className="font-body text-xs uppercase tracking-[0.28em] text-gray-400">Capabilities</p>
           </div>
-          <h2 className="font-heading text-[30px] font-black leading-[0.9] tracking-tight text-gray-900 dark:text-white sm:text-[44px] md:text-[58px]">
+          <h2 className="font-heading text-[30px] font-black leading-[0.9] tracking-tight text-gray-900 sm:text-[44px] md:text-[58px]">
             What we build and how we{" "}
             <span className="bg-gradient-to-r from-[#EC4899] to-[#06B6D4] bg-clip-text italic text-transparent">
               scale it.
@@ -75,11 +75,11 @@ export default function FeatureCarousel() {
           </h2>
         </div>
 
-        <div className="relative flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm dark:border-white/[0.08] dark:bg-white/[0.025] dark:shadow-none lg:flex-row">
+        <div className="relative flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm lg:flex-row">
           <div className="pointer-events-none absolute -right-20 top-8 z-0 hidden h-64 w-64 rounded-full bg-[#06B6D4]/10 blur-[54px] md:block" aria-hidden="true" />
           <div className="pointer-events-none absolute -bottom-20 right-24 z-0 hidden h-56 w-80 rounded-full bg-[#EC4899]/8 blur-[58px] md:block" aria-hidden="true" />
 
-          <div className="relative z-10 w-full border-b border-gray-100 dark:border-white/[0.06] lg:w-[38%] lg:border-b-0 lg:border-r lg:border-r-gray-100 dark:lg:border-r-white/[0.06]">
+          <div className="relative z-10 w-full border-b border-gray-100 lg:w-[38%] lg:border-b-0 lg:border-r lg:border-r-gray-100">
             <div className="flex gap-2 overflow-x-auto px-4 py-4 lg:hidden no-scrollbar">
               {FEATURES.map((f, idx) => {
                 const isActive = idx === currentIndex;
@@ -91,10 +91,10 @@ export default function FeatureCarousel() {
                     className={`group flex shrink-0 cursor-pointer items-center gap-2 rounded-full border px-4 py-2 font-body text-xs font-semibold tracking-[0.04em] antialiased transition-transform duration-300 hover:-translate-y-0.5 ${
                       isActive
                         ? "border-white/35 bg-gradient-to-r from-[#06B6D4] via-[#39D5E8] to-[#EC4899] text-white shadow-[0_12px_28px_rgba(6,182,212,0.22),inset_0_1px_0_rgba(255,255,255,0.3)]"
-                        : "border-gray-300/80 bg-white/72 text-gray-700 shadow-[0_6px_18px_rgba(15,23,42,0.05),inset_0_1px_0_rgba(255,255,255,0.5)] hover:border-[#06B6D4]/55 hover:bg-white/90 hover:text-gray-950 dark:border-white/[0.16] dark:bg-white/[0.055] dark:text-white/[0.72] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] dark:hover:border-[#67E8F9]/38 dark:hover:bg-white/[0.09] dark:hover:text-white"
+                        : "border-gray-300/80 bg-white/72 text-gray-700 shadow-[0_6px_18px_rgba(15,23,42,0.05),inset_0_1px_0_rgba(255,255,255,0.5)] hover:border-[#06B6D4]/55 hover:bg-white/90 hover:text-gray-950"
                     }`}
                   >
-                    <Icon size={13} className={isActive ? "text-white" : "text-gray-600 group-hover:text-[#0891B2] dark:text-white/[0.68] dark:group-hover:text-[#67E8F9]"} />
+                    <Icon size={13} className={isActive ? "text-white" : "text-gray-600 group-hover:text-[#0891B2]"} />
                     <span className="whitespace-nowrap">{f.label}</span>
                   </button>
                 );
@@ -119,10 +119,10 @@ export default function FeatureCarousel() {
                       className={`group flex cursor-pointer items-center gap-3 rounded-full border px-5 py-3 font-body font-semibold antialiased transition-transform duration-300 hover:-translate-y-0.5 ${
                         isActive
                           ? "border-white/35 bg-gradient-to-r from-[#06B6D4] via-[#32D3E8] to-[#EC4899] text-white shadow-[0_14px_34px_rgba(6,182,212,0.2),inset_0_1px_0_rgba(255,255,255,0.3)]"
-                          : "border-gray-300/80 bg-white/70 text-gray-700 shadow-[0_8px_22px_rgba(15,23,42,0.05),inset_0_1px_0_rgba(255,255,255,0.5)] hover:border-[#06B6D4]/55 hover:bg-white/90 hover:text-gray-950 dark:border-white/[0.15] dark:bg-white/[0.045] dark:text-white/[0.68] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.07)] dark:hover:border-[#67E8F9]/38 dark:hover:bg-white/[0.085] dark:hover:text-white"
+                          : "border-gray-300/80 bg-white/70 text-gray-700 shadow-[0_8px_22px_rgba(15,23,42,0.05),inset_0_1px_0_rgba(255,255,255,0.5)] hover:border-[#06B6D4]/55 hover:bg-white/90 hover:text-gray-950"
                       }`}
                     >
-                      <Icon size={15} className={isActive ? "text-white" : "text-gray-600 group-hover:text-[#0891B2] dark:text-white/[0.66] dark:group-hover:text-[#67E8F9]"} />
+                      <Icon size={15} className={isActive ? "text-white" : "text-gray-600 group-hover:text-[#0891B2]"} />
                       <span className="text-sm uppercase tracking-[0.13em]">{f.label}</span>
                     </button>
                   </motion.div>

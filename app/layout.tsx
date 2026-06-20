@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import ThemeProvider from "@/components/ThemeProvider";
 import Navbar from "@/components/layout/Navbar";
 import PopupCTA from "@/components/popup-cta";
 import SmoothScroll from "@/components/SmoothScroll";
@@ -118,28 +117,23 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#e8d7b2" },
-    { media: "(prefers-color-scheme: dark)", color: "#082747" },
-  ],
-  colorScheme: "light dark",
+  themeColor: "#FAFAF7",
+  colorScheme: "light",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning className={`${displayFont.variable} ${archivo.variable} ${spaceGrotesk.variable} h-full antialiased`}>
-      <body suppressHydrationWarning className="min-h-full bg-[#fafafa] dark:bg-[#08080f] text-gray-900 dark:text-white font-body transition-colors duration-300">
+      <body suppressHydrationWarning className="min-h-full bg-[#FAFAF7] text-gray-900 font-body">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
-        <ThemeProvider>
-          <Navbar />
-          <SmoothScroll>
-            {children}
-          </SmoothScroll>
-          <PopupCTA />
-        </ThemeProvider>
+        <Navbar />
+        <SmoothScroll>
+          {children}
+        </SmoothScroll>
+        <PopupCTA />
       </body>
     </html>
   );

@@ -31,13 +31,37 @@ const TOOLS = [
   { name: "Dev with AI",   Icon: SiOpenai,      color: "#10A37F", desc: "Build smarter with AI"    },
 ];
 
+const LEARN_ITEMS = [
+  "Build Modern Websites & Web Applications",
+  "Use AI Tools to Speed Up Development",
+  "Work on Real Projects",
+  "Create a Portfolio for Resume & LinkedIn",
+  "Understand Industry Workflows",
+  "Gain Practical Development Experience",
+];
+
+const PERKS = [
+  { icon: "📜", label: "Internship Certificate" },
+  { icon: "🎥", label: "Live Interactive Sessions" },
+  { icon: "💻", label: "Hands-on Project Experience" },
+  { icon: "🗂️", label: "Portfolio Development Support" },
+  { icon: "🤝", label: "1-1 Mentorship" },
+];
+
+const PRICING = [
+  { label: "First 20 Students", price: "₹999",   highlight: true,  note: "Launch Offer · Limited seats" },
+  { label: "Next Batch",        price: "₹1,499", highlight: false, note: "Early bird pricing"            },
+  { label: "Regular Fee",       price: "₹1,999", highlight: false, note: "Standard enrollment"           },
+];
+
 const FAQS = [
-  { q: "Is this beginner friendly?",  a: "Yes. The program is built for students who are starting out or at intermediate level. No prior professional experience needed." },
-  { q: "Will I get a certificate?",   a: "Yes. Active participants who complete the program receive an official certificate from Luit Studio." },
-  { q: "What is the cost?",           a: "₹1,999 for the full 3-month program. No hidden fees." },
-  { q: "Are there live sessions?",    a: "Yes. Weekly live sessions, mentor reviews and collaborative discussions run throughout the program." },
-  { q: "What will we build?",         a: "Real projects — SaaS landing pages, ecommerce UI systems, portfolio sites, and workflow simulations." },
-  { q: "Is placement guaranteed?",    a: "No guaranteed placements. However, top performers may receive future collaboration and freelance opportunities." },
+  { q: "Is this beginner friendly?",  a: "Yes. The program is designed for students who want to move beyond theory. No prior professional experience needed — just a willingness to learn and build." },
+  { q: "Will I get a certificate?",   a: "Yes. All active participants who complete the program receive an official Internship Certificate from Luit Studio." },
+  { q: "What is the cost?",           a: "Early bird offer: ₹999 for the first 20 students. Next batch is ₹1,499. Regular fee is ₹1,999. No hidden charges." },
+  { q: "Are there live sessions?",    a: "Yes. Live interactive sessions are part of the program along with hands-on project work and 1-on-1 mentorship." },
+  { q: "What will we build?",         a: "Real projects — modern websites, web applications, and portfolio pieces you can show on your resume and LinkedIn." },
+  { q: "Who should apply?",           a: "BCA, MCA, B.Tech, B.Sc CS, or any student interested in web development and AI. Any year, any college." },
+  { q: "Is placement guaranteed?",    a: "No guaranteed placements. However, top performers may receive future collaboration and freelance opportunities from Luit Studio." },
 ];
 
 const BOTTOM_BAR = [
@@ -158,7 +182,7 @@ function RegistrationForm() {
                 <div className="grid grid-cols-3 gap-2">
                   {[
                     { n: "1", label: "Scan QR",   bg: "white"  },
-                    { n: "2", label: "Pay ₹1,999", bg: "white"  },
+                    { n: "2", label: "Pay ₹999",  bg: "white"  },
                     { n: "3", label: "Enter UTR",  bg: YELLOW   },
                   ].map(s => (
                     <div key={s.n} className="flex flex-col items-center gap-1.5 py-3 px-2 rounded-2xl border-2 border-[#1A1A1A] text-center"
@@ -172,7 +196,7 @@ function RegistrationForm() {
                 {/* QR image — centered, constrained */}
                 <div className="flex justify-center">
                   <div className="w-52 rounded-2xl overflow-hidden border-2 border-[#1A1A1A] shadow-[3px_3px_0px_#1A1A1A]">
-                    <img src="/upi-qr.png" alt="Scan to pay ₹1,999" className="w-full" />
+                    <img src="/upi-qr.png" alt="Scan to pay ₹999" className="w-full" />
                   </div>
                 </div>
 
@@ -255,111 +279,158 @@ export default function InternshipPage() {
     <main style={{ backgroundColor: BG }} className="min-h-screen overflow-x-hidden text-[#1A1A1A]">
 
       {/* ── HERO ─────────────────────────────────────── */}
-      <section className="relative px-4 sm:px-8 xl:px-16 pt-20 sm:pt-24 pb-12 sm:pb-16">
+      <section className="px-4 sm:px-8 xl:px-16 pt-20 sm:pt-24 pb-14 sm:pb-20">
         <div className="max-w-6xl mx-auto">
 
-          {/* Tagline bar */}
-          <div className="flex items-center justify-end gap-2.5 mb-8 sm:mb-12">
-            <p className="font-body text-[11px] sm:text-sm font-bold text-right text-[#1A1A1A] leading-snug">
-              CODE TODAY. BUILD TOMORROW. CREATE <span className="underline decoration-2 underline-offset-2">IMPACT.</span>
-            </p>
-            <div className="w-9 h-9 sm:w-11 sm:h-11 border-2 border-[#1A1A1A] rounded-xl flex items-center justify-center font-mono font-black text-xs sm:text-sm shrink-0" style={{ background: YELLOW }}>
-              {"</>"}
-            </div>
+          {/* Label chips */}
+          <div className="flex flex-wrap gap-2 mb-10">
+            <span className="font-body text-[11px] font-black uppercase tracking-widest px-4 py-1.5 border-2 border-[#1A1A1A] rounded-full" style={{ background: YELLOW }}>
+              Internship Program
+            </span>
+            <span className="font-body text-[11px] font-black uppercase tracking-widest px-4 py-1.5 border-2 border-[#1A1A1A] rounded-full bg-white">
+              ⚠ Limited Seats
+            </span>
+            <span className="font-body text-[11px] font-black uppercase tracking-widest px-4 py-1.5 border-2 border-[#1A1A1A] rounded-full" style={{ background: PINK }}>
+              ₹999 Launch Offer
+            </span>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-            {/* Left copy */}
+          <div className="grid lg:grid-cols-[1fr_300px] gap-8 lg:gap-14 items-start">
+
+            {/* Left */}
             <div>
-              <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: EASE }}
-                className="font-heading text-[40px] xs:text-[48px] sm:text-[60px] xl:text-[72px] font-black leading-[0.88] tracking-tight mb-4">
-                Web<br />Development<br />
-                <span className="inline-block px-2 -mx-1 rounded-sm" style={{ background: YELLOW }}>Internship</span>
-              </motion.h1>
+              <h1 className="font-heading text-[52px] xs:text-[64px] sm:text-[78px] xl:text-[96px] font-black leading-[0.86] tracking-tight mb-6">
+                Full Stack<br />
+                Web Dev<br />
+                <span className="inline-block px-3 -mx-1 rounded-sm" style={{ background: YELLOW }}>with AI</span>
+              </h1>
 
-              <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: 0.08, ease: EASE }}
-                className="font-body text-base sm:text-lg font-semibold text-[#1A1A1A] mb-2.5 flex flex-wrap gap-2 items-center">
-                Learn. Build. Deploy.
-                <span className="inline-block px-2.5 py-0.5 rounded-md font-bold" style={{ background: PINK }}>Make an Impact.</span>
-              </motion.p>
+              <p className="font-body text-sm sm:text-base text-gray-600 leading-relaxed max-w-lg mb-8">
+                Designed for students who want to move beyond theory and actually build real-world projects. BCA · MCA · B.Tech · B.Sc CS welcome.
+              </p>
 
-              <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: 0.12, ease: EASE }}
-                className="font-body text-sm text-gray-600 leading-relaxed max-w-sm mb-7">
-                Hands-on projects. Real skills. A portfolio that sets you apart.
-              </motion.p>
-
-              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.16, ease: EASE }}
-                className="flex flex-wrap items-center gap-3">
+              <div className="flex flex-wrap items-center gap-3 mb-10">
                 <button onClick={scrollToForm}
-                  className="flex items-center gap-2 px-5 py-3 rounded-xl border-2 border-[#1A1A1A] bg-[#1A1A1A] text-white font-body font-black text-sm hover:opacity-90 transition-opacity cursor-pointer tracking-wide">
+                  className="flex items-center gap-2 px-6 py-3.5 rounded-xl border-2 border-[#1A1A1A] bg-[#1A1A1A] text-white font-body font-black text-sm hover:opacity-90 transition-opacity cursor-pointer tracking-wide shadow-[3px_3px_0_#F5E450]">
                   APPLY NOW →
                 </button>
-                <span className="font-body text-xs text-gray-500 border-2 border-gray-300 rounded-xl px-3 py-2.5 hidden sm:inline">
+                <span className="font-body text-xs font-bold text-[#1A1A1A] border-2 border-[#1A1A1A] rounded-xl px-4 py-3">
                   luitstudio.com/internship
                 </span>
-              </motion.div>
+              </div>
 
-              {/* Stats */}
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.25 }}
-                className="grid grid-cols-2 sm:flex sm:flex-wrap gap-4 sm:gap-8 mt-8 pt-6 border-t-2 border-[#1A1A1A]/10">
-                {[["3", "Months"], ["₹1,999", "Cost"], ["Remote", "Mode"], ["30", "Seats"]].map(([v, l]) => (
-                  <div key={l}>
-                    <p className="font-heading text-xl sm:text-2xl font-black text-[#1A1A1A]">{v}</p>
-                    <p className="font-body text-[11px] text-gray-500 uppercase tracking-wider mt-0.5">{l}</p>
+              {/* Stats bar */}
+              <div className="inline-flex border-2 border-[#1A1A1A] rounded-2xl overflow-hidden bg-white">
+                {[["1", "Month"], ["₹999", "Launch"], ["Remote", "Mode"], ["30", "Seats"]].map(([v, l], i) => (
+                  <div key={l} className={`px-5 py-3 text-center ${i > 0 ? "border-l-2 border-[#1A1A1A]" : ""}`}>
+                    <p className="font-heading text-lg sm:text-xl font-black text-[#1A1A1A]">{v}</p>
+                    <p className="font-body text-[10px] text-gray-500 uppercase tracking-wider">{l}</p>
                   </div>
                 ))}
-              </motion.div>
+              </div>
             </div>
 
-            {/* Right card */}
-            <motion.div initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.55, delay: 0.15 }}
-              className="relative flex items-center justify-center">
-              <div className="relative w-full max-w-[320px] sm:max-w-sm mx-auto">
-                <div className="rounded-3xl border-4 border-[#1A1A1A] flex flex-col items-center justify-center gap-4 p-6 sm:p-8" style={{ background: PINK }}>
-                  <div className="absolute -top-5 left-1/2 -translate-x-1/2 w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-dashed border-[#1A1A1A] bg-white flex flex-col items-center justify-center text-center shadow-md">
-                    <span className="text-base sm:text-xl">✦</span>
-                    <p className="font-heading text-[9px] sm:text-[10px] font-black leading-tight text-[#1A1A1A]">100%<br />PRACTICAL<br />LEARNING</p>
-                  </div>
+            {/* Right: bento */}
+            <div className="flex flex-col gap-3 lg:pt-2">
 
-                  <div className="mt-8 sm:mt-10 text-center">
-                    <p className="font-heading text-3xl sm:text-4xl font-black text-[#1A1A1A]">3 Months</p>
-                    <p className="font-body text-xs sm:text-sm font-bold text-[#1A1A1A] mt-1">of real agency experience</p>
-                  </div>
-
-                  <div className="grid grid-cols-3 gap-2 w-full">
-                    {["Live Projects", "Mentors", "Certificate"].map(t => (
-                      <div key={t} className="bg-white border-2 border-[#1A1A1A] rounded-xl p-2 sm:p-3 text-center">
-                        <p className="font-body text-[9px] sm:text-[10px] font-black text-[#1A1A1A] leading-tight">{t}</p>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="w-full bg-[#1A1A1A] text-white rounded-2xl p-3 sm:p-4">
-                    <p className="font-body text-[11px] font-bold uppercase tracking-wider mb-0.5 text-white/60">Next batch</p>
-                    <p className="font-heading text-base sm:text-lg font-black">Starting Soon</p>
-                    <p className="font-body text-[11px] text-white/60 mt-0.5">Limited seats · Apply early</p>
-                  </div>
+              {/* Price */}
+              <div className="border-4 border-[#1A1A1A] rounded-2xl p-5 shadow-[4px_4px_0_#1A1A1A]" style={{ background: PINK }}>
+                <p className="font-body text-[10px] font-black uppercase tracking-widest text-[#1A1A1A]/60 mb-1">Launch Offer</p>
+                <p className="font-heading text-5xl font-black text-[#1A1A1A] leading-none">₹999</p>
+                <p className="font-body text-xs text-[#1A1A1A]/70 mt-1.5">First 20 students only</p>
+                <div className="mt-3 pt-3 border-t-2 border-[#1A1A1A]">
+                  <p className="font-body text-[11px] text-[#1A1A1A]/60">Next batch: ₹1,499 · Regular: ₹1,999</p>
                 </div>
               </div>
-            </motion.div>
+
+              {/* Perks 2×2 */}
+              <div className="grid grid-cols-2 gap-2">
+                {[["📜", "Certificate"], ["🎥", "Live Sessions"], ["🤝", "1-1 Mentorship"], ["💻", "Real Projects"]].map(([icon, label]) => (
+                  <div key={label} className="border-2 border-[#1A1A1A] rounded-2xl p-3 bg-white flex flex-col items-center gap-1.5 text-center">
+                    <span className="text-xl">{icon}</span>
+                    <p className="font-body text-[11px] font-black text-[#1A1A1A] leading-tight">{label}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Duration chip */}
+              <div className="border-2 border-[#1A1A1A] rounded-2xl px-4 py-3 bg-[#1A1A1A] text-white flex items-center justify-between">
+                <div>
+                  <p className="font-body text-[10px] text-white/50 uppercase tracking-widest">Duration</p>
+                  <p className="font-heading text-xl font-black">1 Month</p>
+                </div>
+                <div className="w-10 h-10 rounded-full border-2 border-white/20 flex items-center justify-center font-mono font-black text-sm" style={{ background: YELLOW, color: BLACK }}>
+                  {"</>"}
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
 
-      {/* ── FEATURE CARDS ───────────────────────────── */}
+      {/* ── WHAT YOU'LL LEARN + RECEIVE ─────────────── */}
       <section className="px-4 sm:px-8 xl:px-16 py-12 sm:py-16 border-t-4 border-[#1A1A1A]">
         <div className="max-w-6xl mx-auto grid sm:grid-cols-2 gap-4">
           <div className="rounded-3xl border-4 border-[#1A1A1A] p-6 sm:p-8" style={{ background: PINK }}>
             <div className="w-11 h-11 border-2 border-[#1A1A1A] rounded-xl bg-white flex items-center justify-center font-mono font-black text-sm mb-4">{"</>"}</div>
-            <h3 className="font-heading text-2xl sm:text-3xl font-black text-[#1A1A1A] leading-tight mb-3">Collaborate on<br />Real Projects</h3>
-            <p className="font-body text-sm text-[#1A1A1A]/70 leading-relaxed">Work with teams on real-world projects and build web applications from scratch with actual briefs and deadlines.</p>
-            <div className="mt-5 h-0.5 w-10 bg-[#1A1A1A]" />
+            <h3 className="font-heading text-2xl sm:text-3xl font-black text-[#1A1A1A] leading-tight mb-4">What You&apos;ll<br />Learn</h3>
+            <div className="space-y-2.5">
+              {LEARN_ITEMS.map(item => (
+                <div key={item} className="flex items-start gap-3">
+                  <div className="w-5 h-5 rounded-full border-2 border-[#1A1A1A] flex items-center justify-center shrink-0 mt-0.5" style={{ background: YELLOW }}>
+                    <Check size={10} strokeWidth={3} color={BLACK} />
+                  </div>
+                  <p className="font-body text-sm text-[#1A1A1A] leading-snug">{item}</p>
+                </div>
+              ))}
+            </div>
           </div>
           <div className="rounded-3xl border-4 border-[#1A1A1A] p-6 sm:p-8" style={{ background: YELLOW }}>
-            <div className="w-11 h-11 border-2 border-[#1A1A1A] rounded-xl bg-white flex items-center justify-center text-lg mb-4">👨‍💻</div>
-            <h3 className="font-heading text-2xl sm:text-3xl font-black text-[#1A1A1A] leading-tight mb-3">Learn. Get Support.<br />Grow Together.</h3>
-            <p className="font-body text-sm text-[#1A1A1A]/70 leading-relaxed">Get mentored by industry experts, receive direct feedback, and grow your skills step by step in a structured program.</p>
-            <div className="mt-5 h-0.5 w-10 bg-[#1A1A1A]" />
+            <div className="w-11 h-11 border-2 border-[#1A1A1A] rounded-xl bg-white flex items-center justify-center text-lg mb-4">🎓</div>
+            <h3 className="font-heading text-2xl sm:text-3xl font-black text-[#1A1A1A] leading-tight mb-4">What You&apos;ll<br />Receive</h3>
+            <div className="space-y-3">
+              {PERKS.map(p => (
+                <div key={p.label} className="flex items-center gap-3 bg-white border-2 border-[#1A1A1A] rounded-2xl px-4 py-3">
+                  <span className="text-lg shrink-0">{p.icon}</span>
+                  <p className="font-body font-bold text-sm text-[#1A1A1A]">{p.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── PRICING ─────────────────────────────────── */}
+      <section className="px-4 sm:px-8 xl:px-16 py-12 sm:py-16 border-t-4 border-[#1A1A1A]">
+        <div className="max-w-6xl mx-auto">
+          <div className="inline-flex items-center border-2 border-[#1A1A1A] rounded-full px-4 py-2 mb-3" style={{ background: YELLOW }}>
+            <p className="font-body font-black text-xs sm:text-sm text-[#1A1A1A] uppercase tracking-widest">Launch Offer</p>
+          </div>
+          <h2 className="font-heading text-[28px] sm:text-[40px] font-black text-[#1A1A1A] leading-tight mb-2">Simple Pricing</h2>
+          <p className="font-body text-sm text-gray-500 mb-8">Limited early bird seats available. Price increases as seats fill up.</p>
+          <div className="grid sm:grid-cols-3 gap-4">
+            {PRICING.map(tier => (
+              <div key={tier.label}
+                className={`rounded-3xl border-4 border-[#1A1A1A] p-6 flex flex-col gap-3 ${tier.highlight ? "" : "bg-white"}`}
+                style={tier.highlight ? { background: PINK } : {}}>
+                {tier.highlight && (
+                  <span className="self-start font-body text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full border-2 border-[#1A1A1A] bg-white">
+                    Early Bird
+                  </span>
+                )}
+                <div>
+                  <p className="font-body text-[11px] font-bold uppercase tracking-widest text-[#1A1A1A]/60 mb-1">{tier.label}</p>
+                  <p className="font-heading text-4xl sm:text-5xl font-black text-[#1A1A1A]">{tier.price}</p>
+                </div>
+                <p className="font-body text-xs text-[#1A1A1A]/60">{tier.note}</p>
+                {tier.highlight && (
+                  <div className="mt-auto pt-2 border-t-2 border-[#1A1A1A]">
+                    <p className="font-body text-[11px] font-bold text-[#1A1A1A]">⚠ Limited seats remaining</p>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -398,7 +469,7 @@ export default function InternshipPage() {
                 Takes less than 2 minutes. We review every application personally — no automated rejections.
               </p>
               <div className="space-y-2.5">
-                {[["3 months", "Structured program"], ["₹1,999", "Full program cost"], ["Remote", "Work from anywhere"], ["Certificate", "On completion"]].map(([v, l]) => (
+                {[["1 month", "Structured program"], ["₹999*", "Launch offer price"], ["Remote", "Work from anywhere"], ["Certificate", "On completion"], ["1-1 Mentorship", "Personal guidance"]].map(([v, l]) => (
                   <div key={l} className="flex items-center gap-3">
                     <div className="w-5 h-5 rounded-full border-2 border-[#1A1A1A] flex items-center justify-center shrink-0" style={{ background: YELLOW }}>
                       <Check size={10} strokeWidth={3} color={BLACK} />
@@ -412,8 +483,8 @@ export default function InternshipPage() {
             {/* Right form */}
             <div className="border-4 border-[#1A1A1A] rounded-3xl overflow-hidden bg-white shadow-[4px_4px_0px_#1A1A1A] sm:shadow-[6px_6px_0px_#1A1A1A]">
               <div className="px-5 sm:px-7 py-4 border-b-4 border-[#1A1A1A]" style={{ background: YELLOW }}>
-                <p className="font-heading font-black text-[#1A1A1A] text-base sm:text-lg">Web Dev Internship Application</p>
-                <p className="font-body text-xs text-[#1A1A1A]/60 mt-0.5">Batch 01 · 30 seats available</p>
+                <p className="font-heading font-black text-[#1A1A1A] text-base sm:text-lg">Full Stack Web Dev with AI</p>
+                <p className="font-body text-xs text-[#1A1A1A]/60 mt-0.5">Launch Offer · ₹999 for first 20 seats</p>
               </div>
               <RegistrationForm />
             </div>
@@ -428,12 +499,12 @@ export default function InternshipPage() {
             <div className="inline-flex items-center border-2 border-[#1A1A1A] rounded-full px-3 py-1 mb-4" style={{ background: YELLOW }}>
               <p className="font-body font-black text-[11px] text-[#1A1A1A] uppercase tracking-wider">Who can apply?</p>
             </div>
-            <p className="font-body text-sm text-gray-600 leading-relaxed">Students and passionate learners who want to build, learn and grow in web development. Any year, any college.</p>
+            <p className="font-body text-sm text-gray-600 leading-relaxed">BCA, MCA, B.Tech, B.Sc CS, or any student interested in web development and AI. If you want to build practical skills that strengthen your resume and LinkedIn, this is for you.</p>
           </div>
 
           <div className="border-2 border-[#1A1A1A] rounded-3xl p-5 sm:p-6" style={{ background: PINK }}>
             <p className="font-body text-[11px] font-black uppercase tracking-widest text-[#1A1A1A]/60 mb-2">Duration</p>
-            <p className="font-heading text-3xl sm:text-4xl font-black text-[#1A1A1A]">3 MONTHS</p>
+            <p className="font-heading text-3xl sm:text-4xl font-black text-[#1A1A1A]">1 MONTH</p>
             <p className="font-body text-sm text-[#1A1A1A]/60 mt-1">Structured weekly program</p>
           </div>
 
