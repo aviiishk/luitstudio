@@ -1,24 +1,18 @@
 const INK    = "#111110";
 const MUTED  = "#6B6B68";
-const LIGHT  = "#A9A9A5";
 const BORDER = "#E5E3DE";
 const BG     = "#FAFAF7";
-const CARD   = "#FFFFFF";
 
 const TEAM = [
   // Row 1 — 3
-  { name: "Abhishek Kumar",   role: "Founder & CEO",         seed: "abhishek22" },
-  { name: "Priya Sharma",     role: "Creative Director",     seed: "priya44"    },
-  { name: "Rahul Das",        role: "Lead Developer",        seed: "rahul77"    },
-  // Row 2 — 4
-  { name: "Sneha Baruah",     role: "UI / UX Designer",      seed: "sneha11"    },
-  { name: "Arjun Nath",       role: "Mobile Developer",      seed: "arjun55"    },
-  { name: "Deepika Roy",      role: "Brand Designer",        seed: "deepika33"  },
-  { name: "Kunal Bora",       role: "Full-stack Developer",  seed: "kunal88"    },
+  { name: "Prince",               role: "Founder & Creative Technologist", seed: "bxyagx2t" },
+  { name: "Abhishek",             role: "Co-Founder & Lead Engineer",      seed: "abhishek22"    },
+  { name: "Anish", role: "UI / UX Design",                  seed: "rahul77"    },
+  // Row 2 — 4"
+  { name: "Preetom", role: "Brand Design",     seed: "sneha11"    },
+  { name: "Sweety",       role: "Content & Social", seed: "arjun55"    },
+
   // Row 3 — 3
-  { name: "Ankita Saikia",    role: "Project Manager",       seed: "ankita99"   },
-  { name: "Nikhil Gogoi",     role: "SEO Lead",              seed: "nikhil66"   },
-  { name: "Tanisha Hazarika", role: "Motion Designer",       seed: "tanisha22"  },
 ];
 
 const ROW1 = TEAM.slice(0, 3);

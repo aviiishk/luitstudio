@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import CalEmbed from "./CalEmbed";
 
 export const metadata: Metadata = {
@@ -40,13 +41,13 @@ export default function IntroPage() {
       </div>
 
       {/* Back */}
-      <a
+      <Link
         href="/"
         className="mt-10 inline-flex items-center gap-1.5 font-body text-[13px] transition-opacity hover:opacity-55"
         style={{ color: MUTED }}
       >
         ← Back to home
-      </a>
+      </Link>
     </main>
   );
 }

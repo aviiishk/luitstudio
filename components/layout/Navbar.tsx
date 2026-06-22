@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiHome, FiStar, FiBookOpen, FiChevronLeft } from "react-icons/fi";
 const navItems = [
@@ -16,11 +16,7 @@ const PILL = "bg-white/90 border border-black/8 shadow-[0_4px_18px_rgba(0,0,0,0.
 
 export default function Navbar() {
   const pathname  = usePathname();
-  const [mounted, setMounted]   = useState(false);
   const [open, setOpen]         = useState(false);
-
-  useEffect(() => { setMounted(true); }, []);
-  useEffect(() => { setOpen(false); }, [pathname]);
 
   return (
     <>
@@ -42,7 +38,7 @@ export default function Navbar() {
         <nav aria-label="Main navigation" className={`flex items-center gap-0.5 ${PILL} rounded-full px-1.5 py-1.5`}>
           {navItems.map(item => {
             const Icon = item.icon;
-            const isActive = mounted && pathname === item.href;
+            const isActive = pathname === item.href;
             return (
               <Link key={item.href} href={item.href}
                 className={`group flex items-center gap-0 lg:gap-2 px-3 lg:px-4 py-2 rounded-full text-sm font-body font-medium transition-all duration-200 cursor-pointer ${
@@ -94,7 +90,7 @@ export default function Navbar() {
             >
               {navItems.map(item => {
                 const Icon = item.icon;
-                const isActive = mounted && pathname === item.href;
+                const isActive = pathname === item.href;
                 return (
                   <Link key={item.href} href={item.href}
                     className={`flex items-center justify-center px-1.5 py-1 rounded-full transition-all duration-200 cursor-pointer shrink-0 ${

@@ -25,6 +25,19 @@ export default function CalEmbed() {
             "cal-border-emphasis": "#C8C6C0",
             "cal-border-default":  "#E5E3DE",
           },
+          dark: {
+            "cal-brand":           "#111110",
+            "cal-brand-emphasis":  "#111110",
+            "cal-brand-subtle":    "#E5E3DE",
+            "cal-bg":              "#ffffff",
+            "cal-bg-emphasis":     "#F2F0EB",
+            "cal-text":            "#111110",
+            "cal-text-emphasis":   "#111110",
+            "cal-text-subtle":     "#6B6B68",
+            "cal-border":          "#E5E3DE",
+            "cal-border-emphasis": "#C8C6C0",
+            "cal-border-default":  "#E5E3DE",
+          },
         },
       });
     })();

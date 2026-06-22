@@ -1,4 +1,4 @@
-import { supabaseAdmin } from "@/lib/supabase-admin";
+import { hasSupabaseAdminEnv, supabaseAdmin } from "@/lib/supabase-admin";
 import Link from "next/link";
 import { CalendarDays, Clock } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
@@ -22,11 +22,13 @@ function readTime(content: string) {
 }
 
 export default async function BlogPage() {
-  const { data: posts } = await supabaseAdmin
-    .from("blog_posts")
-    .select("id, title, slug, excerpt, cover_image, published_at, tags, content")
-    .eq("published", true)
-    .order("published_at", { ascending: false });
+  const { data: posts } = hasSupabaseAdminEnv()
+    ? await supabaseAdmin
+        .from("blog_posts")
+        .select("id, title, slug, excerpt, cover_image, published_at, tags, content")
+        .eq("published", true)
+        .order("published_at", { ascending: false })
+    : { data: null };
 
   return (
     <main className="bg-[#fafafa] min-h-screen transition-colors duration-300">
