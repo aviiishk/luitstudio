@@ -1,8 +1,12 @@
-const INK    = "#111110";
-const MUTED  = "#6B6B68";
-const LIGHT  = "#A9A9A5";
-const BORDER = "#E5E3DE";
-const BG     = "#F2F0EB";
+"use client";
+
+import { AnimatePresence, motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
+import { useState } from "react";
+
+const INK = "#111110";
+const MUTED = "#6B6B68";
+const BG = "#eeeeee";
 
 const FAQS = [
   {
@@ -11,7 +15,7 @@ const FAQS = [
   },
   {
     q: "Who will work on my project?",
-    a: "You work directly with our senior team — no juniors, no outsourcing, no hand-offs to vendors you've never met. Every project is managed by an experienced lead with full accountability.",
+    a: "You work directly with our senior team â€” no juniors, no outsourcing, no hand-offs to vendors you've never met. Every project is managed by an experienced lead with full accountability.",
   },
   {
     q: "How do we work together?",
@@ -19,7 +23,7 @@ const FAQS = [
   },
   {
     q: "Do you offer full-stack development?",
-    a: "Yes — we handle everything from UX design to frontend, backend, databases, deployment, and ongoing support. One team, one point of contact, one coherent product.",
+    a: "Yes â€” we handle everything from UX design to frontend, backend, databases, deployment, and ongoing support. One team, one point of contact, one coherent product.",
   },
   {
     q: "What if my priorities change mid-project?",
@@ -27,7 +31,7 @@ const FAQS = [
   },
   {
     q: "Can you work with our existing team?",
-    a: "Absolutely. We integrate seamlessly with your in-house team — whether you need us for a specific layer (design, dev, SEO) or want us to run the whole project independently.",
+    a: "Absolutely. We integrate seamlessly with your in-house team â€” whether you need us for a specific layer (design, dev, SEO) or want us to run the whole project independently.",
   },
   {
     q: "Who owns the work after delivery?",
@@ -35,97 +39,96 @@ const FAQS = [
   },
   {
     q: "What payment methods do you accept?",
-    a: "We accept UPI, bank transfer (NEFT/RTGS), and international wire transfers. Payment terms — including milestone-based schedules — are agreed during the onboarding call.",
+    a: "We accept UPI, bank transfer (NEFT/RTGS), and international wire transfers. Payment terms â€” including milestone-based schedules â€” are agreed during the onboarding call.",
   },
 ];
 
 export default function FAQ() {
+  const [openItems, setOpenItems] = useState<Set<number>>(new Set());
+
+  function toggleItem(index: number) {
+    setOpenItems((current) => {
+      const next = new Set(current);
+      if (next.has(index)) {
+        next.delete(index);
+      } else {
+        next.add(index);
+      }
+      return next;
+    });
+  }
+
   return (
-    <section
-      className="border-t faq-section"
-      style={{ backgroundColor: BG, borderColor: BORDER }}
-    >
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 xl:px-12 pt-16 sm:pt-20 pb-16 sm:pb-20">
+    <section className="faq-section" style={{ backgroundColor: BG }}>
+      <div className="mx-auto max-w-4xl px-5 py-20 sm:px-8 sm:py-28">
+        <motion.h2
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-12 text-center font-heading text-[30px] font-black tracking-tight sm:mb-14 sm:text-[34px]"
+          style={{ color: INK }}
+        >
+          FAQs
+        </motion.h2>
 
-        {/* Header */}
-        <div className="mb-10 sm:mb-12">
-          <div className="mb-3">
-            <span
-              className="font-body text-[10px] tracking-[0.34em] uppercase tabular-nums"
-              style={{ color: LIGHT }}
-            >
-              [ 005 ]
-            </span>
-          </div>
-          <h2
-            className="font-heading font-black tracking-tight leading-[0.86]"
-            style={{ color: INK }}
-          >
-            <span className="block text-[clamp(36px,5.2vw,80px)]">Frequently</span>
-            <span
-              className="block text-[clamp(36px,5.2vw,80px)] text-transparent select-none"
-              style={{ WebkitTextStroke: `1.5px ${INK}` }}
-            >
-              Asked Questions.
-            </span>
-          </h2>
-        </div>
+        <div className="mx-auto flex max-w-[676px] flex-col gap-4">
+          {FAQS.map((faq, i) => {
+            const isOpen = openItems.has(i);
 
-        {/* Accordion — native <details>/<summary>, zero JS */}
-        <div className="max-w-3xl">
-          {FAQS.map((faq, i) => (
-            <details
-              key={i}
-              className="faq-item border-t group"
-              style={{ borderColor: BORDER }}
-            >
-              <summary
-                className="flex items-center justify-between gap-6 py-5 cursor-pointer list-none select-none"
-                style={{ color: INK }}
+            return (
+              <motion.div
+                key={faq.q}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.38, delay: i * 0.035, ease: [0.22, 1, 0.36, 1] }}
+                className="overflow-hidden rounded-[28px] bg-white shadow-[0_1px_0_rgba(17,17,16,0.02)]"
               >
-                <span
-                  className="font-heading font-bold text-[15px] sm:text-[16px] leading-snug"
+                <button
+                  type="button"
+                  aria-expanded={isOpen}
+                  aria-controls={`faq-answer-${i}`}
+                  onClick={() => toggleItem(i)}
+                  className="group flex w-full items-center justify-between gap-5 px-5 py-4 text-left sm:px-6"
+                  style={{ color: INK }}
                 >
-                  {faq.q}
-                </span>
-                {/* Plus / minus via CSS pseudo-element */}
-                <span className="faq-icon shrink-0 w-5 h-5 inline-flex items-center justify-center border rounded-full" style={{ borderColor: BORDER }} />
-              </summary>
+                  <span className="font-heading text-[18px] font-black leading-snug tracking-[-0.02em] sm:text-[20px]">
+                    {faq.q}
+                  </span>
+                  <ChevronDown
+                    size={22}
+                    strokeWidth={2.7}
+                    className={`shrink-0 transition-transform duration-300 ease-out ${
+                      isOpen ? "rotate-180" : "rotate-0"
+                    }`}
+                  />
+                </button>
 
-              <div className="pb-5">
-                <p
-                  className="font-body text-[14px] sm:text-[15px] leading-[1.75]"
-                  style={{ color: MUTED }}
-                >
-                  {faq.a}
-                </p>
-              </div>
-            </details>
-          ))}
-          <div className="border-t" style={{ borderColor: BORDER }} />
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      id={`faq-answer-${i}`}
+                      key="answer"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      <p
+                        className="px-5 pb-5 pt-0 font-body text-[14px] leading-[1.75] sm:px-6 sm:pb-6 sm:text-[15px]"
+                        style={{ color: MUTED }}
+                      >
+                        {faq.a}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
         </div>
-
       </div>
-
-      <style>{`
-        .faq-icon::before {
-          content: "+";
-          font-size: 13px;
-          font-weight: 600;
-          color: ${LIGHT};
-          line-height: 1;
-        }
-        .faq-item[open] .faq-icon {
-          background: ${INK};
-          border-color: ${INK};
-        }
-        .faq-item[open] .faq-icon::before {
-          content: "−";
-          color: #FAFAF7;
-        }
-        .faq-item summary:hover .faq-icon { opacity: 0.7; }
-        summary::-webkit-details-marker { display: none; }
-      `}</style>
     </section>
   );
 }

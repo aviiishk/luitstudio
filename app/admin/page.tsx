@@ -471,7 +471,12 @@ function BlogManager() {
     setLoading(false);
   }, []);
 
-  useEffect(() => { fetchPosts(); }, [fetchPosts]);
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      void fetchPosts();
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [fetchPosts]);
 
   const openEditor = (post: BlogPost | null) => { setEditingPost(post); setView("editor"); };
   const handleDone = () => { setView("list"); setEditingPost(null); fetchPosts(); };
@@ -545,7 +550,12 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
     setLoading(false);
   }, []);
 
-  useEffect(() => { fetchApps(); }, [fetchApps]);
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      void fetchApps();
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [fetchApps]);
 
   const updateStatus = (id: string, status: Application["status"]) =>
     setApps(prev => prev.map(a => a.id === id ? { ...a, status } : a));

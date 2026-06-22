@@ -30,7 +30,7 @@ export default function HomeCTA() {
           className="font-heading font-black tracking-tight leading-[0.86] mb-8 sm:mb-10"
           style={{ color: INK }}
         >
-          <span className="block text-[clamp(42px,6.5vw,104px)]">Let's build</span>
+          <span className="block text-[clamp(42px,6.5vw,104px)]">Let&apos;s build</span>
           <span
             className="block text-[clamp(42px,6.5vw,104px)] text-transparent select-none"
             style={{ WebkitTextStroke: `1.8px ${INK}` }}
@@ -47,13 +47,13 @@ export default function HomeCTA() {
             style={{ color: MUTED }}
           >
             Ready to take your digital presence to the next level?
-            Let's talk about what you're building.
+            Let&apos;s talk about what you&apos;re building.
           </p>
 
           <div className="flex flex-col gap-3 items-start sm:items-end shrink-0">
             <div className="flex flex-wrap gap-2.5">
               <Link
-                href="/contact"
+                href="/intro"
                 className="group inline-flex items-center gap-2.5 px-7 py-4 rounded-full font-body font-semibold text-sm text-white transition-all duration-200 hover:-translate-y-0.5"
                 style={{ backgroundColor: INK }}
               >

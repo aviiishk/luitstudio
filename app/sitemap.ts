@@ -5,10 +5,9 @@ const lastModified = new Date();
 
 const routes = [
   { path: "/", priority: 1, changeFrequency: "weekly" },
-  { path: "/services", priority: 0.9, changeFrequency: "monthly" },
-  { path: "/work", priority: 0.85, changeFrequency: "monthly" },
-  { path: "/about", priority: 0.8, changeFrequency: "monthly" },
-  { path: "/contact", priority: 0.7, changeFrequency: "yearly" },
+  { path: "/blog", priority: 0.75, changeFrequency: "weekly" },
+  { path: "/internship", priority: 0.7, changeFrequency: "monthly" },
+  { path: "/intro", priority: 0.6, changeFrequency: "yearly" },
 ] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {

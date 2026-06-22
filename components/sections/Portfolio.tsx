@@ -85,7 +85,7 @@ export default function PortfolioSection() {
             variants={{ hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.15 } } }}
             className="shrink-0"
           >
-            <Link href="/work"
+            <Link href="/intro"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-200 text-gray-500 hover:border-[#06B6D4]/40 hover:text-gray-900 transition-all duration-200 font-body font-medium text-sm cursor-pointer">
               View all <ArrowRight size={14} />
             </Link>
