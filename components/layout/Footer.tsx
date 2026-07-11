@@ -97,9 +97,16 @@ export default function Footer() {
 
         <div className="pt-48 sm:pt-60 lg:pt-72">
           <div className="flex flex-col gap-3 border-t border-white/10 pt-5 font-body text-[11px] text-white/44 sm:flex-row sm:items-center sm:justify-between">
-            <p>&copy; 2026 Luit Studio</p>
+            <p>&copy; 2026 Luit Studio. All rights reserved.</p>
+            <div className="flex items-center gap-5">
+              <Link href="/privacy" className="transition-colors duration-150 hover:text-white/70">
+                Privacy Policy
+              </Link>
+              <Link href="/terms" className="transition-colors duration-150 hover:text-white/70">
+                Terms & Conditions
+              </Link>
+            </div>
             <p>Crafted in Assam</p>
-            <p>Inspired by the river that connects millions.</p>
           </div>
         </div>
       </div>
