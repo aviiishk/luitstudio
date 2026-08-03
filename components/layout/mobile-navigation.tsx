@@ -19,6 +19,7 @@ import {
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 
+import { Logo } from "@/components/shared/Logo";
 import { ButtonLink } from "@/components/ui/button";
 import { mobileNavigationItems } from "@/config/navigation";
 import { siteConfig } from "@/config/site";
@@ -177,24 +178,7 @@ export function MobileNavigation({
                 <p className="text-[0.6875rem] font-semibold tracking-[0.16em] text-[#0B1220]/65 uppercase">
                   Creative Digital Agency
                 </p>
-                <div
-                  role="img"
-                  aria-label={siteConfig.name}
-                  className="mt-5 flex w-fit flex-col items-start text-[#0001FD]"
-                >
-                  <span
-                    aria-hidden="true"
-                    className="text-[clamp(4rem,18vw,5rem)] leading-[0.72] font-bold tracking-[-0.07em]"
-                  >
-                    luit
-                  </span>
-                  <span
-                    aria-hidden="true"
-                    className="mt-3 pl-1 text-base leading-none font-medium tracking-[0.42em]"
-                  >
-                    studio
-                  </span>
-                </div>
+                <Logo className="mt-5 h-[clamp(4rem,18vw,5rem)] w-auto" />
               </div>
 
               <button

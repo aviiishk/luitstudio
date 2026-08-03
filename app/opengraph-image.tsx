@@ -1,3 +1,6 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
 import { ImageResponse } from "next/og";
 
 import { siteConfig } from "@/config/site";
@@ -5,6 +8,10 @@ import { siteConfig } from "@/config/site";
 export const alt = `${siteConfig.name} — Creative Agency`;
 export const contentType = "image/png";
 export const size = { width: 1200, height: 630 };
+
+const logoDataUrl = `data:image/png;base64,${readFileSync(
+  join(process.cwd(), "public/logo/luit-logo.png"),
+).toString("base64")}`;
 
 export default function OpenGraphImage() {
   return new ImageResponse(
@@ -29,30 +36,8 @@ export default function OpenGraphImage() {
           width: "100%",
         }}
       >
-        <div
-          style={{
-            color: "#0001FD",
-            display: "flex",
-            flexDirection: "column",
-            fontSize: "76px",
-            fontWeight: 700,
-            letterSpacing: "-0.06em",
-            lineHeight: 0.72,
-          }}
-        >
-          <span>luit</span>
-          <span
-            style={{
-              fontSize: "18px",
-              fontWeight: 500,
-              letterSpacing: "0.38em",
-              lineHeight: 1,
-              marginTop: "22px",
-            }}
-          >
-            studio
-          </span>
-        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element -- next/og (Satori) requires a plain <img>, not next/image */}
+        <img src={logoDataUrl} width={124} height={112} alt="" />
         <div
           style={{
             display: "flex",

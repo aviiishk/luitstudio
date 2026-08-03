@@ -15,7 +15,6 @@ export interface FooterContent {
     emphasis: string;
     description: string;
     label: string;
-    href: string;
   };
   navigationGroups: readonly NavigationGroup[];
   services: readonly NavigationLink[];

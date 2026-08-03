@@ -13,7 +13,6 @@ export const footerContent = {
     description:
       "Helping ambitious brands design, build and grow better digital products.",
     label: "Book a Discovery Call",
-    href: ROUTES.contact,
   },
   navigationGroups: footerNavigationGroups,
   services: [

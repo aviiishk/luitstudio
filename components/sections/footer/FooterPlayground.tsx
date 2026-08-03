@@ -5,6 +5,15 @@ import { Container } from "@/components/ui/container";
 
 const processWords = ["Ideas", "Identity", "Interfaces", "Impact"] as const;
 
+// Repeated so each half of the track comfortably overflows even very wide
+// viewports — the 0%→-50% loop only looks seamless if a single half is
+// already wider than the screen, otherwise a gap flashes mid-cycle.
+const TICKER_REPEAT_COUNT = 8;
+const tickerWords = Array.from(
+  { length: TICKER_REPEAT_COUNT },
+  () => processWords,
+).flat();
+
 export function FooterPlayground() {
   return (
     <section
@@ -42,18 +51,34 @@ export function FooterPlayground() {
         </div>
       </Container>
 
-      <div className="border-ink text-ink mt-14 -rotate-1 overflow-hidden border-y-2 bg-[#f8f2e8] py-4 lg:mt-20">
-        <p className="flex min-w-max items-center justify-center gap-5 text-lg font-semibold tracking-[-0.02em] sm:gap-8 sm:text-2xl">
-          {[...processWords, ...processWords].map((word, index) => (
-            <span
-              key={`${word}-${index}`}
-              className="flex items-center gap-5 sm:gap-8"
+      <div
+        aria-hidden="true"
+        className="border-ink text-ink footer-ticker-viewport mt-14 -rotate-1 border-y-2 bg-[#f8f2e8] py-4 lg:mt-20"
+      >
+        <div className="footer-ticker-track">
+          {[0, 1].map((groupIndex) => (
+            <div
+              key={groupIndex}
+              className={`flex items-center gap-5 pr-5 text-lg font-semibold tracking-[-0.02em] sm:gap-8 sm:pr-8 sm:text-2xl ${
+                groupIndex === 0 ? "footer-ticker-primary" : "footer-ticker-copy"
+              }`}
             >
-              {word}
-              <Sparkles aria-hidden="true" size={18} className="text-brand" />
-            </span>
+              {tickerWords.map((word, wordIndex) => (
+                <span
+                  key={`${word}-${wordIndex}`}
+                  className="flex items-center gap-5 sm:gap-8"
+                >
+                  {word}
+                  <Sparkles
+                    aria-hidden="true"
+                    size={18}
+                    className="text-brand"
+                  />
+                </span>
+              ))}
+            </div>
           ))}
-        </p>
+        </div>
       </div>
     </section>
   );

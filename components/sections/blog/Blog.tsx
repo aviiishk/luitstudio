@@ -1,14 +1,13 @@
 import { BlogGrid } from "@/components/sections/blog/BlogGrid";
 import { Reveal } from "@/components/shared/reveal";
 import { Container } from "@/components/ui/container";
-import { blogArticles } from "@/data/blog";
 import type { BlogArticle } from "@/types/blog";
 
 interface BlogProps {
-  articles?: readonly BlogArticle[];
+  articles: readonly BlogArticle[];
 }
 
-export function Blog({ articles = blogArticles }: BlogProps) {
+export function Blog({ articles }: BlogProps) {
   if (articles.length === 0) {
     return null;
   }

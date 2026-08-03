@@ -1,11 +1,12 @@
-import { ArrowUpRight, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 import Link from "next/link";
 
 import { FooterCopyright } from "@/components/sections/footer/FooterCopyright";
 import { FooterNavigation } from "@/components/sections/footer/FooterNavigation";
 import { FooterPlayground } from "@/components/sections/footer/FooterPlayground";
 import { FooterSocial } from "@/components/sections/footer/FooterSocial";
-import { ButtonLink } from "@/components/ui/button";
+import { BookCallButton } from "@/components/shared/BookCallButton";
+import { Logo } from "@/components/shared/Logo";
 import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/config/site";
 import { ROUTES } from "@/constants/routes";
@@ -46,14 +47,9 @@ export function Footer({ content = footerContent }: FooterProps) {
                 <p className="text-ink/70 text-base leading-7 sm:text-lg sm:leading-8">
                   {content.cta.description}
                 </p>
-                <ButtonLink
-                  href={content.cta.href}
-                  variant="brand"
-                  icon={ArrowUpRight}
-                  className="pr-2"
-                >
+                <BookCallButton variant="brand" className="pr-2">
                   {content.cta.label}
-                </ButtonLink>
+                </BookCallButton>
               </div>
             </div>
 
@@ -65,14 +61,9 @@ export function Footer({ content = footerContent }: FooterProps) {
                 <Link
                   href={ROUTES.home}
                   aria-label={`${siteConfig.name} home`}
-                  className="text-brand inline-flex flex-col transition-[transform,opacity] duration-200 hover:-translate-y-0.5 hover:opacity-80 active:translate-y-0 motion-reduce:transform-none"
+                  className="inline-flex w-fit transition-[transform,opacity] duration-200 hover:-translate-y-0.5 hover:opacity-80 active:translate-y-0 motion-reduce:transform-none"
                 >
-                  <span className="text-4xl leading-[0.75] font-bold tracking-[-0.07em]">
-                    luit
-                  </span>
-                  <span className="mt-2 pl-1 text-[0.625rem] leading-none font-medium tracking-[0.38em]">
-                    studio
-                  </span>
+                  <Logo className="h-12 w-auto" />
                 </Link>
 
                 <h2 id="footer-studio-heading" className="sr-only">

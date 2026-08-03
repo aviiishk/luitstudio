@@ -1,6 +1,7 @@
 import { Mail } from "lucide-react";
 
 import { SocialLinks } from "@/components/sections/contact/SocialLinks";
+import { BookCallButton } from "@/components/shared/BookCallButton";
 import type { ContactDetails } from "@/types/contact";
 
 interface ContactInfoProps {
@@ -29,6 +30,11 @@ export function ContactInfo({ details }: ContactInfoProps) {
           <span className="break-all">{details.email}</span>
         </a>
       </address>
+      <div className="mt-8">
+        <BookCallButton variant="light" className="w-full sm:w-auto">
+          Book a Call
+        </BookCallButton>
+      </div>
       {details.socialLinks.length > 0 ? (
         <div className="mt-auto pt-10">
           <SocialLinks links={details.socialLinks} inverse />

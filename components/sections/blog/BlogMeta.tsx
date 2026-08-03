@@ -1,19 +1,20 @@
 import { formatDate } from "@/utils/format-date";
 
 interface BlogMetaProps {
-  author: string;
-  category: string;
-  date: string;
+  tags: readonly string[];
+  publishedAt: string;
 }
 
-export function BlogMeta({ author, category, date }: BlogMetaProps) {
+export function BlogMeta({ tags, publishedAt }: BlogMetaProps) {
   return (
     <div className="text-body flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
-      <span className="text-ink font-medium">{category}</span>
-      <span aria-hidden="true">•</span>
-      <time dateTime={date}>{formatDate(date)}</time>
-      <span aria-hidden="true">•</span>
-      <span>By {author}</span>
+      {tags[0] ? (
+        <>
+          <span className="text-ink font-medium">{tags[0]}</span>
+          <span aria-hidden="true">•</span>
+        </>
+      ) : null}
+      <time dateTime={publishedAt}>{formatDate(publishedAt)}</time>
     </div>
   );
 }

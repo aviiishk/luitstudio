@@ -82,3 +82,36 @@ export function ButtonLink({
     </Link>
   );
 }
+
+type ButtonActionProps = ComponentPropsWithoutRef<"button"> & {
+  icon?: LucideIcon;
+  variant?: keyof typeof variantStyles;
+};
+
+export function ButtonAction({
+  children,
+  className = "",
+  icon: Icon,
+  type = "button",
+  variant = "dark",
+  ...props
+}: ButtonActionProps) {
+  const styles = variantStyles[variant];
+
+  return (
+    <button
+      type={type}
+      className={`${baseStyles} ${styles.button} ${className}`}
+      {...props}
+    >
+      <span>{children}</span>
+      {Icon ? (
+        <span
+          className={`grid size-8 shrink-0 place-items-center rounded-full transition-transform duration-200 group-hover:translate-x-0.5 group-hover:rotate-45 group-focus-visible:translate-x-0.5 group-focus-visible:rotate-45 group-active:translate-x-0 group-active:rotate-0 motion-reduce:transform-none ${styles.icon}`}
+        >
+          <Icon aria-hidden="true" size={18} strokeWidth={1.8} />
+        </span>
+      ) : null}
+    </button>
+  );
+}

@@ -2,8 +2,7 @@ import "./globals.css";
 
 import Script from "next/script";
 
-import { SiteHeader } from "@/components/layout/site-header";
-import { Footer } from "@/components/sections/footer";
+import { StructuredData } from "@/components/shared/StructuredData";
 import { defaultMetadata, defaultViewport } from "@/config/metadata";
 import { displayFont, sansFont } from "@/lib/fonts";
 
@@ -16,6 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${sansFont.variable} ${displayFont.variable}`}>
       <body>
+        <StructuredData />
         <Script id="js-enabled" strategy="beforeInteractive">
           {`document.documentElement.classList.add("js");`}
         </Script>
@@ -25,9 +25,7 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <SiteHeader />
         {children}
-        <Footer />
       </body>
     </html>
   );

@@ -8,8 +8,11 @@ import { Pricing } from "@/components/sections/pricing";
 import { Services } from "@/components/sections/services";
 import { Testimonials } from "@/components/sections/testimonials";
 import { homeCta } from "@/data/cta";
+import { getPublishedPosts } from "@/lib/blog";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const recentPosts = await getPublishedPosts({ limit: 3 });
+
   return (
     <main id="main-content" className="min-h-screen overflow-clip">
       <Hero />
@@ -19,7 +22,7 @@ export default function HomePage() {
       <Portfolio />
       <Testimonials />
       <Pricing />
-      <Blog />
+      <Blog articles={recentPosts} />
       <CTA {...homeCta} />
     </main>
   );

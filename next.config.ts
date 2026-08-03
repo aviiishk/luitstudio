@@ -1,14 +1,18 @@
 import type { NextConfig } from "next";
 
 const isDevelopment = process.env.NODE_ENV === "development";
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
 
 const contentSecurityPolicy = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""}`,
+  `script-src 'self' 'unsafe-inline' https://app.cal.com${isDevelopment ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob:",
+  // https: is broad, but blog cover/content images are arbitrary editor-pasted
+  // URLs (no fixed set of hosts to allowlist), same tradeoff the old site made.
+  "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
-  `connect-src 'self'${isDevelopment ? " ws: http: https:" : ""}`,
+  `connect-src 'self' https://app.cal.com https://cal.com https://api.cloudinary.com${supabaseUrl ? ` ${supabaseUrl}` : ""}${isDevelopment ? " ws: http: https:" : ""}`,
+  "frame-src 'self' https://app.cal.com https://cal.com",
   "media-src 'self'",
   "object-src 'none'",
   "base-uri 'self'",

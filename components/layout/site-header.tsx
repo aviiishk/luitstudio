@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { useCallback, useRef, useState } from "react";
 
 import { MobileNavigation } from "@/components/layout/mobile-navigation";
+import { Logo } from "@/components/shared/Logo";
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { mobileNavigationItems, navigationItems } from "@/config/navigation";
@@ -49,17 +50,7 @@ export function SiteHeader() {
               aria-label={`${siteConfig.name} home`}
               onClick={closeMenu}
             >
-              <span
-                aria-hidden="true"
-                className="flex flex-col items-start text-[#0001FD]"
-              >
-                <span className="text-2xl leading-[0.75] font-bold tracking-[-0.07em]">
-                  luit
-                </span>
-                <span className="mt-1 pl-0.5 text-[0.5rem] leading-none font-medium tracking-[0.28em]">
-                  studio
-                </span>
-              </span>
+              <Logo className="h-9 w-auto" priority />
             </Link>
 
             <nav aria-label="Main navigation" className="hidden xl:block">

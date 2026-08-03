@@ -38,6 +38,7 @@ export const footerNavigationGroups = [
       { label: "Services", href: ROUTES.services },
       { label: "Work", href: ROUTES.work },
       { label: "Pricing", href: ROUTES.pricing },
+      { label: "Blog", href: ROUTES.blog },
       { label: "Contact", href: ROUTES.contact },
     ],
   },
