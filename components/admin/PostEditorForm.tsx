@@ -34,6 +34,7 @@ import {
 import { ImageUploadField } from "@/components/admin/ImageUploadField";
 import { ButtonAction } from "@/components/ui/button";
 import { uploadImageToCloudinary } from "@/lib/cloudinary";
+import { slugify } from "@/utils/slugify";
 
 interface PostEditorValues {
   title: string;
@@ -58,14 +59,6 @@ const emptyValues: PostEditorValues = {
   tags: "",
   published: false,
 };
-
-function slugify(value: string) {
-  return value
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
 
 const toolbarButtonClasses =
   "text-body hover:bg-surface hover:text-ink aria-pressed:bg-brand/10 aria-pressed:text-brand grid size-8 place-items-center rounded-lg transition-colors disabled:pointer-events-none disabled:opacity-40";

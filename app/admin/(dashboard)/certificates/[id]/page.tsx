@@ -5,6 +5,7 @@ import { CopyLinkButton } from "@/components/admin/CopyLinkButton";
 import { siteConfig } from "@/config/site";
 import { getCertificateForAdmin } from "@/lib/certificates";
 import { generateQrDataUrl } from "@/lib/qr-code";
+import { slugify } from "@/utils/slugify";
 
 interface CertificateDetailPageProps {
   params: Promise<{ id: string }>;
@@ -40,7 +41,7 @@ export default async function CertificateDetailPage({
           />
           <a
             href={qrDataUrl}
-            download={`${certificate.certificateNumber}-qr.png`}
+            download={`${slugify(certificate.studentName)}-${certificate.id}-qr.png`}
             className="text-brand text-sm font-medium hover:underline"
           >
             Download QR code

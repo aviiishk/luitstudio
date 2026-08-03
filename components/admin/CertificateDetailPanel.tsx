@@ -1,10 +1,11 @@
 "use client";
 
-import { Check } from "lucide-react";
+import { Check, Trash2, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 
 import {
+  deleteCertificate,
   setCertificateStatus,
   updateCertificate,
   updateCertificateFile,
@@ -25,6 +26,7 @@ export function CertificateDetailPanel({
   certificate,
 }: CertificateDetailPanelProps) {
   const router = useRouter();
+  const [studentName, setStudentName] = useState(certificate.studentName);
   const [program, setProgram] = useState(certificate.program);
   const [startDate, setStartDate] = useState(certificate.startDate ?? "");
   const [endDate, setEndDate] = useState(certificate.endDate ?? "");
@@ -34,12 +36,14 @@ export function CertificateDetailPanel({
   const [justSaved, setJustSaved] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isTogglingStatus, setIsTogglingStatus] = useState(false);
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   async function handleSave(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (!program.trim()) {
-      setError("Program is required.");
+    if (!studentName.trim() || !program.trim()) {
+      setError("Student name and program are required.");
       return;
     }
 
@@ -48,6 +52,7 @@ export function CertificateDetailPanel({
     setIsSaving(true);
     try {
       const result = await updateCertificate(certificate.id, {
+        studentName,
         program,
         startDate,
         endDate,
@@ -102,6 +107,25 @@ export function CertificateDetailPanel({
     }
   }
 
+  async function handleDelete() {
+    setError("");
+    setIsDeleting(true);
+    try {
+      const result = await deleteCertificate(certificate.id);
+
+      if (result.error) {
+        setError(result.error);
+        setIsDeleting(false);
+        return;
+      }
+
+      router.push("/admin/certificates");
+      router.refresh();
+    } catch {
+      setIsDeleting(false);
+    }
+  }
+
   return (
     <div className="flex max-w-xl flex-col gap-6">
       <div className="border-border flex items-center justify-between rounded-xl border bg-white p-4">
@@ -135,6 +159,22 @@ export function CertificateDetailPanel({
       />
 
       <form onSubmit={handleSave} className="flex flex-col gap-6">
+        <div>
+          <label htmlFor="student-name" className={labelClasses}>
+            Student name
+          </label>
+          <input
+            id="student-name"
+            value={studentName}
+            onChange={(event) => {
+              setStudentName(event.target.value);
+              setJustSaved(false);
+            }}
+            required
+            className={inputClasses}
+          />
+        </div>
+
         <div>
           <label htmlFor="program" className={labelClasses}>
             Program
@@ -198,6 +238,45 @@ export function CertificateDetailPanel({
           ) : null}
         </div>
       </form>
+
+      <div className="border-border/70 flex items-center justify-between rounded-xl border border-dashed p-4">
+        <div>
+          <p className="text-ink text-sm font-medium">Delete certificate</p>
+          <p className="text-body mt-0.5 text-xs">
+            Permanently removes this record. Its verification link stops
+            working immediately — this can&apos;t be undone.
+          </p>
+        </div>
+        {confirmingDelete ? (
+          <div className="flex shrink-0 items-center gap-2">
+            <button
+              type="button"
+              onClick={() => void handleDelete()}
+              disabled={isDeleting}
+              className="text-rose-ink hover:bg-rose/20 rounded-full px-3 py-1.5 text-xs font-semibold whitespace-nowrap transition-colors disabled:opacity-50"
+            >
+              {isDeleting ? "Deleting…" : "Confirm delete"}
+            </button>
+            <button
+              type="button"
+              onClick={() => setConfirmingDelete(false)}
+              aria-label="Cancel delete"
+              className="text-body hover:text-ink grid size-7 place-items-center rounded-full transition-colors"
+            >
+              <X aria-hidden="true" size={14} />
+            </button>
+          </div>
+        ) : (
+          <button
+            type="button"
+            onClick={() => setConfirmingDelete(true)}
+            className="text-body hover:text-rose-ink flex shrink-0 items-center gap-1.5 text-sm font-medium transition-colors"
+          >
+            <Trash2 aria-hidden="true" size={15} />
+            Delete
+          </button>
+        )}
+      </div>
     </div>
   );
 }

@@ -8,6 +8,16 @@ interface StudentsPageProps {
   searchParams: Promise<{ q?: string }>;
 }
 
+function initials(name: string) {
+  return name
+    .split(" ")
+    .filter(Boolean)
+    .map((part) => part[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+}
+
 export default async function AdminStudentsPage({
   searchParams,
 }: StudentsPageProps) {
@@ -17,10 +27,13 @@ export default async function AdminStudentsPage({
     getCertificates(),
   ]);
 
-  const certifiedApplicationIds = new Set(
+  const certificateByApplicationId = new Map(
     certificates
-      .map((certificate) => certificate.internApplicationId)
-      .filter((id): id is string => id !== null),
+      .filter((certificate) => certificate.internApplicationId)
+      .map((certificate) => [
+        certificate.internApplicationId as string,
+        certificate,
+      ]),
   );
 
   const query = q?.trim().toLowerCase() ?? "";
@@ -39,7 +52,7 @@ export default async function AdminStudentsPage({
         <div>
           <h1 className="text-ink text-2xl">Students</h1>
           <p className="text-body mt-1 text-sm">
-            {students.length} enrolled · {certifiedApplicationIds.size}{" "}
+            {students.length} enrolled · {certificateByApplicationId.size}{" "}
             certified
           </p>
         </div>
@@ -70,31 +83,40 @@ export default async function AdminStudentsPage({
       ) : (
         <ul className="flex flex-col gap-2">
           {filtered.map((student) => {
-            const hasCertificate = certifiedApplicationIds.has(student.id);
+            const certificate = certificateByApplicationId.get(student.id);
 
             return (
               <li
                 key={student.id}
                 className="border-border shadow-soft flex flex-wrap items-center gap-3 rounded-2xl border bg-white px-4 py-4 sm:gap-4 sm:px-5"
               >
-                <div className="min-w-0 flex-1">
-                  <p className="text-ink truncate font-medium">
+                <span className="bg-brand/10 text-brand hidden shrink-0 place-items-center rounded-full text-sm font-semibold sm:grid sm:size-10">
+                  {initials(student.fullName)}
+                </span>
+                <Link
+                  href={`/admin/students/${student.id}`}
+                  className="min-w-0 flex-1"
+                >
+                  <p className="text-ink hover:text-brand truncate font-medium transition-colors">
                     {student.fullName}
                   </p>
                   <p className="text-body truncate text-sm">
                     {student.course} · {student.college}
                   </p>
-                </div>
-                <span
-                  className={`shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold ${
-                    hasCertificate
-                      ? "bg-green/25 text-green-ink"
-                      : "bg-surface text-body"
-                  }`}
-                >
-                  {hasCertificate ? "Certified" : "Not certified"}
-                </span>
-                {!hasCertificate && (
+                </Link>
+                {certificate ? (
+                  <Link
+                    href={`/admin/certificates/${certificate.id}`}
+                    className="bg-green/25 text-green-ink hover:bg-green/40 shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold transition-colors"
+                  >
+                    Certified
+                  </Link>
+                ) : (
+                  <span className="bg-surface text-body shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold">
+                    Not certified
+                  </span>
+                )}
+                {!certificate && (
                   <Link
                     href={`/admin/certificates/new?studentId=${student.id}`}
                     className="text-brand shrink-0 text-sm font-medium hover:underline"

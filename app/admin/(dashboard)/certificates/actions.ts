@@ -16,6 +16,7 @@ export interface CreateCertificateInput {
 }
 
 export interface UpdateCertificateInput {
+  studentName: string;
   program: string;
   startDate: string;
   endDate: string;
@@ -61,14 +62,15 @@ export async function updateCertificate(
   id: string,
   input: UpdateCertificateInput,
 ): Promise<ActionResult> {
-  if (!input.program.trim()) {
-    return { error: "Program is required." };
+  if (!input.studentName.trim() || !input.program.trim()) {
+    return { error: "Student name and program are required." };
   }
 
   const supabase = await createClient();
   const { error } = await supabase
     .from("certificates")
     .update({
+      student_name: input.studentName.trim(),
       program: input.program.trim(),
       start_date: input.startDate || null,
       end_date: input.endDate || null,
@@ -98,6 +100,16 @@ export async function updateCertificateFile(
   if (error) return { error: error.message };
 
   revalidateCertificatePaths(id);
+  return {};
+}
+
+export async function deleteCertificate(id: string): Promise<ActionResult> {
+  const supabase = await createClient();
+  const { error } = await supabase.from("certificates").delete().eq("id", id);
+
+  if (error) return { error: error.message };
+
+  revalidateCertificatePaths();
   return {};
 }
 

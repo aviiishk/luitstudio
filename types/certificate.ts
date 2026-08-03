@@ -4,9 +4,12 @@ export interface Student {
   id: string;
   fullName: string;
   email: string;
+  phone: string;
   course: string;
   college: string;
   year: string;
+  skills: readonly string[];
+  portfolioUrl: string | null;
   appliedAt: string;
 }
 

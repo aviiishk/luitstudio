@@ -7,22 +7,29 @@ interface InternApplicationRow {
   id: string;
   full_name: string;
   email: string;
+  phone: string;
   course: string;
   college: string;
   year: string;
+  skills: string[] | null;
+  portfolio_url: string | null;
   applied_at: string;
 }
 
-const STUDENT_COLUMNS = "id, full_name, email, course, college, year, applied_at";
+const STUDENT_COLUMNS =
+  "id, full_name, email, phone, course, college, year, skills, portfolio_url, applied_at";
 
 function mapRow(row: InternApplicationRow): Student {
   return {
     id: row.id,
     fullName: row.full_name,
     email: row.email,
+    phone: row.phone,
     course: row.course,
     college: row.college,
     year: row.year,
+    skills: row.skills ?? [],
+    portfolioUrl: row.portfolio_url,
     appliedAt: row.applied_at,
   };
 }

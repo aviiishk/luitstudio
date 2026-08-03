@@ -63,6 +63,20 @@ export async function getCertificateForAdmin(
   return mapRow(data as CertificateRow);
 }
 
+export async function getCertificateByApplicationId(
+  applicationId: string,
+): Promise<Certificate | null> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("certificates")
+    .select(CERTIFICATE_COLUMNS)
+    .eq("intern_application_id", applicationId)
+    .maybeSingle();
+
+  if (error || !data) return null;
+  return mapRow(data as CertificateRow);
+}
+
 /** Public verify-page query — deliberately never touches intern_applications. */
 export async function getPublicCertificate(
   id: string,
