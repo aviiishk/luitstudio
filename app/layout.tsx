@@ -1,139 +1,33 @@
-import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
-import PopupCTA from "@/components/popup-cta";
-import SmoothScroll from "@/components/SmoothScroll";
-import localFont from "next/font/local";
-import { Archivo, Space_Grotesk } from "next/font/google";
-import {
-  SITE_URL,
-  absoluteUrl,
-  defaultDescription,
-  seoImages,
-  siteConfig,
-  structuredData,
-} from "@/lib/seo";
 
-const displayFont = localFont({
-  src: "../public/fonts/UnifrakturCook-Bold.woff2",
-  variable: "--font-display",
-  display: "swap",
-  preload: true,
-});
+import Script from "next/script";
 
-const archivo = Archivo({
-  subsets: ["latin"],
-  variable: "--font-archivo",
-  display: "swap",
-  weight: ["400", "500", "600", "700", "900"],
-});
+import { SiteHeader } from "@/components/layout/site-header";
+import { Footer } from "@/components/sections/footer";
+import { defaultMetadata, defaultViewport } from "@/config/metadata";
+import { displayFont, sansFont } from "@/lib/fonts";
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-space-grotesk",
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
-});
+export const metadata = defaultMetadata;
+export const viewport = defaultViewport;
 
-export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  applicationName: siteConfig.name,
-  manifest: "/manifest.webmanifest",
-  title: {
-    default: "Luit Studio | Creative Digital Agency in Guwahati",
-    template: "%s | Luit Studio",
-  },
-  description: defaultDescription,
-  keywords: [...siteConfig.keywords],
-  authors: [{ name: siteConfig.name, url: SITE_URL }],
-  creator: siteConfig.name,
-  publisher: siteConfig.name,
-  category: "Digital agency",
-  icons: {
-    icon: [
-      { url: "/icon.png?v=20260512", type: "image/png", sizes: "512x512" },
-      { url: "/icon-192.png?v=20260512", type: "image/png", sizes: "192x192" },
-      { url: "/icon-512.png?v=20260512", type: "image/png", sizes: "512x512" },
-    ],
-    shortcut: [{ url: "/favicon.ico?v=20260512" }],
-    apple: [
-      { url: "/apple-icon.png?v=20260512", type: "image/png", sizes: "180x180" },
-    ],
-    other: [
-      {
-        rel: "mask-icon",
-        url: "/safari-pinned-tab.svg?v=20260512",
-        color: "#082747",
-      },
-    ],
-  },
-  appleWebApp: {
-    capable: true,
-    title: siteConfig.name,
-    statusBarStyle: "black-translucent",
-  },
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  alternates: {
-    canonical: absoluteUrl("/"),
-  },
-  openGraph: {
-    type: "website",
-    locale: siteConfig.locale,
-    url: absoluteUrl("/"),
-    siteName: siteConfig.name,
-    title: "Luit Studio | Creative Digital Agency in Guwahati",
-    description: defaultDescription,
-    images: [
-      {
-        url: seoImages.home,
-        width: 1200,
-        height: 630,
-        alt: "Luit Studio creative digital agency in Guwahati",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Luit Studio | Creative Digital Agency in Guwahati",
-    description: defaultDescription,
-    creator: "@luitstudio",
-    images: [seoImages.home],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-};
-
-export const viewport: Viewport = {
-  themeColor: "#FAFAF7",
-  colorScheme: "light",
-};
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${displayFont.variable} ${archivo.variable} ${spaceGrotesk.variable} h-full antialiased`}>
-      <body suppressHydrationWarning className="min-h-full bg-[#FAFAF7] text-gray-900 font-body">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
-        <Navbar />
-        <SmoothScroll>
-          {children}
-        </SmoothScroll>
-        <PopupCTA />
+    <html lang="en" className={`${sansFont.variable} ${displayFont.variable}`}>
+      <body>
+        <Script id="js-enabled" strategy="beforeInteractive">
+          {`document.documentElement.classList.add("js");`}
+        </Script>
+        <a
+          href="#main-content"
+          className="bg-ink fixed top-3 left-3 z-[100] -translate-y-24 rounded-full px-5 py-3 font-medium text-white transition-transform focus:translate-y-0"
+        >
+          Skip to content
+        </a>
+        <SiteHeader />
+        {children}
+        <Footer />
       </body>
     </html>
   );

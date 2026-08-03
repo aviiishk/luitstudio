@@ -1,0 +1,11 @@
+const siteName = "Luit Studio";
+
+export const siteConfig = {
+  name: siteName,
+  shortName: siteName,
+  author: siteName,
+  description: `${siteName} is a creative agency crafting distinctive brands and digital experiences.`,
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://luit.studio",
+  copyright: `© 2026 ${siteName}. All rights reserved.`,
+  copyrightShort: `© ${siteName} 2026`,
+} as const;

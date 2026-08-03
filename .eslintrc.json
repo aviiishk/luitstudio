@@ -1,0 +1,4 @@
+{
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "ignorePatterns": ["archive/bootstrap-template/**", "next-env.d.ts"]
+}

@@ -1,33 +1,26 @@
-import dynamic from "next/dynamic";
-import Hero from "@/components/sections/Hero";
-import Tools from "@/components/sections/Tools";
-import WhyUs from "@/components/sections/WhyUs";
-import Team from "@/components/sections/Team";
-import FAQ from "@/components/sections/FAQ";
-import HomeCTA from "@/components/sections/HomeCTA";
+import { About } from "@/components/sections/about";
+import { Blog } from "@/components/sections/blog";
+import { ClientMarquee } from "@/components/sections/client-marquee";
+import { CTA } from "@/components/sections/cta";
+import { Hero } from "@/components/sections/hero";
+import { Portfolio } from "@/components/sections/portfolio";
+import { Pricing } from "@/components/sections/pricing";
+import { Services } from "@/components/sections/services";
+import { Testimonials } from "@/components/sections/testimonials";
+import { homeCta } from "@/data/cta";
 
-const Expertise = dynamic(() => import("@/components/sections/Expertise"), {
-  loading: () => <div className="h-24 bg-[#F2F0EB]" />,
-});
-const TestimonialsSection = dynamic(() => import("@/components/sections/testimonials"), {
-  loading: () => <div className="h-24 bg-[#FAFAF7]" />,
-});
-const Footer = dynamic(() => import("@/components/layout/Footer"), {
-  loading: () => <div className="h-24 bg-[#FAFAF7]" />,
-});
-
-export default function Home() {
+export default function HomePage() {
   return (
-    <main className="relative min-h-screen bg-[#FAFAF7]">
+    <main id="main-content" className="min-h-screen overflow-clip">
       <Hero />
-      <WhyUs />
-      <Team />
-      <Expertise />
-      <Tools />
-      <TestimonialsSection />
-      <FAQ />
-      <HomeCTA />
-      <Footer />
+      <ClientMarquee />
+      <About />
+      <Services />
+      <Portfolio />
+      <Testimonials />
+      <Pricing />
+      <Blog />
+      <CTA {...homeCta} />
     </main>
   );
 }
