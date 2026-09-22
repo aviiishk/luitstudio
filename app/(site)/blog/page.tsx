@@ -9,10 +9,24 @@ import { getPublishedPosts } from "@/lib/blog";
 
 export const revalidate = 3600;
 
+const blogTitle = "Blog";
+const blogDescription = `Ideas, updates, and insights from ${siteConfig.name}.`;
+
 export const metadata: Metadata = {
-  title: "Blog",
-  description: `Ideas, updates, and insights from ${siteConfig.name}.`,
+  title: blogTitle,
+  description: blogDescription,
   alternates: { canonical: ROUTES.blog },
+  openGraph: {
+    type: "website",
+    title: `${blogTitle} | ${siteConfig.name}`,
+    description: blogDescription,
+    url: ROUTES.blog,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${blogTitle} | ${siteConfig.name}`,
+    description: blogDescription,
+  },
 };
 
 export default async function BlogIndexPage() {

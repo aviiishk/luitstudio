@@ -1,12 +1,25 @@
-import { ArrowUpRight, FileText } from "lucide-react";
+import { ArrowUpRight, Briefcase, FileText, Mail } from "lucide-react";
 import Link from "next/link";
 
+import { getAllApplicationsForAdmin, getAllOpeningsForAdmin } from "@/lib/careers";
 import { getAllPostsForAdmin } from "@/lib/blog";
+import { getAllContactSubmissionsForAdmin } from "@/lib/contact-submissions";
 
 export default async function AdminOverviewPage() {
-  const posts = await getAllPostsForAdmin();
+  const [posts, openings, applications, submissions] = await Promise.all([
+    getAllPostsForAdmin(),
+    getAllOpeningsForAdmin(),
+    getAllApplicationsForAdmin(),
+    getAllContactSubmissionsForAdmin(),
+  ]);
   const publishedCount = posts.filter((post) => post.published).length;
   const draftCount = posts.length - publishedCount;
+  const openRoleCount = openings.filter(
+    (opening) => opening.status === "published",
+  ).length;
+  const newApplicationCount = applications.filter(
+    (application) => application.status === "new",
+  ).length;
 
   const stats = [
     { label: "Total posts", value: posts.length },
@@ -33,7 +46,7 @@ export default async function AdminOverviewPage() {
         ))}
       </div>
 
-      <div className="mt-8">
+      <div className="mt-8 flex flex-col gap-3">
         <Link
           href="/admin/blog"
           className="border-border shadow-soft hover:border-brand group flex items-center gap-4 rounded-2xl border bg-white p-5 transition-colors"
@@ -45,6 +58,49 @@ export default async function AdminOverviewPage() {
             <span className="text-ink block font-medium">Blog</span>
             <span className="text-body block text-sm">
               Write, edit, and publish posts
+            </span>
+          </span>
+          <ArrowUpRight
+            aria-hidden="true"
+            className="text-body group-hover:text-brand shrink-0 transition-[color,transform] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            size={18}
+          />
+        </Link>
+
+        <Link
+          href="/admin/careers"
+          className="border-border shadow-soft hover:border-brand group flex items-center gap-4 rounded-2xl border bg-white p-5 transition-colors"
+        >
+          <span className="bg-brand/10 text-brand grid size-11 shrink-0 place-items-center rounded-full">
+            <Briefcase aria-hidden="true" size={20} />
+          </span>
+          <span className="flex-1">
+            <span className="text-ink block font-medium">Careers</span>
+            <span className="text-body block text-sm">
+              {openRoleCount} open role{openRoleCount === 1 ? "" : "s"} ·{" "}
+              {newApplicationCount} new application
+              {newApplicationCount === 1 ? "" : "s"}
+            </span>
+          </span>
+          <ArrowUpRight
+            aria-hidden="true"
+            className="text-body group-hover:text-brand shrink-0 transition-[color,transform] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            size={18}
+          />
+        </Link>
+
+        <Link
+          href="/admin/contact-submissions"
+          className="border-border shadow-soft hover:border-brand group flex items-center gap-4 rounded-2xl border bg-white p-5 transition-colors"
+        >
+          <span className="bg-brand/10 text-brand grid size-11 shrink-0 place-items-center rounded-full">
+            <Mail aria-hidden="true" size={20} />
+          </span>
+          <span className="flex-1">
+            <span className="text-ink block font-medium">Messages</span>
+            <span className="text-body block text-sm">
+              {submissions.length} contact form submission
+              {submissions.length === 1 ? "" : "s"}
             </span>
           </span>
           <ArrowUpRight

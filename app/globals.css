@@ -3,6 +3,7 @@
 @theme inline {
   --font-sans: var(--font-inter-tight);
   --font-display: var(--font-instrument-serif);
+  --font-handwriting: var(--font-caveat);
   --color-canvas: #ffffff;
   --color-surface: #f4f4f4;
   --color-border: #e8e8e8;
@@ -74,6 +75,168 @@
   }
 }
 
+@keyframes orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit-counter-spin {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes gentle-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-node {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.18);
+  }
+}
+
+@keyframes travel-down {
+  0% {
+    top: 0%;
+    opacity: 0;
+  }
+
+  12% {
+    opacity: 1;
+  }
+
+  88% {
+    opacity: 1;
+  }
+
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes travel-right {
+  0% {
+    left: 0%;
+    opacity: 0;
+  }
+
+  12% {
+    opacity: 1;
+  }
+
+  88% {
+    opacity: 1;
+  }
+
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes luit-line-draw {
+  from {
+    stroke-dashoffset: 1000;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes luit-float-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(0, -8px, 0);
+  }
+}
+
+@keyframes luit-float-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(5px, -6px, 0);
+  }
+}
+
+@keyframes luit-data-drop {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -8px, 0) scale(0.8);
+  }
+
+  20%,
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 42px, 0) scale(1);
+  }
+}
+
+@keyframes luit-glow-node {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgb(112 181 255 / 0%);
+  }
+
+  50% {
+    box-shadow: 0 0 26px 3px rgb(112 181 255 / 38%);
+  }
+}
+
+@keyframes luit-dash-flow {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+
+@keyframes luit-playhead {
+  0% {
+    left: 8%;
+  }
+
+  100% {
+    left: 92%;
+  }
+}
+
+@keyframes luit-orbit-dot {
+  0% {
+    offset-distance: 0%;
+  }
+
+  100% {
+    offset-distance: 100%;
+  }
+}
+
 @layer components {
   .client-marquee-viewport {
     width: 100%;
@@ -130,6 +293,76 @@
   .footer-ticker-viewport:focus-within .footer-ticker-track {
     animation-play-state: paused;
   }
+
+  .orbit-ring {
+    animation: orbit-spin 30s linear infinite;
+  }
+
+  .orbit-label {
+    animation: orbit-counter-spin 30s linear infinite;
+  }
+
+  .animate-gentle-float {
+    animation: gentle-float 5s ease-in-out infinite;
+  }
+
+  .animate-pulse-node {
+    animation: pulse-node 2.6s ease-in-out infinite;
+  }
+
+  .animate-travel-down {
+    animation: travel-down 2.8s linear infinite;
+  }
+
+  .animate-travel-right {
+    animation: travel-right 3.2s linear infinite;
+  }
+
+  .luit-draw-line {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: luit-line-draw 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .luit-delay-1 {
+    animation-delay: 0.22s;
+  }
+
+  .luit-delay-2 {
+    animation-delay: 0.44s;
+  }
+
+  .luit-float-a {
+    animation: luit-float-a 5.8s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  .luit-float-b {
+    animation: luit-float-b 6.4s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  .luit-data-drop {
+    animation: luit-data-drop 2.4s linear infinite;
+  }
+
+  .luit-glow-node {
+    animation: luit-glow-node 2.6s ease-in-out infinite;
+  }
+
+  .luit-dash-flow {
+    stroke-dasharray: 9 10;
+    animation: luit-dash-flow 1.8s linear infinite;
+  }
+
+  .luit-playhead {
+    animation: luit-playhead 5.5s linear infinite alternate;
+  }
+
+  .luit-orbit-dot {
+    offset-path: path("M24 84 C82 18 139 116 224 46");
+    animation: luit-orbit-dot 4.8s linear infinite;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -176,6 +409,20 @@
 
   .footer-ticker-copy {
     display: none;
+  }
+
+  .luit-draw-line,
+  .luit-float-a,
+  .luit-float-b,
+  .luit-data-drop,
+  .luit-glow-node,
+  .luit-dash-flow,
+  .luit-playhead,
+  .luit-orbit-dot {
+    animation: none !important;
+    stroke-dashoffset: 0 !important;
+    transform: none !important;
+    will-change: auto !important;
   }
 }
 

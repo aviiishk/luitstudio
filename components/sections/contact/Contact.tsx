@@ -16,7 +16,7 @@ export function Contact({ content = contactContent }: ContactProps) {
       className="relative overflow-hidden bg-[linear-gradient(110deg,#cdeffb_0%,#fff_52%,#fdeecb_100%)] pt-36 pb-16 md:pt-44 md:pb-20 xl:pt-48 xl:pb-24"
     >
       <Container className="relative z-10 flex flex-col gap-12 lg:gap-16">
-        <Reveal delay={0.05}>
+        <Reveal delay={0.05} className="flex flex-col items-center gap-4">
           <h1
             id="contact-heading"
             className="mx-auto max-w-3xl text-center text-[clamp(2.75rem,7vw,5rem)] leading-[0.98] tracking-[-0.035em]"
@@ -24,6 +24,10 @@ export function Contact({ content = contactContent }: ContactProps) {
             {content.title}{" "}
             <em className="font-display">{content.emphasizedTitle}</em>
           </h1>
+          <p className="text-body mx-auto max-w-md text-center text-base sm:text-lg">
+            We read every message and reply personally — no forms into the
+            void.
+          </p>
         </Reveal>
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.42fr)]">
           <Reveal delay={0.12} className="h-full">

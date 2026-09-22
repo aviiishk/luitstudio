@@ -1,6 +1,10 @@
+import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
+
 import { BlogGrid } from "@/components/sections/blog/BlogGrid";
 import { Reveal } from "@/components/shared/reveal";
 import { Container } from "@/components/ui/container";
+import { ROUTES } from "@/constants/routes";
 import type { BlogArticle } from "@/types/blog";
 
 interface BlogProps {
@@ -24,6 +28,19 @@ export function Blog({ articles }: BlogProps) {
           </h2>
         </Reveal>
         <BlogGrid articles={articles} />
+        <Reveal delay={0.08 * (articles.length + 1)}>
+          <Link
+            href={ROUTES.blog}
+            className="group text-ink hover:text-brand focus-visible:text-brand mx-auto inline-flex items-center gap-1.5 text-sm font-medium transition-colors"
+          >
+            View all posts
+            <ArrowUpRight
+              aria-hidden="true"
+              size={16}
+              className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            />
+          </Link>
+        </Reveal>
       </Container>
     </section>
   );

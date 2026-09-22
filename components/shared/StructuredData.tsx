@@ -1,6 +1,7 @@
 import { contactDetails } from "@/config/contact";
 import { contactSocialLinks } from "@/config/social";
 import { siteConfig } from "@/config/site";
+import { studioLocation } from "@/config/studio";
 
 function buildOrganizationSchema() {
   return {
@@ -10,6 +11,12 @@ function buildOrganizationSchema() {
     url: siteConfig.url,
     logo: `${siteConfig.url}/icon-512.png`,
     email: contactDetails.email,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: studioLocation.city,
+      addressRegion: studioLocation.state,
+      addressCountry: studioLocation.countryCode,
+    },
     ...(contactSocialLinks.length > 0
       ? { sameAs: contactSocialLinks.map((link) => link.href) }
       : {}),

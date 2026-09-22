@@ -15,37 +15,17 @@ export function ClientMarquee() {
             id="client-marquee-heading"
             className="text-body max-w-[18rem] text-center text-sm leading-5 font-normal sm:max-w-none sm:text-base"
           >
-            Loved by 1000+ big and small brands around the world
+            Clients we&apos;ve worked with
           </h2>
           <span aria-hidden="true" className="bg-border h-px flex-1" />
         </div>
-      </Container>
 
-      <div
-        role="region"
-        className="client-marquee-viewport focus-visible:outline-offset-[-2px]"
-        tabIndex={0}
-        aria-label="Client logo marquee. Focus or hover to pause the animation."
-      >
-        <div className="client-marquee-track">
-          <ul
-            className="client-marquee-group client-marquee-primary"
-            aria-label="Featured clients"
-          >
-            {clientLogos.map((logo) => (
-              <ClientLogo key={logo.id} logo={logo} />
-            ))}
-          </ul>
-          <ul
-            className="client-marquee-group client-marquee-copy"
-            aria-hidden="true"
-          >
-            {clientLogos.map((logo) => (
-              <ClientLogo key={`duplicate-${logo.id}`} logo={logo} />
-            ))}
-          </ul>
-        </div>
-      </div>
+        <ul className="grid grid-cols-2 items-center justify-items-center gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-8 md:grid-cols-4 xl:grid-cols-5">
+          {clientLogos.map((logo) => (
+            <ClientLogo key={logo.id} logo={logo} />
+          ))}
+        </ul>
+      </Container>
     </section>
   );
 }

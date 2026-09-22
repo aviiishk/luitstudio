@@ -1,5 +1,6 @@
 import "server-only";
 
+import { createPublicClient } from "@/lib/supabase/public";
 import { createClient } from "@/lib/supabase/server";
 import type { Certificate, PublicCertificate } from "@/types/certificate";
 
@@ -81,7 +82,7 @@ export async function getCertificateByApplicationId(
 export async function getPublicCertificate(
   id: string,
 ): Promise<PublicCertificate | null> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data, error } = await supabase
     .from("certificates")
     .select(

@@ -5,11 +5,21 @@ import type {
   NavigationItem,
 } from "@/types/navigation";
 
+// "Work" is intentionally left out of navigation until there is at least one
+// real, permissioned case study to show — see the audit remediation plan.
+// Re-add a Work entry (ROUTES.work) once that content exists.
+//
+// Multi-page structure: Home keeps its full content, and Services/About/
+// Career/Blog/Contact are now real routes (not homepage anchors). Pricing
+// stays a Home-only section, reachable from the footer, not the top nav.
+
 export const navigationItems = [
-  { label: "About Us", href: ROUTES.about, sectionId: "aboutus" },
-  { label: "Services", href: ROUTES.services, sectionId: "services" },
-  { label: "Work", href: ROUTES.work, sectionId: "work" },
-  { label: "Pricing", href: ROUTES.pricing, sectionId: "pricing" },
+  { label: "Home", href: ROUTES.home },
+  { label: "Services", href: ROUTES.services },
+  { label: "About", href: ROUTES.about },
+  { label: "Career", href: ROUTES.career },
+  { label: "Blog", href: ROUTES.blog },
+  { label: "Contact", href: ROUTES.contact },
 ] as const satisfies readonly NavigationItem[];
 
 export const mobileNavigationItems = [
@@ -20,8 +30,9 @@ export const mobileNavigationItems = [
     id: "services",
     icon: "services",
   },
-  { label: "Work", href: ROUTES.work, id: "work", icon: "work" },
-  { label: "About", href: ROUTES.about, id: "aboutus", icon: "about" },
+  { label: "About", href: ROUTES.about, id: "about", icon: "about" },
+  { label: "Career", href: ROUTES.career, id: "career", icon: "career" },
+  { label: "Blog", href: ROUTES.blog, id: "blog", icon: "blog" },
   {
     label: "Contact",
     href: ROUTES.contact,
@@ -34,9 +45,10 @@ export const footerNavigationGroups = [
   {
     title: "Company",
     links: [
-      { label: "About", href: ROUTES.about },
+      { label: "Home", href: ROUTES.home },
       { label: "Services", href: ROUTES.services },
-      { label: "Work", href: ROUTES.work },
+      { label: "About", href: ROUTES.about },
+      { label: "Career", href: ROUTES.career },
       { label: "Pricing", href: ROUTES.pricing },
       { label: "Blog", href: ROUTES.blog },
       { label: "Contact", href: ROUTES.contact },

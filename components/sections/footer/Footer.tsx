@@ -1,5 +1,6 @@
-import { Mail } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 import Link from "next/link";
+import { FaWhatsapp } from "react-icons/fa6";
 
 import { FooterCopyright } from "@/components/sections/footer/FooterCopyright";
 import { FooterNavigation } from "@/components/sections/footer/FooterNavigation";
@@ -9,20 +10,16 @@ import { BookCallButton } from "@/components/shared/BookCallButton";
 import { Logo } from "@/components/shared/Logo";
 import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/config/site";
+import { studioLocationLabel } from "@/config/studio";
+import { getWhatsAppLink } from "@/config/whatsapp";
 import { ROUTES } from "@/constants/routes";
 import { footerContent } from "@/data/footer";
-import type { FooterContent, FooterProjectStatus } from "@/types/footer";
+import type { FooterContent } from "@/types/footer";
+import { getExternalLinkAttributes } from "@/utils/external-link";
 
 interface FooterProps {
   content?: FooterContent;
 }
-
-const statusClasses = {
-  Beta: "bg-sky/25 text-sky-ink",
-  Building: "bg-orange/25 text-orange-ink",
-  "Coming Soon": "bg-violet/25 text-violet-ink",
-  Live: "bg-green/25 text-green-ink",
-} satisfies Record<FooterProjectStatus, string>;
 
 export function Footer({ content = footerContent }: FooterProps) {
   return (
@@ -69,7 +66,7 @@ export function Footer({ content = footerContent }: FooterProps) {
                 <h2 id="footer-studio-heading" className="sr-only">
                   Studio details
                 </h2>
-                <address className="mt-8 not-italic">
+                <address className="mt-8 flex flex-col gap-3 not-italic">
                   <a
                     href={`mailto:${content.contact.email}`}
                     className="group text-ink/70 hover:text-brand focus-visible:text-brand flex items-start gap-3 text-sm transition-colors"
@@ -81,16 +78,36 @@ export function Footer({ content = footerContent }: FooterProps) {
                     />
                     <span className="break-all">{content.contact.email}</span>
                   </a>
+                  <a
+                    href={getWhatsAppLink()}
+                    {...getExternalLinkAttributes("Chat on WhatsApp")}
+                    className="group text-ink/70 hover:text-brand focus-visible:text-brand flex items-start gap-3 text-sm transition-colors"
+                  >
+                    <FaWhatsapp
+                      aria-hidden="true"
+                      className="mt-0.5 shrink-0"
+                      size={17}
+                    />
+                    Chat on WhatsApp
+                  </a>
+                  <span className="text-ink/70 flex items-start gap-3 text-sm">
+                    <MapPin
+                      aria-hidden="true"
+                      className="mt-0.5 shrink-0"
+                      size={17}
+                    />
+                    {studioLocationLabel}
+                  </span>
                 </address>
               </section>
 
-              <div className="lg:col-span-2">
+              <div className="lg:col-span-3">
                 <FooterNavigation groups={content.navigationGroups} />
               </div>
 
               <section
                 aria-labelledby="footer-services-heading"
-                className="lg:col-span-2"
+                className="lg:col-span-3"
               >
                 <h2
                   id="footer-services-heading"
@@ -115,33 +132,6 @@ export function Footer({ content = footerContent }: FooterProps) {
               <div className="lg:col-span-2">
                 <FooterSocial links={content.socialLinks} />
               </div>
-
-              <section
-                aria-labelledby="footer-projects-heading"
-                className="lg:col-span-2"
-              >
-                <h2
-                  id="footer-projects-heading"
-                  className="text-ink/55 text-xs font-semibold tracking-[0.2em] uppercase"
-                >
-                  Current Projects
-                </h2>
-                <ul className="mt-5 flex flex-col gap-3">
-                  {content.projects.map((project) => (
-                    <li
-                      key={project.name}
-                      className="flex flex-col items-start gap-1.5"
-                    >
-                      <span className="text-ink text-sm">{project.name}</span>
-                      <span
-                        className={`rounded-full px-2.5 py-1 text-[0.625rem] leading-none font-semibold tracking-[0.08em] uppercase ${statusClasses[project.status]}`}
-                      >
-                        {project.status}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </section>
             </div>
           </div>
         </div>

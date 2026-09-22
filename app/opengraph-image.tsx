@@ -5,7 +5,7 @@ import { ImageResponse } from "next/og";
 
 import { siteConfig } from "@/config/site";
 
-export const alt = `${siteConfig.name} — Creative Agency`;
+export const alt = `${siteConfig.name} — Design & Build Studio in Guwahati, Assam`;
 export const contentType = "image/png";
 export const size = { width: 1200, height: 630 };
 
@@ -49,7 +49,8 @@ export default function OpenGraphImage() {
             maxWidth: "980px",
           }}
         >
-          Creative agency crafting distinctive brands and digital experiences.
+          Design & build studio in Guwahati, Assam — working with clients
+          across India and abroad.
         </div>
       </div>
     </div>,

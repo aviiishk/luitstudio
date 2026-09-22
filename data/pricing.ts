@@ -1,44 +1,41 @@
 import { ROUTES } from "@/constants/routes";
-import type { PricingPlan } from "@/types/pricing";
+import type { PricingTrack } from "@/types/pricing";
 
-export const pricingPlans: readonly PricingPlan[] = [
+// Two tracks instead of flat monthly tiers, since Luit Studio's services
+// split naturally into ongoing work and scoped project work. Mid-market
+// starting prices, dual currency for Indian and international clients.
+// Adjust these two lines whenever real rates change.
+export const pricingTracks: readonly PricingTrack[] = [
   {
-    id: "starter",
-    title: "Starter",
+    id: "retainer",
+    title: "Ongoing Retainer",
+    model: "retainer",
     description:
-      "For small businesses, local brands, freelancers, and focused landing-page work.",
-    currency: "$",
-    price: 299,
-    duration: "month",
-    features: [
-      "Unlimited design requests (1 active at a time)",
-      "Website updates",
-      "Landing page optimization",
-      "Basic SEO improvements",
-      "Monthly performance report",
-      "One strategy call per month",
+      "For services that run every month — content, social, and video that need to stay consistent.",
+    serviceIds: [
+      "digital-marketing",
+      "social-media-handling",
+      "video-editing",
+      "motion-graphics",
     ],
+    priceNote: "From ₹45,000/mo · $550/mo",
     highlighted: false,
-    cta: { label: "Start Subscription", href: ROUTES.contact },
+    cta: { label: "Start a retainer", href: ROUTES.contact },
   },
   {
-    id: "growth",
-    title: "Growth",
+    id: "project",
+    title: "Project-Based",
+    model: "quote",
     description:
-      "For startups, SaaS teams, and growing businesses ready to sharpen product and conversion.",
-    currency: "$",
-    price: 699,
-    duration: "month",
-    features: [
-      "Everything in Starter",
-      "Priority support",
-      "UI/UX improvements",
-      "Development support",
-      "Analytics review",
-      "Conversion optimization",
-      "Weekly check-ins",
+      "For scoped work with a clear start and finish — a site, a product, an automation.",
+    serviceIds: [
+      "web-development",
+      "ai-automation",
+      "ui-ux-design",
+      "graphic-design",
     ],
+    priceNote: "From ₹75,000 · $900",
     highlighted: true,
-    cta: { label: "Book Discovery Call", href: ROUTES.contact },
+    cta: { label: "Get a quote", href: ROUTES.contact },
   },
 ] as const;

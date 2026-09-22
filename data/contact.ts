@@ -1,9 +1,10 @@
+import { services } from "@/components/sections/services/service-data";
 import { contactDetails } from "@/config/contact";
 import { contactSocialLinks } from "@/config/social";
 import type { ContactContent } from "@/types/contact";
 
 export const contactContent = {
-  title: "Love to hear from you, Get in",
+  title: "We'd love to hear from you — get in",
   emphasizedTitle: "touch",
   submitLabel: "Let’s Collaborate",
   fields: [
@@ -32,9 +33,11 @@ export const contactContent = {
       type: "select",
       required: true,
       options: [
-        { label: "Design & Branding", value: "design-branding" },
-        { label: "Ecommerce", value: "ecommerce" },
-        { label: "Specialist", value: "specialist" },
+        { label: "Select a service", value: "", disabled: true },
+        ...services.map((service) => ({
+          label: service.title,
+          value: service.id,
+        })),
       ],
     },
     {
@@ -45,8 +48,11 @@ export const contactContent = {
       required: true,
       options: [
         { label: "Select your budget", value: "", disabled: true },
-        { label: "$10,000", value: "10000" },
-        { label: "$50,500", value: "50500" },
+        { label: "Under $1,000", value: "under-1000" },
+        { label: "$1,000 – $5,000", value: "1000-5000" },
+        { label: "$5,000 – $15,000", value: "5000-15000" },
+        { label: "$15,000+", value: "15000-plus" },
+        { label: "Not sure yet", value: "not-sure" },
       ],
     },
     {

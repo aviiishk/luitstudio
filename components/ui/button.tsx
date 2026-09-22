@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
 import type { ComponentPropsWithoutRef } from "react";
+import type { IconType } from "react-icons";
 
 const baseStyles =
   "group inline-flex min-h-12 items-center justify-center gap-3 rounded-full px-6 text-base font-medium transition-[transform,color,background-color,border-color,box-shadow,opacity] duration-200 hover:-translate-y-0.5 hover:shadow-soft active:translate-y-0 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand aria-disabled:pointer-events-none aria-disabled:cursor-not-allowed aria-disabled:opacity-50 aria-disabled:shadow-none motion-reduce:transform-none";
@@ -16,6 +17,11 @@ const variantStyles = {
   },
   light: {
     button: "bg-white text-ink hover:bg-surface",
+    icon: "bg-ink text-white",
+  },
+  outline: {
+    button:
+      "border border-ink/15 bg-transparent text-ink hover:border-ink/30 hover:bg-ink/5",
     icon: "bg-ink text-white",
   },
   outlineLight: {
@@ -36,7 +42,7 @@ const variantStyles = {
 } as const;
 
 type ButtonLinkProps = ComponentPropsWithoutRef<typeof Link> & {
-  icon?: LucideIcon;
+  icon?: LucideIcon | IconType;
   variant?: keyof typeof variantStyles;
 };
 
@@ -84,7 +90,7 @@ export function ButtonLink({
 }
 
 type ButtonActionProps = ComponentPropsWithoutRef<"button"> & {
-  icon?: LucideIcon;
+  icon?: LucideIcon | IconType;
   variant?: keyof typeof variantStyles;
 };
 

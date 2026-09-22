@@ -1,5 +1,6 @@
 import "server-only";
 
+import { createPublicClient } from "@/lib/supabase/public";
 import { createClient } from "@/lib/supabase/server";
 import type { BlogArticle } from "@/types/blog";
 
@@ -50,7 +51,7 @@ function mapRow(row: BlogPostRow): BlogArticle {
 export async function getPublishedPosts(
   options: { limit?: number } = {},
 ): Promise<BlogArticle[]> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   let query = supabase
     .from("blog_posts")
     .select(POST_COLUMNS)
@@ -70,7 +71,7 @@ export async function getPublishedPosts(
 export async function getPublishedPost(
   slug: string,
 ): Promise<BlogArticle | null> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data, error } = await supabase
     .from("blog_posts")
     .select(POST_COLUMNS)

@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
-  BriefcaseBusiness,
+  Briefcase,
   CircleUserRound,
   Dribbble,
   Facebook,
@@ -12,18 +12,21 @@ import {
   Layers3,
   Linkedin,
   Mail,
+  Newspaper,
   Palette,
   Twitter,
   X,
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
+import { FaWhatsapp } from "react-icons/fa6";
 
 import { Logo } from "@/components/shared/Logo";
 import { ButtonLink } from "@/components/ui/button";
 import { mobileNavigationItems } from "@/config/navigation";
 import { siteConfig } from "@/config/site";
 import { mobileSocialLinks } from "@/config/social";
+import { getWhatsAppLink } from "@/config/whatsapp";
 import { MOTION_DURATION, MOTION_EASING } from "@/constants/motion";
 import { ROUTES } from "@/constants/routes";
 import type { SocialPlatform } from "@/types/contact";
@@ -31,7 +34,6 @@ import type { MobileNavigationItem } from "@/types/navigation";
 import { getExternalLinkAttributes } from "@/utils/external-link";
 
 interface MobileNavigationProps {
-  activeSection: string | null;
   isOpen: boolean;
   onClose: () => void;
   pathname: string;
@@ -43,10 +45,11 @@ const focusableSelector =
 
 const navigationIcons = {
   about: CircleUserRound,
+  blog: Newspaper,
+  career: Briefcase,
   contact: Mail,
   home: Home,
   services: Layers3,
-  work: BriefcaseBusiness,
 } satisfies Record<MobileNavigationItem["icon"], typeof Home>;
 
 const socialIcons = {
@@ -69,7 +72,6 @@ const featuredSocialPlatforms = [
 }[];
 
 export function MobileNavigation({
-  activeSection,
   isOpen,
   onClose,
   pathname,
@@ -134,15 +136,8 @@ export function MobileNavigation({
   const duration = shouldReduceMotion ? 0 : MOTION_DURATION.drawer;
 
   const isItemActive = (item: MobileNavigationItem) => {
-    if (item.id === "home") {
-      return pathname === "/" && !activeSection;
-    }
-
-    if (item.id === "contact") {
-      return pathname.startsWith(`/${item.id}`);
-    }
-
-    return pathname === "/" && activeSection === item.id;
+    if (item.href === ROUTES.home) return pathname === ROUTES.home;
+    return pathname === item.href || pathname.startsWith(`${item.href}/`);
   };
 
   return (
@@ -176,7 +171,7 @@ export function MobileNavigation({
             <div className="flex items-start justify-between gap-5">
               <div className="pt-2">
                 <p className="text-[0.6875rem] font-semibold tracking-[0.16em] text-[#0B1220]/65 uppercase">
-                  Creative Digital Agency
+                  Design &amp; Build Studio
                 </p>
                 <Logo className="mt-5 h-[clamp(4rem,18vw,5rem)] w-auto" />
               </div>
@@ -209,15 +204,16 @@ export function MobileNavigation({
                 className="w-full"
                 onClick={onClose}
               >
-                Book a Call
+                Start a Project
               </ButtonLink>
               <ButtonLink
-                href={ROUTES.work}
+                href={getWhatsAppLink()}
+                {...getExternalLinkAttributes("Chat on WhatsApp")}
+                icon={FaWhatsapp}
                 variant="luitOutline"
                 className="w-full"
-                onClick={onClose}
               >
-                View Portfolio
+                Chat on WhatsApp
               </ButtonLink>
             </motion.div>
 
@@ -242,14 +238,7 @@ export function MobileNavigation({
                     >
                       <Link
                         href={item.href}
-                        aria-current={
-                          isActive &&
-                          (item.id === "home" || item.id === "contact")
-                            ? "page"
-                            : isActive
-                              ? "location"
-                              : undefined
-                        }
+                        aria-current={isActive ? "page" : undefined}
                         className={`group flex min-h-[52px] w-full items-center gap-4 rounded-xl px-3 font-medium transition-[transform,color,background-color,box-shadow] duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#155EEF] active:scale-[0.99] motion-reduce:transform-none ${
                           isActive
                             ? "shadow-soft bg-[#155EEF] text-white"
@@ -357,7 +346,7 @@ export function MobileNavigation({
             </section>
 
             <div className="mt-8 pt-6 text-sm text-[#0B1220]/65">
-              <p>Crafting premium digital experiences.</p>
+              <p>Design &amp; build, from Guwahati.</p>
               <p className="mt-1">{siteConfig.copyrightShort}</p>
             </div>
           </motion.div>

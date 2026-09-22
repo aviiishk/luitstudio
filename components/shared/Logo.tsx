@@ -5,16 +5,22 @@ import { siteConfig } from "@/config/site";
 interface LogoProps {
   className?: string;
   priority?: boolean;
+  sizes?: string;
 }
 
-export function Logo({ className = "h-9 w-auto", priority = false }: LogoProps) {
+export function Logo({
+  className = "h-9 w-auto",
+  priority = false,
+  sizes = "260px",
+}: LogoProps) {
   return (
     <Image
       src="/logo/luit-logo.png"
       alt={siteConfig.name}
-      width={594}
-      height={534}
+      width={1774}
+      height={887}
       priority={priority}
+      sizes={sizes}
       className={className}
     />
   );

@@ -1,13 +1,3 @@
-export type ClientLogoMark = "arrow" | "grid" | "orbit" | "spark" | "shield";
-
-interface ClientLogoIconData {
-  id: string;
-  name: string;
-  type: "icon";
-  mark: ClientLogoMark;
-  color: string;
-}
-
 interface ClientLogoImageData {
   id: string;
   name: string;
@@ -17,7 +7,7 @@ interface ClientLogoImageData {
   height: number;
 }
 
-export type ClientLogoData = ClientLogoIconData | ClientLogoImageData;
+export type ClientLogoData = ClientLogoImageData;
 
 export const clientLogos: readonly ClientLogoData[] = [
   {
@@ -25,8 +15,8 @@ export const clientLogos: readonly ClientLogoData[] = [
     name: "PredictX",
     type: "image",
     src: "/images/clients/predictx.png",
-    width: 531,
-    height: 160,
+    width: 2172,
+    height: 724,
   },
   {
     id: "aahii",
@@ -37,38 +27,67 @@ export const clientLogos: readonly ClientLogoData[] = [
     height: 160,
   },
   {
-    id: "astera",
-    name: "Astera",
-    type: "icon",
-    mark: "spark",
-    color: "#f97316",
+    id: "predictx-sports",
+    name: "PredictX Sports",
+    type: "image",
+    src: "/images/clients/predictxsports.png",
+    width: 2172,
+    height: 724,
   },
   {
-    id: "northline",
-    name: "Northline",
-    type: "icon",
-    mark: "orbit",
-    color: "#1b1d1e",
+    id: "gsm-group",
+    name: "GSM Group",
+    type: "image",
+    src: "/images/clients/gsmgroup.png",
+    width: 2095,
+    height: 751,
   },
   {
-    id: "verdant",
-    name: "Verdant",
-    type: "icon",
-    mark: "shield",
-    color: "#09a86f",
+    id: "jnp",
+    name: "JNP",
+    type: "image",
+    src: "/images/clients/jnp.png",
+    width: 2172,
+    height: 724,
   },
   {
-    id: "formworks",
-    name: "Formworks",
-    type: "icon",
-    mark: "grid",
-    color: "#1b1d1e",
+    id: "ghor",
+    name: "Ghor",
+    type: "image",
+    src: "/images/clients/ghor.png",
+    width: 2172,
+    height: 724,
   },
   {
-    id: "orbit",
-    name: "Orbit",
-    type: "icon",
-    mark: "arrow",
-    color: "#3a04ff",
+    id: "madhab-lodge",
+    name: "Madhab Lodge",
+    type: "image",
+    src: "/images/clients/madhablodge.png",
+    width: 2172,
+    height: 724,
+  },
+  {
+    id: "porisrom",
+    name: "Porisrom",
+    type: "image",
+    src: "/images/clients/porisrom.png",
+    width: 2172,
+    height: 724,
+  },
+  {
+    id: "zupiter-india",
+    name: "Zupiter India",
+    type: "image",
+    src: "/images/clients/zupiterindia.png",
+    width: 2172,
+    height: 724,
+  },
+  {
+    id: "always-compliant",
+    name: "Always Compliant",
+    type: "image",
+    src: "/images/clients/alwayscomplaint.png",
+    width: 2170,
+    height: 725,
   },
 ] as const;

@@ -12,7 +12,9 @@ const contentSecurityPolicy = [
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
   `connect-src 'self' https://app.cal.com https://cal.com https://api.cloudinary.com${supabaseUrl ? ` ${supabaseUrl}` : ""}${isDevelopment ? " ws: http: https:" : ""}`,
-  "frame-src 'self' https://app.cal.com https://cal.com",
+  // res.cloudinary.com is here so the admin dashboard can embed uploaded
+  // resumes (PDFs) inline instead of forcing a new tab or download.
+  "frame-src 'self' https://app.cal.com https://cal.com https://res.cloudinary.com",
   "media-src 'self'",
   "object-src 'none'",
   "base-uri 'self'",

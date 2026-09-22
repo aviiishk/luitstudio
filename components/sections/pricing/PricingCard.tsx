@@ -1,77 +1,76 @@
 import { ArrowUpRight } from "lucide-react";
 
 import { PricingFeature } from "@/components/sections/pricing/PricingFeature";
+import { services } from "@/components/sections/services/service-data";
 import { ButtonLink } from "@/components/ui/button";
-import type { PricingPlan } from "@/types/pricing";
+import type { PricingTrack } from "@/types/pricing";
 
 interface PricingCardProps {
-  plan: PricingPlan;
+  track: PricingTrack;
 }
 
-export function PricingCard({ plan }: PricingCardProps) {
+export function PricingCard({ track }: PricingCardProps) {
+  const includedServices = track.serviceIds
+    .map((id) => services.find((service) => service.id === id))
+    .filter((service): service is (typeof services)[number] => Boolean(service));
+
   return (
     <article
-      aria-labelledby={`${plan.id}-plan-title`}
-      className={`hover:shadow-soft h-full rounded-2xl border border-transparent p-6 transition-[transform,border-color,box-shadow] duration-200 ease-out hover:-translate-y-1 motion-reduce:transform-none sm:p-8 ${
-        plan.highlighted
-          ? "bg-brand text-white hover:border-white/20"
-          : "bg-yellow text-ink hover:border-ink/15"
+      aria-labelledby={`${track.id}-plan-title`}
+      className={`bg-canvas hover:shadow-soft h-full rounded-2xl border p-6 transition-[transform,border-color,box-shadow] duration-200 ease-out hover:-translate-y-1 motion-reduce:transform-none sm:p-8 ${
+        track.highlighted
+          ? "border-brand/25"
+          : "border-border"
       }`}
     >
       <div className="grid h-full gap-10 md:grid-cols-2 md:gap-0">
-        <div
-          className={`flex flex-col justify-between gap-10 md:pr-8 ${plan.highlighted ? "md:border-r md:border-white/15" : "md:border-ink/10 md:border-r"}`}
-        >
+        <div className="border-border flex flex-col justify-between gap-10 md:border-r md:pr-8">
           <div className="flex flex-col gap-4">
             <h3
-              id={`${plan.id}-plan-title`}
-              className="bg-ink w-fit rounded-full px-4 py-2 text-base font-medium text-white"
+              id={`${track.id}-plan-title`}
+              className={`w-fit rounded-full px-4 py-2 text-base font-medium text-white ${
+                track.highlighted ? "bg-brand" : "bg-ink"
+              }`}
             >
-              {plan.title}
+              {track.title}
             </h3>
-            <p className={plan.highlighted ? "text-white/80" : "text-ink/70"}>
-              {plan.description}
-            </p>
+            <p className="text-body">{track.description}</p>
           </div>
 
           <div className="flex flex-col gap-5">
-            <p className="text-[clamp(2.5rem,5vw,3rem)] leading-none font-medium tracking-[-0.04em]">
-              {plan.currency ? (
-                <>
-                  <span aria-hidden="true">{plan.currency}</span>
-                  <span className="sr-only">{plan.currency}</span>
-                </>
-              ) : null}
-              {plan.price}
-              {plan.duration ? (
-                <span
-                  className={`ml-1 text-base tracking-normal ${plan.highlighted ? "text-white/80" : "text-ink/70"}`}
-                >
-                  /{plan.duration}
-                </span>
-              ) : null}
-            </p>
+            <div className="flex flex-col gap-1.5">
+              <p className="text-ink text-lg leading-snug font-medium">
+                {track.priceNote}
+              </p>
+              <p className="text-body/80 text-sm">
+                Final scope and price confirmed on a quick call — no
+                surprises.
+              </p>
+            </div>
             <ButtonLink
-              href={plan.cta.href}
-              variant="light"
+              href={track.cta.href}
+              variant={track.highlighted ? "brand" : "dark"}
               icon={ArrowUpRight}
               className="w-fit pr-2"
             >
-              {plan.cta.label}
+              {track.cta.label}
             </ButtonLink>
+            <p className="text-body/70 text-xs font-medium">
+              Run personally by our co-founders — no hand-offs.
+            </p>
           </div>
         </div>
 
         <div className="flex flex-col gap-4 md:pl-8">
-          <h4
-            className={`text-lg ${plan.highlighted ? "text-white" : "text-ink"}`}
-          >
-            Features
-          </h4>
+          <h4 className="text-ink text-lg">Includes</h4>
           <ul className="flex flex-col gap-3">
-            {plan.features.map((feature) => (
-              <PricingFeature key={feature} highlighted={plan.highlighted}>
-                {feature}
+            {includedServices.map((service) => (
+              <PricingFeature
+                key={service.id}
+                icon={service.icon}
+                highlighted={track.highlighted}
+              >
+                {service.title}
               </PricingFeature>
             ))}
           </ul>

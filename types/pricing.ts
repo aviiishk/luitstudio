@@ -1,16 +1,17 @@
+export type PricingModel = "retainer" | "quote";
+
 export interface PricingCta {
   href: string;
   label: string;
 }
 
-export interface PricingPlan {
-  currency?: string;
-  cta: PricingCta;
-  description: string;
-  duration?: string;
-  features: readonly string[];
-  highlighted: boolean;
+export interface PricingTrack {
   id: string;
-  price: number | string;
   title: string;
+  model: PricingModel;
+  description: string;
+  serviceIds: readonly string[];
+  priceNote: string;
+  highlighted: boolean;
+  cta: PricingCta;
 }

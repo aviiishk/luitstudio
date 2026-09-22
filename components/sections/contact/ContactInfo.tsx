@@ -1,8 +1,13 @@
-import { Mail } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa6";
 
 import { SocialLinks } from "@/components/sections/contact/SocialLinks";
 import { BookCallButton } from "@/components/shared/BookCallButton";
+import { ButtonLink } from "@/components/ui/button";
+import { studioLocationLabel } from "@/config/studio";
+import { getWhatsAppLink } from "@/config/whatsapp";
 import type { ContactDetails } from "@/types/contact";
+import { getExternalLinkAttributes } from "@/utils/external-link";
 
 interface ContactInfoProps {
   details: ContactDetails;
@@ -29,11 +34,24 @@ export function ContactInfo({ details }: ContactInfoProps) {
           />
           <span className="break-all">{details.email}</span>
         </a>
+        <span className="flex items-center gap-3 text-white/75">
+          <MapPin aria-hidden="true" size={20} />
+          {studioLocationLabel}
+        </span>
       </address>
-      <div className="mt-8">
+      <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
         <BookCallButton variant="light" className="w-full sm:w-auto">
           Book a Call
         </BookCallButton>
+        <ButtonLink
+          href={getWhatsAppLink()}
+          {...getExternalLinkAttributes("Chat on WhatsApp")}
+          icon={FaWhatsapp}
+          variant="outlineLight"
+          className="w-full sm:w-auto"
+        >
+          Chat on WhatsApp
+        </ButtonLink>
       </div>
       {details.socialLinks.length > 0 ? (
         <div className="mt-auto pt-10">

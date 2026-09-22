@@ -7,6 +7,7 @@ type HeadingElement = "h1" | "h2" | "h3";
 
 interface AnimatedHeadlineProps {
   text: string;
+  secondLineText?: string;
   italicText?: string;
   delay?: number;
   className?: string;
@@ -86,6 +87,7 @@ function AnimatedText({
 
 export function AnimatedHeadline({
   text,
+  secondLineText,
   italicText,
   delay = 0,
   className,
@@ -100,13 +102,35 @@ export function AnimatedHeadline({
   const reducedMotion = Boolean(shouldReduceMotion);
   const active = reducedMotion || !animateOnView || isInView;
   const normalizedText = text.trim();
+  const normalizedSecondLineText = secondLineText?.trim();
   const normalizedItalicText = italicText?.trim();
-  const accessibleText = [normalizedText, normalizedItalicText]
+  const accessibleText = [
+    normalizedText,
+    normalizedSecondLineText,
+    normalizedItalicText,
+  ]
     .filter(Boolean)
     .join(" ");
-  const italicDelay =
-    delay + countCharacters(normalizedText) * LETTER_STAGGER + ITALIC_PAUSE;
+  const secondLineDelay =
+    delay + countCharacters(normalizedText) * LETTER_STAGGER;
+  const italicBaseDelay = normalizedSecondLineText
+    ? secondLineDelay + countCharacters(normalizedSecondLineText) * LETTER_STAGGER
+    : delay + countCharacters(normalizedText) * LETTER_STAGGER;
+  const italicDelay = italicBaseDelay + ITALIC_PAUSE;
   const Heading = as;
+
+  const secondLineContent: ReactNode = normalizedSecondLineText ? (
+    <>
+      <br />
+      <AnimatedText
+        text={normalizedSecondLineText}
+        delay={secondLineDelay}
+        reducedMotion={reducedMotion}
+        active={active}
+        keyPrefix="second-line"
+      />
+    </>
+  ) : null;
 
   const italicContent: ReactNode = normalizedItalicText ? (
     <>
@@ -133,6 +157,7 @@ export function AnimatedHeadline({
           active={active}
           keyPrefix="regular"
         />
+        {secondLineContent}
         {italicContent}
       </span>
     </Heading>

@@ -1,9 +1,14 @@
-export type NavigationIcon = "about" | "contact" | "home" | "services" | "work";
+export type NavigationIcon =
+  | "about"
+  | "blog"
+  | "career"
+  | "contact"
+  | "home"
+  | "services";
 
 export interface NavigationItem {
   label: string;
   href: string;
-  sectionId: string;
 }
 
 export interface MobileNavigationItem {

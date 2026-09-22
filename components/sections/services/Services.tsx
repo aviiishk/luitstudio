@@ -15,8 +15,8 @@ export function Services() {
         <AnimatedHeadline
           as="h2"
           id="services-heading"
-          text="Where innovation meets"
-          italicText="aesthetics"
+          text="One team for"
+          italicText="everything you need"
           delay={0.05}
           animateOnView
           className="text-ink mx-auto max-w-lg text-center text-[clamp(2.25rem,5vw,3rem)] leading-[1.08] tracking-[-0.035em] text-balance"

@@ -5,6 +5,7 @@ import { Menu } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useRef, useState } from "react";
+import { FaWhatsapp } from "react-icons/fa6";
 
 import { MobileNavigation } from "@/components/layout/mobile-navigation";
 import { Logo } from "@/components/shared/Logo";
@@ -12,16 +13,19 @@ import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { mobileNavigationItems, navigationItems } from "@/config/navigation";
 import { siteConfig } from "@/config/site";
+import { getWhatsAppLink } from "@/config/whatsapp";
 import { ROUTES } from "@/constants/routes";
-import { useActiveSection } from "@/hooks/use-active-section";
 import { useScrolled } from "@/hooks/use-scrolled";
+import { getExternalLinkAttributes } from "@/utils/external-link";
 
-const sectionIds = navigationItems.map((item) => item.sectionId);
+function isNavItemActive(pathname: string, href: string) {
+  if (href === ROUTES.home) return pathname === ROUTES.home;
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
 export function SiteHeader() {
   const pathname = usePathname();
   const isScrolled = useScrolled();
-  const activeSection = useActiveSection(sectionIds);
   const shouldReduceMotion = useReducedMotion();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuTriggerRef = useRef<HTMLButtonElement>(null);
@@ -30,7 +34,7 @@ export function SiteHeader() {
   return (
     <>
       <motion.header
-        className="motion-enhanced no-js-header fixed inset-x-0 top-0 z-50 py-3"
+        className="motion-enhanced no-js-header fixed inset-x-0 top-0 z-50 py-2"
         initial={{ opacity: 0, y: shouldReduceMotion ? 0 : -16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{
@@ -40,7 +44,7 @@ export function SiteHeader() {
       >
         <Container>
           <div
-            className={`grid min-h-14 grid-cols-[1fr_auto] items-center rounded-full px-3 transition-[background-color,box-shadow] duration-300 xl:grid-cols-[1fr_auto_1fr] ${
+            className={`grid min-h-12 grid-cols-[1fr_auto] items-center rounded-full px-2 transition-[background-color,box-shadow] duration-300 xl:grid-cols-[1fr_auto_1fr] ${
               isScrolled ? "shadow-soft bg-white" : "bg-transparent"
             }`}
           >
@@ -50,21 +54,20 @@ export function SiteHeader() {
               aria-label={`${siteConfig.name} home`}
               onClick={closeMenu}
             >
-              <Logo className="h-9 w-auto" priority />
+              <Logo className="h-10 w-auto" priority />
             </Link>
 
             <nav aria-label="Main navigation" className="hidden xl:block">
               <ul className="bg-surface flex items-center gap-1 rounded-full p-1">
                 {navigationItems.map((item) => {
-                  const isActive =
-                    pathname === "/" && activeSection === item.sectionId;
+                  const isActive = isNavItemActive(pathname, item.href);
 
                   return (
-                    <li key={item.sectionId}>
+                    <li key={item.href}>
                       <Link
                         href={item.href}
-                        aria-current={isActive ? "location" : undefined}
-                        className={`hover:text-ink hover:shadow-soft block rounded-full px-4 py-2 text-base font-medium transition-[transform,color,background-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:bg-white focus-visible:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] motion-reduce:transform-none ${
+                        aria-current={isActive ? "page" : undefined}
+                        className={`hover:text-ink hover:shadow-soft block rounded-full px-3 py-1.5 text-xs font-medium transition-[transform,color,background-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:bg-white focus-visible:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] motion-reduce:transform-none ${
                           isActive
                             ? "text-brand shadow-soft ring-brand/15 bg-white ring-1"
                             : "text-body"
@@ -78,14 +81,25 @@ export function SiteHeader() {
               </ul>
             </nav>
 
-            <div className="hidden justify-self-end xl:block">
+            <div className="hidden items-center gap-2 justify-self-end xl:flex">
+              <a
+                href={getWhatsAppLink()}
+                {...getExternalLinkAttributes("Chat on WhatsApp")}
+                className="group bg-brand grid size-10 shrink-0 place-items-center rounded-full text-white transition-[transform,background-color] duration-200 hover:-translate-y-0.5 hover:bg-ink active:translate-y-0 active:scale-[0.96] motion-reduce:transform-none"
+              >
+                <FaWhatsapp
+                  aria-hidden="true"
+                  className="transition-transform duration-200 group-hover:scale-110 motion-reduce:transform-none"
+                  size={22}
+                />
+              </a>
               <ButtonLink
                 href={ROUTES.contact}
                 variant={pathname === ROUTES.contact ? "brand" : "dark"}
                 aria-current={pathname === ROUTES.contact ? "page" : undefined}
-                className="min-h-10 px-5"
+                className="min-h-9 px-4 text-xs"
               >
-                Contact
+                Start a Project
               </ButtonLink>
             </div>
 
@@ -130,7 +144,6 @@ export function SiteHeader() {
       </motion.header>
 
       <MobileNavigation
-        activeSection={activeSection}
         isOpen={isMenuOpen}
         onClose={closeMenu}
         pathname={pathname}
