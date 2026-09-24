@@ -14,7 +14,7 @@ const contentSecurityPolicy = [
   `connect-src 'self' https://app.cal.com https://cal.com https://api.cloudinary.com https://www.google-analytics.com https://region1.google-analytics.com${supabaseUrl ? ` ${supabaseUrl}` : ""}${isDevelopment ? " ws: http: https:" : ""}`,
   // res.cloudinary.com is here so the admin dashboard can embed uploaded
   // resumes (PDFs) inline instead of forcing a new tab or download.
-  "frame-src 'self' https://app.cal.com https://cal.com https://res.cloudinary.com",
+  "frame-src 'self' https://app.cal.com https://cal.com https://res.cloudinary.com https://www.youtube.com https://www.youtube-nocookie.com",
   "media-src 'self'",
   "object-src 'none'",
   "base-uri 'self'",

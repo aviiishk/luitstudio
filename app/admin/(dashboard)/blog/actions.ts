@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 
 import { ROUTES } from "@/constants/routes";
+import { getCurrentAuthor } from "@/lib/current-author";
 import { sanitizeHtml } from "@/lib/sanitize-html";
 import { createClient } from "@/lib/supabase/server";
 
@@ -51,11 +52,20 @@ export async function createPost(input: PostInput): Promise<ActionResult> {
     return { error: "Title and slug are required." };
   }
 
+  const author = await getCurrentAuthor();
+  if (!author) {
+    return {
+      error:
+        "Your login isn't linked to a team profile yet — ask an admin to link it before publishing.",
+    };
+  }
+
   const supabase = await createClient();
   const payload = toPayload(input);
 
   const { error } = await supabase.from("blog_posts").insert({
     ...payload,
+    author_id: author.id,
     ...(input.published ? { published_at: new Date().toISOString() } : {}),
   });
 

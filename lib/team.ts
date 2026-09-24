@@ -4,7 +4,7 @@ import { createPublicClient } from "@/lib/supabase/public";
 import { createClient } from "@/lib/supabase/server";
 import type { TeamMember, TeamMemberStatus } from "@/types/team";
 
-interface TeamMemberRow {
+export interface TeamMemberRow {
   id: string;
   name: string;
   role: string;
@@ -19,10 +19,10 @@ interface TeamMemberRow {
   updated_at: string;
 }
 
-const COLUMNS =
+export const COLUMNS =
   "id, name, role, bio, image_url, is_founder, display_order, canvas_x, canvas_y, status, created_at, updated_at";
 
-function mapRow(row: TeamMemberRow): TeamMember {
+export function mapRow(row: TeamMemberRow): TeamMember {
   return {
     id: row.id,
     name: row.name,

@@ -1,10 +1,17 @@
 "use client";
 
 import { EditorContent, useEditor } from "@tiptap/react";
-import TiptapImage from "@tiptap/extension-image";
+import { Table } from "@tiptap/extension-table";
+import TableCell from "@tiptap/extension-table-cell";
+import TableHeader from "@tiptap/extension-table-header";
+import TableRow from "@tiptap/extension-table-row";
+import Youtube from "@tiptap/extension-youtube";
 import StarterKit from "@tiptap/starter-kit";
 import {
   Bold,
+  Code2,
+  Columns3,
+  Github,
   Heading2,
   Heading3,
   ImageIcon,
@@ -13,9 +20,17 @@ import {
   List,
   ListOrdered,
   Loader2,
+  Minus,
   Quote,
   Redo,
+  Rows3,
+  Strikethrough,
+  Table2,
+  TextQuote,
+  Trash2,
+  Twitter,
   Undo,
+  Youtube as YoutubeIcon,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
@@ -32,6 +47,11 @@ import {
   type PostInput,
 } from "@/app/admin/(dashboard)/blog/actions";
 import { ImageUploadField } from "@/components/admin/ImageUploadField";
+import {
+  FigureImage,
+  LinkCard,
+  PullQuote,
+} from "@/components/admin/tiptap-extensions";
 import { ButtonAction } from "@/components/ui/button";
 import { uploadImageToCloudinary } from "@/lib/cloudinary";
 import { slugify } from "@/utils/slugify";
@@ -46,9 +66,10 @@ interface PostEditorValues {
   published: boolean;
 }
 
-type PostEditorFormProps =
+type PostEditorFormProps = { authorLabel: string | null } & (
   | { mode: "create" }
-  | { mode: "edit"; postId: string; initial: PostEditorValues };
+  | { mode: "edit"; postId: string; initial: PostEditorValues }
+);
 
 const emptyValues: PostEditorValues = {
   title: "",
@@ -88,7 +109,14 @@ export function PostEditorForm(props: PostEditorFormProps) {
     immediatelyRender: false,
     extensions: [
       StarterKit.configure({ link: { openOnClick: false, autolink: true } }),
-      TiptapImage,
+      FigureImage,
+      PullQuote,
+      LinkCard,
+      Table.configure({ resizable: false }),
+      TableRow,
+      TableHeader,
+      TableCell,
+      Youtube.configure({ nocookie: true, modestBranding: true }),
     ],
     content: initial.contentHtml,
     editorProps: {
@@ -164,11 +192,72 @@ export function PostEditorForm(props: PostEditorFormProps) {
     setIsUploadingContentImage(true);
     try {
       const url = await uploadImageToCloudinary(file);
-      editor.chain().focus().setImage({ src: url }).run();
+      const caption = window.prompt("Caption (optional)") || null;
+      editor
+        .chain()
+        .focus()
+        .insertContent({ type: "image", attrs: { src: url, caption } })
+        .run();
     } catch {
       setContentImageError("Image upload failed.");
     } finally {
       setIsUploadingContentImage(false);
+    }
+  }
+
+  function insertTable() {
+    editor?.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
+  }
+
+  function insertYoutubeVideo() {
+    if (!editor) return;
+    const url = window.prompt("YouTube video URL");
+    if (!url) return;
+    editor.chain().focus().setYoutubeVideo({ src: url }).run();
+  }
+
+  function insertTweetCard() {
+    if (!editor) return;
+    const url = window.prompt("Post URL (X / Twitter)");
+    if (!url) return;
+    editor
+      .chain()
+      .focus()
+      .insertLinkCard({ url, label: "View post on X" })
+      .run();
+  }
+
+  async function insertGist() {
+    if (!editor) return;
+    const url = window.prompt("GitHub Gist URL");
+    if (!url) return;
+
+    const match = url.match(/gist\.github\.com\/[^/]+\/([a-f0-9]+)/i);
+    const gistId = match?.[1];
+    if (!gistId) {
+      setContentImageError("That doesn't look like a Gist URL.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`https://api.github.com/gists/${gistId}`);
+      if (!response.ok) throw new Error("Gist fetch failed");
+      const data = await response.json();
+      const files = Object.values(data.files ?? {}) as { content?: string }[];
+      const content = files[0]?.content ?? "";
+      if (!content) throw new Error("Gist has no content");
+
+      editor
+        .chain()
+        .focus()
+        .insertContent({
+          type: "codeBlock",
+          content: [{ type: "text", text: content }],
+        })
+        .insertLinkCard({ url, label: "View on GitHub Gist" })
+        .run();
+    } catch {
+      setContentImageError("Couldn't load that Gist — check the URL and try again.");
     }
   }
 
@@ -248,17 +337,30 @@ export function PostEditorForm(props: PostEditorFormProps) {
           value={coverImage}
           onChange={setCoverImage}
         />
-        <div>
-          <label htmlFor="tags" className={labelClasses}>
-            Tags (comma separated)
-          </label>
-          <input
-            id="tags"
-            value={tags}
-            onChange={(event) => setTags(event.target.value)}
-            placeholder="Design, Product"
-            className={inputClasses}
-          />
+        <div className="flex flex-col gap-6">
+          <div>
+            <label htmlFor="tags" className={labelClasses}>
+              Tags (comma separated)
+            </label>
+            <input
+              id="tags"
+              value={tags}
+              onChange={(event) => setTags(event.target.value)}
+              placeholder="Design, Product"
+              className={inputClasses}
+            />
+          </div>
+          <div>
+            <span className={labelClasses}>Author</span>
+            <p className="border-border bg-surface text-ink rounded-xl border px-4 py-2.5 text-sm">
+              {props.authorLabel ?? "Not linked to a team profile"}
+            </p>
+            <p className="text-body mt-1.5 text-xs">
+              {props.mode === "create"
+                ? "Set automatically from your login."
+                : "Set when the post was created — doesn't change on edit."}
+            </p>
+          </div>
         </div>
       </div>
 
@@ -297,6 +399,15 @@ export function PostEditorForm(props: PostEditorFormProps) {
               aria-label="Italic"
             >
               <Italic aria-hidden="true" size={16} />
+            </button>
+            <button
+              type="button"
+              onClick={() => editor?.chain().focus().toggleStrike().run()}
+              aria-pressed={editor?.isActive("strike")}
+              className={toolbarButtonClasses}
+              aria-label="Strikethrough"
+            >
+              <Strikethrough aria-hidden="true" size={16} />
             </button>
             <button
               type="button"
@@ -349,6 +460,15 @@ export function PostEditorForm(props: PostEditorFormProps) {
             </button>
             <button
               type="button"
+              onClick={() => editor?.chain().focus().togglePullQuote().run()}
+              aria-pressed={editor?.isActive("pullQuote")}
+              className={toolbarButtonClasses}
+              aria-label="Pull quote"
+            >
+              <TextQuote aria-hidden="true" size={16} />
+            </button>
+            <button
+              type="button"
               onClick={addLink}
               aria-pressed={editor?.isActive("link")}
               className={toolbarButtonClasses}
@@ -376,6 +496,87 @@ export function PostEditorForm(props: PostEditorFormProps) {
               className="hidden"
               onChange={(event) => void handleContentImageSelected(event)}
             />
+            <span className="bg-border mx-1 h-5 w-px" aria-hidden="true" />
+            <button
+              type="button"
+              onClick={() => editor?.chain().focus().toggleCodeBlock().run()}
+              aria-pressed={editor?.isActive("codeBlock")}
+              className={toolbarButtonClasses}
+              aria-label="Code block"
+            >
+              <Code2 aria-hidden="true" size={16} />
+            </button>
+            <button
+              type="button"
+              onClick={() => editor?.chain().focus().setHorizontalRule().run()}
+              className={toolbarButtonClasses}
+              aria-label="Divider"
+            >
+              <Minus aria-hidden="true" size={16} />
+            </button>
+            <span className="bg-border mx-1 h-5 w-px" aria-hidden="true" />
+            <button
+              type="button"
+              onClick={insertTable}
+              aria-pressed={editor?.isActive("table")}
+              className={toolbarButtonClasses}
+              aria-label="Insert table"
+            >
+              <Table2 aria-hidden="true" size={16} />
+            </button>
+            {editor?.isActive("table") ? (
+              <>
+                <button
+                  type="button"
+                  onClick={() => editor?.chain().focus().addColumnAfter().run()}
+                  className={toolbarButtonClasses}
+                  aria-label="Add column"
+                >
+                  <Columns3 aria-hidden="true" size={16} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => editor?.chain().focus().addRowAfter().run()}
+                  className={toolbarButtonClasses}
+                  aria-label="Add row"
+                >
+                  <Rows3 aria-hidden="true" size={16} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => editor?.chain().focus().deleteTable().run()}
+                  className={toolbarButtonClasses}
+                  aria-label="Delete table"
+                >
+                  <Trash2 aria-hidden="true" size={16} />
+                </button>
+              </>
+            ) : null}
+            <span className="bg-border mx-1 h-5 w-px" aria-hidden="true" />
+            <button
+              type="button"
+              onClick={insertYoutubeVideo}
+              className={toolbarButtonClasses}
+              aria-label="Insert YouTube video"
+            >
+              <YoutubeIcon aria-hidden="true" size={16} />
+            </button>
+            <button
+              type="button"
+              onClick={insertTweetCard}
+              className={toolbarButtonClasses}
+              aria-label="Insert X / Twitter card"
+            >
+              <Twitter aria-hidden="true" size={16} />
+            </button>
+            <button
+              type="button"
+              onClick={() => void insertGist()}
+              className={toolbarButtonClasses}
+              aria-label="Insert GitHub Gist"
+            >
+              <Github aria-hidden="true" size={16} />
+            </button>
             <span className="bg-border mx-1 h-5 w-px" aria-hidden="true" />
             <button
               type="button"

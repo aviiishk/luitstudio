@@ -576,3 +576,71 @@ html:not(.js) .no-js-header {
   border-radius: 12px;
   max-width: 100%;
 }
+
+.blog-prose blockquote.pull-quote {
+  border-left: none;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  padding: 1.5rem 0;
+  margin: 2em 0;
+  font-size: 1.35rem;
+  line-height: 1.4;
+  font-style: normal;
+  font-weight: 500;
+  color: var(--color-ink);
+  text-align: center;
+}
+
+.blog-prose figure {
+  margin: 1.5em 0;
+}
+
+.blog-prose figure img {
+  margin: 0;
+}
+
+.blog-prose figcaption {
+  color: var(--color-body);
+  font-size: 0.85rem;
+  text-align: center;
+  margin-top: 0.6rem;
+}
+
+.blog-prose .link-card {
+  margin: 1.5em 0;
+}
+
+.blog-prose .link-card a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+.blog-prose .link-card a:hover {
+  border-color: var(--color-brand);
+  color: var(--color-brand);
+}
+
+.blog-prose div[data-youtube-video] {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 1.5em 0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.blog-prose div[data-youtube-video] iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}

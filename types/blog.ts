@@ -1,3 +1,11 @@
+export interface BlogAuthor {
+  id: string;
+  name: string;
+  role: string;
+  bio: string | null;
+  imageUrl: string | null;
+}
+
 export interface BlogArticle {
   id: string;
   title: string;
@@ -8,4 +16,5 @@ export interface BlogArticle {
   tags: readonly string[];
   publishedAt: string;
   updatedAt: string;
+  author: BlogAuthor | null;
 }

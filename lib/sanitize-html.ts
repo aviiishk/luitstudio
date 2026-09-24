@@ -31,6 +31,10 @@ const ALLOWED_TAGS = [
   "tr",
   "th",
   "td",
+  "figure",
+  "figcaption",
+  "div",
+  "iframe",
 ];
 
 export function sanitizeHtml(html: string): string {
@@ -39,7 +43,25 @@ export function sanitizeHtml(html: string): string {
     allowedAttributes: {
       a: ["href", "target", "rel"],
       img: ["src", "alt", "width", "height"],
+      blockquote: ["class"],
+      div: ["class", "data-youtube-video"],
+      iframe: [
+        "src",
+        "width",
+        "height",
+        "allow",
+        "allowfullscreen",
+        "frameborder",
+        "title",
+        "start",
+        "loop",
+        "playlist",
+        "rel",
+        "origin",
+        "controls",
+      ],
     },
     allowedSchemes: ["http", "https", "mailto"],
+    allowedIframeHostnames: ["www.youtube.com", "www.youtube-nocookie.com"],
   });
 }

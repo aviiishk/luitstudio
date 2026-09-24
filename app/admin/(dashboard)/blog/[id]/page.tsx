@@ -15,6 +15,9 @@ export default async function EditPostPage({ params }: EditPostPageProps) {
   if (!post) notFound();
 
   const contentHtml = await toSafeHtml(post.content);
+  const authorLabel = post.author
+    ? `${post.author.name} — ${post.author.role}`
+    : null;
 
   return (
     <div>
@@ -22,6 +25,7 @@ export default async function EditPostPage({ params }: EditPostPageProps) {
       <PostEditorForm
         mode="edit"
         postId={post.id}
+        authorLabel={authorLabel}
         initial={{
           title: post.title,
           slug: post.slug,

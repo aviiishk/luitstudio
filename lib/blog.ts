@@ -2,7 +2,7 @@ import "server-only";
 
 import { createPublicClient } from "@/lib/supabase/public";
 import { createClient } from "@/lib/supabase/server";
-import type { BlogArticle } from "@/types/blog";
+import type { BlogArticle, BlogAuthor } from "@/types/blog";
 
 interface BlogPostRow {
   id: string;
@@ -16,6 +16,11 @@ interface BlogPostRow {
   created_at: string;
   updated_at: string;
   tags: string[] | null;
+  author_id: string | null;
+  team_members:
+    | { id: string; name: string; role: string; bio: string | null; image_url: string | null }
+    | { id: string; name: string; role: string; bio: string | null; image_url: string | null }[]
+    | null;
 }
 
 export interface AdminPostSummary {
@@ -29,10 +34,26 @@ export interface AdminPostSummary {
 
 export interface AdminPostDetail extends BlogArticle {
   published: boolean;
+  authorId: string | null;
 }
 
 const POST_COLUMNS =
-  "id, title, slug, excerpt, content, cover_image, published, published_at, created_at, updated_at, tags";
+  "id, title, slug, excerpt, content, cover_image, published, published_at, created_at, updated_at, tags, author_id, team_members(id, name, role, bio, image_url)";
+
+function mapAuthor(row: BlogPostRow): BlogAuthor | null {
+  const joined = Array.isArray(row.team_members)
+    ? row.team_members[0]
+    : row.team_members;
+
+  if (!joined) return null;
+  return {
+    id: joined.id,
+    name: joined.name,
+    role: joined.role,
+    bio: joined.bio,
+    imageUrl: joined.image_url,
+  };
+}
 
 function mapRow(row: BlogPostRow): BlogArticle {
   return {
@@ -45,6 +66,7 @@ function mapRow(row: BlogPostRow): BlogArticle {
     tags: row.tags ?? [],
     publishedAt: row.published_at ?? row.created_at,
     updatedAt: row.updated_at,
+    author: mapAuthor(row),
   };
 }
 
@@ -65,7 +87,7 @@ export async function getPublishedPosts(
   const { data, error } = await query;
   if (error || !data) return [];
 
-  return (data as BlogPostRow[]).map(mapRow);
+  return (data as unknown as BlogPostRow[]).map(mapRow);
 }
 
 export async function getPublishedPost(
@@ -80,7 +102,7 @@ export async function getPublishedPost(
     .single();
 
   if (error || !data) return null;
-  return mapRow(data as BlogPostRow);
+  return mapRow(data as unknown as BlogPostRow);
 }
 
 export async function getPostForAdmin(
@@ -95,8 +117,8 @@ export async function getPostForAdmin(
 
   if (error || !data) return null;
 
-  const row = data as BlogPostRow;
-  return { ...mapRow(row), published: row.published };
+  const row = data as unknown as BlogPostRow;
+  return { ...mapRow(row), published: row.published, authorId: row.author_id };
 }
 
 export async function getAllPostsForAdmin(): Promise<AdminPostSummary[]> {
