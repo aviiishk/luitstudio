@@ -3,13 +3,13 @@ import type { Metadata, Viewport } from "next";
 import { siteConfig } from "@/config/site";
 import { ROUTES } from "@/constants/routes";
 
-const defaultTitle = `${siteConfig.name} — Design & Build Studio in Guwahati, Assam`;
-const contactDescription = `Start a web development, design, or marketing project with ${siteConfig.name}.`;
+const defaultTitle = `${siteConfig.name} — Web Development & Design Studio in Guwahati, Assam`;
+const contactDescription = `Start a web development, design, or marketing project with ${siteConfig.name} — serving Guwahati, Assam, Northeast India, and clients abroad.`;
 const socialImage = {
   url: "/opengraph-image",
   width: 1200,
   height: 630,
-  alt: `${siteConfig.name} — Design & Build Studio in Guwahati, Assam`,
+  alt: `${siteConfig.name} — Web Development & Design Studio in Guwahati, Assam`,
 } as const;
 
 export const defaultMetadata: Metadata = {
@@ -24,6 +24,9 @@ export const defaultMetadata: Metadata = {
   creator: siteConfig.author,
   alternates: {
     canonical: ROUTES.home,
+  },
+  verification: {
+    google: "txZyO1V3lFNg4uZt0EzAPc6LoR3G-tBwfwUk3GTPcNk",
   },
   openGraph: {
     type: "website",
@@ -48,7 +51,7 @@ export const defaultViewport: Viewport = {
 };
 
 export const contactMetadata: Metadata = {
-  title: "Contact",
+  title: "Contact Us — Guwahati, Assam",
   description: contactDescription,
   alternates: {
     canonical: ROUTES.contact,
@@ -70,10 +73,10 @@ export const contactMetadata: Metadata = {
   },
 };
 
-const servicesDescription = `Web development, AI automation, UI/UX design, digital marketing, social media, video editing, and motion graphics — from ${siteConfig.name} in Guwahati.`;
+const servicesDescription = `Web development, AI automation, UI/UX design, digital marketing, social media, video editing, and motion graphics — from ${siteConfig.name}, serving Guwahati, Assam, Northeast India, and clients abroad.`;
 
 export const servicesMetadata: Metadata = {
-  title: "Services",
+  title: "Web Development, AI Automation & Design Services in Guwahati",
   description: servicesDescription,
   alternates: {
     canonical: ROUTES.services,
@@ -98,7 +101,7 @@ export const servicesMetadata: Metadata = {
 const aboutDescription = `${siteConfig.name} is a design and build studio in Guwahati, Assam, co-founded by Abhishek Kumar Prasad and Prince Das.`;
 
 export const aboutMetadata: Metadata = {
-  title: "About",
+  title: "About Us — Guwahati-based Design & Build Studio",
   description: aboutDescription,
   alternates: {
     canonical: ROUTES.about,
@@ -123,7 +126,7 @@ export const aboutMetadata: Metadata = {
 const careerDescription = `Careers at ${siteConfig.name} — a small design and build studio in Guwahati, Assam.`;
 
 export const careerMetadata: Metadata = {
-  title: "Careers",
+  title: "Careers in Guwahati, Assam",
   description: careerDescription,
   alternates: {
     canonical: ROUTES.career,

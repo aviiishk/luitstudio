@@ -121,37 +121,37 @@ export function FAQ() {
           />
         </svg>
 
-        <div className="pointer-events-none absolute top-20 left-0 hidden -rotate-3 flex-col items-start gap-1 lg:flex">
-          <span className="font-handwriting text-brand/70 text-lg leading-tight">
-            Have a
-            <br />
-            question?
-          </span>
-          <Image
-            src="/images/illustrations/process-arrow-start.png"
-            alt=""
-            width={240}
-            height={300}
-            className="h-12 w-auto"
-          />
-        </div>
-
-        <div className="pointer-events-none absolute top-28 right-0 hidden rotate-3 flex-col items-end gap-1 text-right lg:flex">
-          <span className="font-handwriting text-brand/70 text-lg leading-tight">
-            We&apos;re
-            <br />
-            here to help.
-          </span>
-          <Image
-            src="/images/illustrations/process-arrow-end.png"
-            alt=""
-            width={240}
-            height={300}
-            className="h-12 w-auto"
-          />
-        </div>
-
         <div className="relative mx-auto flex max-w-3xl flex-col gap-8 sm:gap-10">
+          <div className="pointer-events-none absolute -top-2 -left-4 hidden -rotate-3 flex-col items-start gap-1 sm:-left-10 lg:-left-20 lg:flex">
+            <span className="font-handwriting text-brand/70 text-lg leading-tight">
+              Have a
+              <br />
+              question?
+            </span>
+            <Image
+              src="/images/illustrations/process-arrow-start.png"
+              alt=""
+              width={240}
+              height={300}
+              className="h-12 w-auto"
+            />
+          </div>
+
+          <div className="pointer-events-none absolute top-2 -right-4 hidden rotate-3 flex-col items-end gap-1 text-right sm:-right-10 lg:-right-20 lg:flex">
+            <span className="font-handwriting text-brand/70 text-lg leading-tight">
+              We&apos;re
+              <br />
+              here to help.
+            </span>
+            <Image
+              src="/images/illustrations/process-arrow-end.png"
+              alt=""
+              width={240}
+              height={300}
+              className="h-12 w-auto"
+            />
+          </div>
+
           <div className="flex flex-col items-center gap-4 text-center">
             <div className="flex items-center gap-3">
               <span aria-hidden="true" className="bg-border h-px w-8" />

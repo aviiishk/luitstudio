@@ -1,17 +1,20 @@
-import { ArrowUpRight, Briefcase, FileText, Mail } from "lucide-react";
+import { ArrowUpRight, Briefcase, FileText, Mail, Users } from "lucide-react";
 import Link from "next/link";
 
 import { getAllApplicationsForAdmin, getAllOpeningsForAdmin } from "@/lib/careers";
 import { getAllPostsForAdmin } from "@/lib/blog";
 import { getAllContactSubmissionsForAdmin } from "@/lib/contact-submissions";
+import { getAllTeamMembersForAdmin } from "@/lib/team";
 
 export default async function AdminOverviewPage() {
-  const [posts, openings, applications, submissions] = await Promise.all([
-    getAllPostsForAdmin(),
-    getAllOpeningsForAdmin(),
-    getAllApplicationsForAdmin(),
-    getAllContactSubmissionsForAdmin(),
-  ]);
+  const [posts, openings, applications, submissions, teamMembers] =
+    await Promise.all([
+      getAllPostsForAdmin(),
+      getAllOpeningsForAdmin(),
+      getAllApplicationsForAdmin(),
+      getAllContactSubmissionsForAdmin(),
+      getAllTeamMembersForAdmin(),
+    ]);
   const publishedCount = posts.filter((post) => post.published).length;
   const draftCount = posts.length - publishedCount;
   const openRoleCount = openings.filter(
@@ -101,6 +104,32 @@ export default async function AdminOverviewPage() {
             <span className="text-body block text-sm">
               {submissions.length} contact form submission
               {submissions.length === 1 ? "" : "s"}
+            </span>
+          </span>
+          <ArrowUpRight
+            aria-hidden="true"
+            className="text-body group-hover:text-brand shrink-0 transition-[color,transform] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            size={18}
+          />
+        </Link>
+
+        <Link
+          href="/admin/team"
+          className="border-border shadow-soft hover:border-brand group flex items-center gap-4 rounded-2xl border bg-white p-5 transition-colors"
+        >
+          <span className="bg-brand/10 text-brand grid size-11 shrink-0 place-items-center rounded-full">
+            <Users aria-hidden="true" size={20} />
+          </span>
+          <span className="flex-1">
+            <span className="text-ink block font-medium">Team</span>
+            <span className="text-body block text-sm">
+              {teamMembers.length} member{teamMembers.length === 1 ? "" : "s"}{" "}
+              ·{" "}
+              {
+                teamMembers.filter((member) => member.status === "published")
+                  .length
+              }{" "}
+              published on /about
             </span>
           </span>
           <ArrowUpRight

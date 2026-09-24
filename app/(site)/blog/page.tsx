@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { BlogGrid } from "@/components/sections/blog/BlogGrid";
+import { BreadcrumbSchema } from "@/components/shared/BreadcrumbSchema";
 import { Reveal } from "@/components/shared/reveal";
 import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/config/site";
@@ -10,7 +11,7 @@ import { getPublishedPosts } from "@/lib/blog";
 export const revalidate = 3600;
 
 const blogTitle = "Blog";
-const blogDescription = `Ideas, updates, and insights from ${siteConfig.name}.`;
+const blogDescription = `Ideas, updates, and insights on web development, AI automation, and design from ${siteConfig.name}, Guwahati.`;
 
 export const metadata: Metadata = {
   title: blogTitle,
@@ -34,6 +35,7 @@ export default async function BlogIndexPage() {
 
   return (
     <main id="main-content">
+      <BreadcrumbSchema items={[{ name: "Blog", path: ROUTES.blog }]} />
       <section
         aria-labelledby="blog-index-heading"
         className="pt-36 pb-16 md:pt-44 md:pb-20 xl:pt-48 xl:pb-24"

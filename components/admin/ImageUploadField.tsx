@@ -9,12 +9,14 @@ interface ImageUploadFieldProps {
   label: string;
   value: string;
   onChange: (url: string) => void;
+  aspectClassName?: string;
 }
 
 export function ImageUploadField({
   label,
   value,
   onChange,
+  aspectClassName = "aspect-video",
 }: ImageUploadFieldProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -58,7 +60,7 @@ export function ImageUploadField({
       {value ? (
         <div className="border-border relative overflow-hidden rounded-xl border">
           {/* eslint-disable-next-line @next/next/no-img-element -- arbitrary uploaded/external URL, not a local/optimizable asset */}
-          <img src={value} alt="" className="aspect-video w-full object-cover" />
+          <img src={value} alt="" className={`${aspectClassName} w-full object-cover`} />
           <button
             type="button"
             onClick={() => onChange("")}
@@ -86,7 +88,7 @@ export function ImageUploadField({
           }}
           onDragLeave={() => setIsDraggingOver(false)}
           onDrop={handleDrop}
-          className={`flex aspect-video cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border border-dashed transition-colors ${
+          className={`flex ${aspectClassName} cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border border-dashed transition-colors ${
             isDraggingOver
               ? "border-brand bg-brand/5"
               : "border-border hover:border-brand/50"

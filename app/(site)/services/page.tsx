@@ -12,7 +12,9 @@ import { ServiceMap } from "@/components/sections/services/ServiceMap";
 import { ServicesFinalCTA } from "@/components/sections/services/ServicesFinalCTA";
 import { ServicesHero } from "@/components/sections/services/ServicesHero";
 import { WhatYouGet } from "@/components/sections/services/WhatYouGet";
+import { BreadcrumbSchema } from "@/components/shared/BreadcrumbSchema";
 import { servicesMetadata } from "@/config/metadata";
+import { ROUTES } from "@/constants/routes";
 
 export const metadata: Metadata = servicesMetadata;
 
@@ -25,6 +27,7 @@ export const metadata: Metadata = servicesMetadata;
 export default function ServicesPage() {
   return (
     <main id="main-content">
+      <BreadcrumbSchema items={[{ name: "Services", path: ROUTES.services }]} />
       <ServicesHero />
       <ServiceMap />
       <BuildShowcase />

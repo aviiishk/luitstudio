@@ -817,13 +817,13 @@ export function ProcessJourneyGraphic({
       className={`border-border/70 relative min-h-[190px] overflow-hidden rounded-xl border bg-white p-4 ${className}`}
     >
       <svg
-        className="absolute inset-0 hidden h-full w-full sm:block"
+        className="absolute inset-0 hidden h-full w-full overflow-hidden sm:block"
         viewBox="0 0 920 190"
         preserveAspectRatio="none"
       >
         <path
           className="luit-draw-line"
-          d="M60 112 C182 38 260 154 382 86 C500 22 580 150 706 78 C782 36 828 92 866 60"
+          d="M70 108 C182 60 260 140 382 96 C500 56 580 136 706 92 C760 72 790 96 810 84"
           fill="none"
           stroke="var(--color-brand)"
           strokeLinecap="round"

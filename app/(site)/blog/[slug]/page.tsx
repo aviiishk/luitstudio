@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { BreadcrumbSchema } from "@/components/shared/BreadcrumbSchema";
 import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/config/site";
 import { ROUTES } from "@/constants/routes";
@@ -76,6 +77,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <main id="main-content">
+      <BreadcrumbSchema
+        items={[
+          { name: "Blog", path: ROUTES.blog },
+          { name: post.title, path: `${ROUTES.blog}/${post.slug}` },
+        ]}
+      />
       <article className="pt-36 pb-16 md:pt-44 md:pb-20 xl:pt-48 xl:pb-24">
         <Container className="mx-auto max-w-2xl">
           <Link
