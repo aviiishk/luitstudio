@@ -58,6 +58,27 @@ export function toCloudinaryDownloadUrl(url: string, filename?: string): string 
   return `${url.slice(0, insertAt)}${flag}/${url.slice(insertAt)}`;
 }
 
+/**
+ * Turns a Cloudinary URL into a resized, auto-format/auto-quality delivery
+ * URL, using the same "insert a flag after /upload/" trick as
+ * toCloudinaryDownloadUrl. Cover images are uploaded at their original
+ * resolution (often several MB) and rendered as plain <img> tags since
+ * they're arbitrary external URLs Next's image optimizer can't resize —
+ * this asks Cloudinary itself to serve a properly sized WebP/AVIF instead,
+ * which is what was blowing up the page weight. Non-Cloudinary URLs are
+ * returned unchanged.
+ */
+export function toCloudinaryImageUrl(url: string, width: number): string {
+  const marker = "/upload/";
+  const markerIndex = url.indexOf(marker);
+  if (markerIndex === -1) return url;
+
+  const insertAt = markerIndex + marker.length;
+  const transform = `f_auto,q_auto,w_${width}`;
+
+  return `${url.slice(0, insertAt)}${transform}/${url.slice(insertAt)}`;
+}
+
 const RESUME_MAX_UPLOAD_BYTES = 8 * 1024 * 1024;
 
 const RESUME_MIME_TYPES = [

@@ -14,6 +14,7 @@ import { ROUTES } from "@/constants/routes";
 import { toSafeHtml } from "@/lib/blog-content";
 import { getPublishedPost, getPublishedPosts } from "@/lib/blog";
 import { addHeadingAnchors } from "@/lib/blog-toc";
+import { toCloudinaryImageUrl } from "@/lib/cloudinary";
 import { formatDate } from "@/utils/format-date";
 
 export const revalidate = 3600;
@@ -201,7 +202,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           {post.coverImage ? (
             // eslint-disable-next-line @next/next/no-img-element -- arbitrary external URL, not a local/optimizable asset
             <img
-              src={post.coverImage}
+              src={toCloudinaryImageUrl(post.coverImage, 1200)}
               alt={post.title}
               className="mt-10 aspect-video w-full rounded-2xl object-cover"
             />
@@ -240,7 +241,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   {related.coverImage ? (
                     // eslint-disable-next-line @next/next/no-img-element -- arbitrary external URL
                     <img
-                      src={related.coverImage}
+                      src={toCloudinaryImageUrl(related.coverImage, 128)}
                       alt=""
                       className="border-border size-16 shrink-0 rounded-xl border object-cover"
                     />

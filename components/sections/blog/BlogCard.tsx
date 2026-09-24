@@ -2,6 +2,7 @@ import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
 import { BlogMeta } from "@/components/sections/blog/BlogMeta";
+import { toCloudinaryImageUrl } from "@/lib/cloudinary";
 import type { BlogArticle } from "@/types/blog";
 
 interface BlogCardProps {
@@ -20,7 +21,7 @@ export function BlogCard({ article }: BlogCardProps) {
           {article.coverImage ? (
             // eslint-disable-next-line @next/next/no-img-element -- arbitrary external URL, not a local/optimizable asset
             <img
-              src={article.coverImage}
+              src={toCloudinaryImageUrl(article.coverImage, 800)}
               alt={article.title}
               className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.035] group-focus-visible:scale-[1.035] motion-reduce:transform-none"
             />
