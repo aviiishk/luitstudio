@@ -5,13 +5,13 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
 
 const contentSecurityPolicy = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline' https://app.cal.com${isDevelopment ? " 'unsafe-eval'" : ""}`,
+  `script-src 'self' 'unsafe-inline' https://app.cal.com https://www.googletagmanager.com${isDevelopment ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline'",
   // https: is broad, but blog cover/content images are arbitrary editor-pasted
   // URLs (no fixed set of hosts to allowlist), same tradeoff the old site made.
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
-  `connect-src 'self' https://app.cal.com https://cal.com https://api.cloudinary.com${supabaseUrl ? ` ${supabaseUrl}` : ""}${isDevelopment ? " ws: http: https:" : ""}`,
+  `connect-src 'self' https://app.cal.com https://cal.com https://api.cloudinary.com https://www.google-analytics.com https://region1.google-analytics.com${supabaseUrl ? ` ${supabaseUrl}` : ""}${isDevelopment ? " ws: http: https:" : ""}`,
   // res.cloudinary.com is here so the admin dashboard can embed uploaded
   // resumes (PDFs) inline instead of forcing a new tab or download.
   "frame-src 'self' https://app.cal.com https://cal.com https://res.cloudinary.com",
