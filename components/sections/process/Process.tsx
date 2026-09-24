@@ -92,7 +92,7 @@ export function Process() {
         <div className="flex flex-col items-center gap-4 text-center">
           <div className="flex items-center gap-3">
             <span aria-hidden="true" className="bg-border h-px w-8" />
-            <span className="text-body/60 text-xs font-semibold tracking-[0.18em] uppercase">
+            <span className="text-body text-xs font-semibold tracking-[0.18em] uppercase">
               Our Process
             </span>
             <span aria-hidden="true" className="bg-border h-px w-8" />
@@ -118,7 +118,7 @@ export function Process() {
 
         <div className="relative lg:pt-24">
           <div className="pointer-events-none absolute top-0 left-0 hidden -rotate-3 flex-col items-start gap-1 lg:flex">
-            <span className="font-handwriting text-brand/70 text-lg leading-tight">
+            <span className="font-handwriting text-brand/85 text-lg leading-tight">
               It starts
               <br />
               with a conversation
@@ -133,7 +133,7 @@ export function Process() {
           </div>
 
           <div className="pointer-events-none absolute top-0 right-0 hidden rotate-3 flex-col items-end gap-1 text-right lg:flex">
-            <span className="font-handwriting text-brand/70 text-lg leading-tight">
+            <span className="font-handwriting text-brand/85 text-lg leading-tight">
               From idea
               <br />
               to impact
@@ -246,7 +246,7 @@ export function Process() {
           />
           <div className="flex items-center gap-3">
             <span aria-hidden="true" className="bg-border h-px w-10" />
-            <span className="text-body/60 text-xs font-semibold tracking-[0.18em] uppercase">
+            <span className="text-body text-xs font-semibold tracking-[0.18em] uppercase">
               Let&apos;s build something great together
             </span>
             <span aria-hidden="true" className="bg-border h-px w-10" />

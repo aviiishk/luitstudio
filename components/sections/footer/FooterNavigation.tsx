@@ -11,7 +11,7 @@ export function FooterNavigation({ groups }: FooterNavigationProps) {
     <nav aria-label="Footer navigation">
       {groups.map((group) => (
         <div key={group.title}>
-          <h2 className="text-ink/55 text-xs font-semibold tracking-[0.2em] uppercase">
+          <h2 className="text-ink/70 text-xs font-semibold tracking-[0.2em] uppercase">
             {group.title}
           </h2>
           <ul className="mt-5 flex flex-col gap-2.5">

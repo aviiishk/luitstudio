@@ -54,7 +54,7 @@ export function SiteHeader() {
               aria-label={`${siteConfig.name} home`}
               onClick={closeMenu}
             >
-              <Logo className="h-10 w-auto" priority />
+              <Logo className="h-10 w-auto" priority sizes="80px" />
             </Link>
 
             <nav aria-label="Main navigation" className="hidden xl:block">

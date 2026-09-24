@@ -59,14 +59,12 @@ function AnimatedText({
               key={`${keyPrefix}-${tokenIndex}-${index}`}
               className="animated-headline-character motion-enhanced inline-block"
               initial={
-                reducedMotion
-                  ? false
-                  : { opacity: 0, y: 20, filter: "blur(8px)", scale: 0.96 }
+                reducedMotion ? false : { opacity: 0, y: 20, scale: 0.96 }
               }
               animate={
                 active
-                  ? { opacity: 1, y: 0, filter: "blur(0px)", scale: 1 }
-                  : { opacity: 0, y: 20, filter: "blur(8px)", scale: 0.96 }
+                  ? { opacity: 1, y: 0, scale: 1 }
+                  : { opacity: 0, y: 20, scale: 0.96 }
               }
               transition={{
                 duration: reducedMotion ? 0 : LETTER_DURATION,

@@ -101,7 +101,7 @@ export function PlaygroundCard({
         strokeWidth={1.8}
       />
       <h3 className="mt-10 text-xl leading-tight">{title}</h3>
-      <p className="mt-3 text-sm leading-6 text-current/70">{description}</p>
+      <p className="mt-3 text-sm leading-6 text-current/85">{description}</p>
       {children}
     </motion.article>
   );

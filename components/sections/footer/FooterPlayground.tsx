@@ -32,7 +32,7 @@ export function FooterPlayground() {
       <Container>
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-end lg:gap-16">
           <div className="relative z-10 max-w-xl">
-            <div className="flex items-center gap-2 text-white/65">
+            <div className="flex items-center gap-2 text-white/85">
               <Sparkles aria-hidden="true" size={17} />
               <p className="text-xs font-semibold tracking-[0.22em] uppercase">
                 A note from the studio

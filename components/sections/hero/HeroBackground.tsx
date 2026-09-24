@@ -8,14 +8,14 @@ export function HeroBackground() {
         className="absolute inset-x-0 top-32 bottom-0 hidden bg-contain bg-top bg-no-repeat opacity-25 md:block"
         style={{
           backgroundImage:
-            "url(/images/illustrations/hero-world-map-desktop.png)",
+            "url(/images/illustrations/hero-world-map-desktop.webp)",
         }}
       />
       <div
         className="absolute inset-x-0 top-32 bottom-0 bg-contain bg-top bg-no-repeat opacity-25 md:hidden"
         style={{
           backgroundImage:
-            "url(/images/illustrations/hero-world-map-mobile.png)",
+            "url(/images/illustrations/hero-world-map-mobile.webp)",
         }}
       />
       <div className="absolute top-12 -left-1/4 h-[70%] w-[70%] rounded-full bg-[#d9f3fc]/80 blur-[120px] md:blur-[170px]" />

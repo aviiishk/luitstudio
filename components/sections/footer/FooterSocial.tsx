@@ -49,7 +49,7 @@ export function FooterSocial({ links }: FooterSocialProps) {
     <section aria-labelledby="footer-connect-heading">
       <h2
         id="footer-connect-heading"
-        className="text-ink/55 text-xs font-semibold tracking-[0.2em] uppercase"
+        className="text-ink/70 text-xs font-semibold tracking-[0.2em] uppercase"
       >
         Connect
       </h2>
