@@ -54,13 +54,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     ...posts.map((post) => ({
       url: `${siteConfig.url}${ROUTES.blog}/${post.slug}`,
-      lastModified: post.updatedAt,
+      // Supabase returns timestamptz as a raw Postgres-formatted string
+      // (e.g. 5-digit fractional seconds, "+00:00" offset) rather than
+      // proper ISO 8601 -- normalize via Date so Next.js's sitemap
+      // serializer emits a standard W3C datetime, not a raw DB string
+      // some sitemap parsers may reject.
+      lastModified: new Date(post.updatedAt),
       changeFrequency: "monthly" as const,
       priority: 0.6,
     })),
     ...openings.map((opening) => ({
       url: `${siteConfig.url}${ROUTES.careerApply}/${opening.slug}`,
-      lastModified: opening.updatedAt,
+      lastModified: new Date(opening.updatedAt),
       changeFrequency: "weekly" as const,
       priority: 0.5,
     })),
