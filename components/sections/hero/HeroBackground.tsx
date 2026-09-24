@@ -4,14 +4,16 @@ export function HeroBackground() {
       <link
         rel="preload"
         as="image"
-        href="/images/illustrations/hero-world-map-desktop.webp"
+        href="/images/illustrations/hero-world-map-desktop.avif"
+        type="image/avif"
         fetchPriority="high"
         media="(min-width: 768px)"
       />
       <link
         rel="preload"
         as="image"
-        href="/images/illustrations/hero-world-map-mobile.webp"
+        href="/images/illustrations/hero-world-map-mobile.avif"
+        type="image/avif"
         fetchPriority="high"
         media="(max-width: 767px)"
       />
@@ -23,14 +25,14 @@ export function HeroBackground() {
           className="absolute inset-x-0 top-32 bottom-0 hidden bg-contain bg-top bg-no-repeat opacity-25 md:block"
           style={{
             backgroundImage:
-              "url(/images/illustrations/hero-world-map-desktop.webp)",
+              "image-set(url(/images/illustrations/hero-world-map-desktop.avif) type('image/avif'), url(/images/illustrations/hero-world-map-desktop.webp) type('image/webp'))",
           }}
         />
         <div
           className="absolute inset-x-0 top-32 bottom-0 bg-contain bg-top bg-no-repeat opacity-25 md:hidden"
           style={{
             backgroundImage:
-              "url(/images/illustrations/hero-world-map-mobile.webp)",
+              "image-set(url(/images/illustrations/hero-world-map-mobile.avif) type('image/avif'), url(/images/illustrations/hero-world-map-mobile.webp) type('image/webp'))",
           }}
         />
         <div className="absolute top-12 -left-1/4 h-[70%] w-[70%] rounded-full bg-[#d9f3fc]/80 blur-[120px] md:blur-[170px]" />
