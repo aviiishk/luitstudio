@@ -67,68 +67,76 @@ function OrbitDiagram() {
       aria-hidden="true"
       className="relative mx-auto aspect-square w-full max-w-lg"
     >
-      <div className="orbit-ring absolute inset-0">
-        <svg
-          viewBox="0 0 100 100"
-          className="text-border absolute inset-0 h-full w-full"
-        >
-          <circle
-            cx={RING_CENTER}
-            cy={RING_CENTER}
-            r={RING_RADIUS}
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1"
-            strokeDasharray="3 4"
-          />
-        </svg>
-
-        {edgeDots.map((dot, i) => (
-          <span
-            key={i}
-            className="border-brand/30 bg-canvas absolute grid size-3.5 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border"
-            style={{ top: `${dot.top}%`, left: `${dot.left}%` }}
+      {/* Static (non-rotating) clip wrapper — .orbit-ring itself spins via
+          CSS animation, so overflow-hidden has to live on a stationary
+          ancestor or the rotated bounding box would still escape it. Stays
+          clipped at every breakpoint: the ring's rotational sweep (nodes sit
+          near the 42% radius) reaches well past the square box's edge at
+          diagonal angles, not just the glow's few px of static bleed. */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="orbit-ring absolute inset-0">
+          <svg
+            viewBox="0 0 100 100"
+            className="text-border absolute inset-0 h-full w-full"
           >
-            <span className="bg-brand size-1.5 rounded-full" />
-          </span>
-        ))}
+            <circle
+              cx={RING_CENTER}
+              cy={RING_CENTER}
+              r={RING_RADIUS}
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1"
+              strokeDasharray="3 4"
+            />
+          </svg>
 
-        {nodes.map((node) => {
-          const Icon = node.icon;
-          return (
-            <div
-              key={node.label}
-              className="absolute -translate-x-1/2 -translate-y-1/2"
-              style={{ top: `${node.top}%`, left: `${node.left}%` }}
+          {edgeDots.map((dot, i) => (
+            <span
+              key={i}
+              className="border-brand/30 bg-canvas absolute grid size-3.5 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border"
+              style={{ top: `${dot.top}%`, left: `${dot.left}%` }}
             >
-              <div className="orbit-label relative grid place-items-center">
-                <span
-                  className="absolute size-36 rounded-full blur-2xl"
-                  style={{ backgroundColor: `${node.hex}33` }}
-                />
-                <div
-                  className="border-canvas relative z-10 grid size-28 place-items-center gap-1.5 rounded-full border-[5px] shadow-lg"
-                  style={{
-                    background: `radial-gradient(circle at 32% 28%, ${node.hex}33, ${node.hex}12 65%)`,
-                  }}
-                >
-                  <Icon
-                    aria-hidden="true"
-                    size={30}
-                    strokeWidth={2}
-                    style={{ color: node.hex }}
+              <span className="bg-brand size-1.5 rounded-full" />
+            </span>
+          ))}
+
+          {nodes.map((node) => {
+            const Icon = node.icon;
+            return (
+              <div
+                key={node.label}
+                className="absolute -translate-x-1/2 -translate-y-1/2"
+                style={{ top: `${node.top}%`, left: `${node.left}%` }}
+              >
+                <div className="orbit-label relative grid place-items-center">
+                  <span
+                    className="absolute size-36 rounded-full blur-2xl"
+                    style={{ backgroundColor: `${node.hex}33` }}
                   />
-                  <span className="text-ink text-sm font-bold whitespace-nowrap">
-                    {node.label}
-                  </span>
+                  <div
+                    className="border-canvas relative z-10 grid size-28 place-items-center gap-1.5 rounded-full border-[5px] shadow-lg"
+                    style={{
+                      background: `radial-gradient(circle at 32% 28%, ${node.hex}33, ${node.hex}12 65%)`,
+                    }}
+                  >
+                    <Icon
+                      aria-hidden="true"
+                      size={30}
+                      strokeWidth={2}
+                      style={{ color: node.hex }}
+                    />
+                    <span className="text-ink text-sm font-bold whitespace-nowrap">
+                      {node.label}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
 
-      <div className="absolute top-[-4%] left-[102%] hidden -rotate-3 flex-col items-start gap-1 lg:flex">
+      <div className="absolute top-[-4%] left-[102%] hidden -rotate-3 flex-col items-start gap-1 2xl:flex">
         <span className="font-handwriting text-violet-ink/80 text-lg leading-tight whitespace-nowrap">
           Different skills.
           <br />
