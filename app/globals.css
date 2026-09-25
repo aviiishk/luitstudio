@@ -237,6 +237,18 @@
   }
 }
 
+@keyframes animated-headline-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 @layer components {
   .client-marquee-viewport {
     width: 100%;
@@ -424,6 +436,18 @@
     transform: none !important;
     will-change: auto !important;
   }
+}
+
+.animated-headline-character {
+  opacity: 0;
+  animation-name: animated-headline-in;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+  animation-play-state: paused;
+}
+
+.animated-headline-character.is-active {
+  animation-play-state: running;
 }
 
 html:not(.js) .motion-enhanced {

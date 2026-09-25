@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useInView, useReducedMotion } from "framer-motion";
 import { useRef, type ReactNode } from "react";
 
 type HeadingElement = "h1" | "h2" | "h3";
@@ -25,16 +25,20 @@ function countCharacters(value: string) {
   return Array.from(value).filter((character) => !/\s/.test(character)).length;
 }
 
+/**
+ * Per-character stagger is driven by CSS keyframes (see .animated-headline-character
+ * in globals.css), not Framer Motion components. A headline can produce 40+ characters,
+ * and mounting that many motion.span instances competes with the hero's LCP paint for
+ * main-thread time; plain spans with animation-delay give the identical effect for free.
+ */
 function AnimatedText({
   text,
   delay,
-  reducedMotion,
   active,
   keyPrefix,
 }: {
   text: string;
   delay: number;
-  reducedMotion: boolean;
   active: boolean;
   keyPrefix: string;
 }) {
@@ -53,29 +57,21 @@ function AnimatedText({
         {Array.from(token).map((character, index) => {
           const currentIndex = characterIndex;
           characterIndex += 1;
+          const charDelay = delay + currentIndex * LETTER_STAGGER;
 
           return (
-            <motion.span
+            <span
               key={`${keyPrefix}-${tokenIndex}-${index}`}
-              className="animated-headline-character motion-enhanced inline-block"
-              initial={
-                reducedMotion ? false : { opacity: 0, y: 20, scale: 0.96 }
-              }
-              animate={
-                active
-                  ? { opacity: 1, y: 0, scale: 1 }
-                  : { opacity: 0, y: 20, scale: 0.96 }
-              }
-              transition={{
-                duration: reducedMotion ? 0 : LETTER_DURATION,
-                delay: reducedMotion
-                  ? 0
-                  : delay + currentIndex * LETTER_STAGGER,
-                ease: "easeOut",
+              className={`animated-headline-character motion-enhanced inline-block${
+                active ? " is-active" : ""
+              }`}
+              style={{
+                animationDuration: `${LETTER_DURATION}s`,
+                animationDelay: `${charDelay}s`,
               }}
             >
               {character}
-            </motion.span>
+            </span>
           );
         })}
       </span>
@@ -123,7 +119,6 @@ export function AnimatedHeadline({
       <AnimatedText
         text={normalizedSecondLineText}
         delay={secondLineDelay}
-        reducedMotion={reducedMotion}
         active={active}
         keyPrefix="second-line"
       />
@@ -137,7 +132,6 @@ export function AnimatedHeadline({
         <AnimatedText
           text={normalizedItalicText}
           delay={italicDelay}
-          reducedMotion={reducedMotion}
           active={active}
           keyPrefix="italic"
         />
@@ -151,7 +145,6 @@ export function AnimatedHeadline({
         <AnimatedText
           text={normalizedText}
           delay={delay}
-          reducedMotion={reducedMotion}
           active={active}
           keyPrefix="regular"
         />
